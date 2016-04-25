@@ -1,19 +1,24 @@
 package com.darkoverlordofdata.entitas.ecs
-
 import java.util.*
+/**
+ *
+ * Use pool.GetGroup(matcher) to get a group of entities which match the specified matcher.
+ * Calling pool.GetGroup(matcher) with the same matcher will always return the same instance of the group.
+ * The created group is managed by the pool and will always be up to date.
+ * It will automatically add entities that match the matcher or remove entities as soon as they don't match the matcher anymore.
+ */
+class Group(matcher:IMatcher) {
 
-
-class Group (matcher:IMatcher) {
-    val onEntityAdded = Event<GroupChangedArgs>()
-    val onEntityRemoved = Event<GroupChangedArgs>()
-    val onEntityUpdated = Event<GroupUpdatedArgs>()
-
-    var entities:HashSet<Entity> = hashSetOf()
     val count:Int get() = entities.size
-    val matcher = matcher
-    var singleEntityCache:Entity? = null
-    var entitiesCache: Array<Entity>? = null
-    var toStringCache = ""
+
+    internal val onEntityAdded = Event<GroupChangedArgs>()
+    internal val onEntityRemoved = Event<GroupChangedArgs>()
+    internal val onEntityUpdated = Event<GroupUpdatedArgs>()
+    internal var entities:HashSet<Entity> = hashSetOf()
+    internal val matcher = matcher
+    internal var toStringCache = ""
+    internal var entitiesCache: Array<Entity>? = null
+    internal var singleEntityCache:Entity? = null
 
     fun createObserver(eventType:GroupEventType):GroupObserver {
         return GroupObserver(arrayOf(this), arrayOf(eventType))

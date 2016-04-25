@@ -1,7 +1,9 @@
 package com.darkoverlordofdata.entitas.ecs
-
 import java.util.*
-
+/**
+ *
+ * A GroupObserver can observe one or more groups and collects changed entities based on the specified eventType.
+ */
 class GroupObserver(groups:Array<Group>, eventTypes:Array<GroupEventType>) {
 
     private var _collectedEntities:HashSet<Entity> = hashSetOf()
@@ -24,6 +26,10 @@ class GroupObserver(groups:Array<Group>, eventTypes:Array<GroupEventType>) {
         }
     }
 
+    /**
+     *
+     * Activates the GroupObserver (GroupObserver are activated by default) and will start collecting changed entities.
+     */
     fun activate() {
         for (i in 0..groups.size-1) {
             val group = groups[i]
@@ -49,6 +55,11 @@ class GroupObserver(groups:Array<Group>, eventTypes:Array<GroupEventType>) {
         }
     }
 
+    /**
+     *
+     * Deactivates the GroupObserver (GroupObserver are activated by default).
+     * This will also clear all collected entities.
+     */
     fun deactivate() {
         for (group in groups) {
             group.onEntityAdded -= addEntity
@@ -57,6 +68,10 @@ class GroupObserver(groups:Array<Group>, eventTypes:Array<GroupEventType>) {
         clearCollectedEntities()
     }
 
+    /**
+     *
+     * Clears all collected entities.
+     */
     fun clearCollectedEntities() {
         for (entity:Entity in _collectedEntities)
             entity.release()

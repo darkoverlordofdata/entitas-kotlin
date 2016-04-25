@@ -1,40 +1,33 @@
 package com.darkoverlordofdata.entitas.ecs
-
 import com.badlogic.ashley.utils.Bag
 import java.util.*
+/**
+ *
+ * A pool manages the lifecycle of entities and groups.
+ * You can create and destroy entities and get groups of entities.
+ * The prefered way is to use the generated methods from the code generator to create a Pool, e.g. var pool = Pools.pool;
+ */
+class Pool(totalComponents:Int, startCreationIndex:Int=0) {
 
-class Pool (totalComponents:Int, startCreationIndex:Int=0) {
-    companion object static {
-        private var _instance:Pool? = null
-        val instance :Pool? get() = Pool._instance
-        fun setPool(system:ISystem, pool:Pool) {
-            if (system is ISetPool) {
-                system.setPool(pool)
-            }
-        }
-
-    }
-    val onEntityCreated = Event<PoolEntityChangedArgs>()
-    val onEntityWillBeDestroyed = Event<PoolEntityChangedArgs>()
-    val onEntityDestroyed = Event<PoolEntityChangedArgs>()
-    val onGroupCreated = Event<PoolGroupChangedArgs>()
 
     val totalComponents = totalComponents
     val startCreationIndex = startCreationIndex
-    var _creationIndex:Int = startCreationIndex
-
-    val _entities: HashSet<Entity> = hashSetOf()
-    val _groups: HashMap<IMatcher,Group> = hashMapOf()
-    val _groupsForIndex: Bag<Bag<Group>> = Bag()
-    val _reusableEntities: Bag<Entity> = Bag()
-    val _retainedEntities: HashSet<Entity> = hashSetOf()
-    val _entitiesCache: Bag<Entity> = Bag()
-
-    lateinit var onEntityReleasedCache : (e:EntityReleasedArgs) -> Unit
-
     val count:Int get() = _entities.size
     val reusableEntitiesCount:Int get() = _reusableEntities.size()
     val retainedEntitiesCount:Int get() = _retainedEntities.size
+
+    internal val onEntityCreated = Event<PoolEntityChangedArgs>()
+    internal val onEntityWillBeDestroyed = Event<PoolEntityChangedArgs>()
+    internal val onEntityDestroyed = Event<PoolEntityChangedArgs>()
+    internal val onGroupCreated = Event<PoolGroupChangedArgs>()
+    internal var _creationIndex:Int = startCreationIndex
+    internal val _entities: HashSet<Entity> = hashSetOf()
+    internal val _groups: HashMap<IMatcher,Group> = hashMapOf()
+    internal val _groupsForIndex: Bag<Bag<Group>> = Bag()
+    internal val _reusableEntities: Bag<Entity> = Bag()
+    internal val _retainedEntities: HashSet<Entity> = hashSetOf()
+    internal val _entitiesCache: Bag<Entity> = Bag()
+    internal lateinit var onEntityReleasedCache : (e:EntityReleasedArgs) -> Unit
 
     /**
      * Event onEntityReleased
@@ -80,6 +73,10 @@ class Pool (totalComponents:Int, startCreationIndex:Int=0) {
         Pool._instance = this
     }
 
+    /**
+     *
+     * Creates a new entity or gets a reusable entity from the internal ObjectPool for entities.
+     */
     fun createEntity(name: String): Entity {
         val entity = if (_reusableEntities.size() > 0) _reusableEntities.removeLast() else Entity(totalComponents)
         entity.isEnabled = true
@@ -93,6 +90,10 @@ class Pool (totalComponents:Int, startCreationIndex:Int=0) {
         return entity
     }
 
+    /**
+     *
+     * Destroys the entity, removes all its components and pushs it back to the internal ObjectPool for entities.
+     */
     fun destroyEntity(entity: Entity) {
         if (entity !in _entities) {
             throw PoolDoesNotContainEntityException(entity, "Could not destroy entity!")
@@ -111,12 +112,21 @@ class Pool (totalComponents:Int, startCreationIndex:Int=0) {
         }
     }
 
+
+    /**
+     *
+     * Destroys all entities in the pool.
+     */
     fun destroyAllEntities() {
         val entities = getEntities()
         for (i in 0..entities.size())
             destroyEntity(entities.get(i))
     }
 
+    /**
+     *
+     * Determines whether the pool has the specified entity.
+     */
     fun hasEntity(entity: Entity): Boolean {
         return entity in _entities
     }
@@ -144,6 +154,11 @@ class Pool (totalComponents:Int, startCreationIndex:Int=0) {
         return system
     }
 
+    /**
+     *
+     * Returns a group for the specified matcher.
+     * Calling pool.GetGroup(matcher) with the same matcher will always return the same instance of the group.
+     */
     fun getGroup(matcher: IMatcher):Group? {
         var group:Group? = null
 
@@ -166,5 +181,15 @@ class Pool (totalComponents:Int, startCreationIndex:Int=0) {
         return group
     }
 
+    companion object static {
+        private var _instance:Pool? = null
+        val instance :Pool? get() = Pool._instance
+        fun setPool(system:ISystem, pool:Pool) {
+            if (system is ISetPool) {
+                system.setPool(pool)
+            }
+        }
+
+    }
 
 }

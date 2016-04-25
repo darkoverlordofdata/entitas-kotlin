@@ -1,26 +1,33 @@
 package com.darkoverlordofdata.entitas.ecs
-
 import java.util.*
+/**
+ *
+ *  Use pool.CreateEntity() to create a new entity and pool.DestroyEntity() to destroy it.
+ */
+class Entity(totalComponents:Int) {
 
-class Entity (totalComponents:Int) {
-
-    val onEntityReleased = Event<EntityReleasedArgs>()
-    val onComponentAdded = Event<EntityChangedArgs>()
-    val onComponentRemoved = Event<EntityChangedArgs>()
-    val onComponentReplaced = Event<ComponentReplacedArgs>()
-
-    val totalComponents = totalComponents
-    val components: Array<IComponent?> = Array(totalComponents, { i-> null })
-    val componentsCache: MutableList<IComponent> = ArrayList(listOf())
-    var toStringCache = ""
-    var refCount = 0
     var id = ""
     var name = ""
-    var isEnabled = false
-    var _creationIndex = 0
-
+    val totalComponents = totalComponents
     val creationIndex:Int get() = _creationIndex
 
+    internal val onEntityReleased = Event<EntityReleasedArgs>()
+    internal val onComponentAdded = Event<EntityChangedArgs>()
+    internal val onComponentRemoved = Event<EntityChangedArgs>()
+    internal val onComponentReplaced = Event<ComponentReplacedArgs>()
+    internal val components: Array<IComponent?> = Array(totalComponents, { i-> null })
+    internal val componentsCache: MutableList<IComponent> = ArrayList(listOf())
+    internal var refCount = 0
+    internal var isEnabled = false
+    internal var _creationIndex = 0
+    internal var toStringCache = ""
+
+    /**
+     *
+     *  Adds a component at a certain index. You can only have one component at an index.
+     *  Each component type must have its own constant index.
+     *  The prefered way is to use the generated methods from the code generator.
+     */
     fun addComponent(index:Int, component:IComponent):Entity {
         if (!isEnabled)
             throw EntityIsNotEnabledException("Cannot add component!")
@@ -34,6 +41,12 @@ class Entity (totalComponents:Int) {
         onComponentAdded(EntityChangedArgs(this, index, component))
         return this
     }
+
+    /**
+     *
+     *  Removes a component at a certain index. You can only remove a component at an index if it exists.
+     *  The prefered way is to use the generated methods from the code generator.
+     */
     fun removeComponent(index:Int):Entity {
         if (!isEnabled)
             throw EntityIsNotEnabledException("Entity is disabled, cannot remove component")
@@ -45,6 +58,11 @@ class Entity (totalComponents:Int) {
         return this
     }
 
+    /**
+     *
+     *  Replaces an existing component at a certain index or adds it if it doesn't exist yet.
+     *  The prefered way is to use the generated methods from the code generator.
+     */
     fun replaceComponent(index:Int, component: IComponent?):Entity {
         if (!isEnabled)
             throw EntityIsNotEnabledException("Entity is disabled, cannot replace at index $index, ${toString()}")
@@ -57,15 +75,23 @@ class Entity (totalComponents:Int) {
         return this
     }
 
+    /**
+     *
+     *  Returns a component at a certain index. You can only get a component at an index if it exists.
+     *  The prefered way is to use the generated methods from the code generator.
+     */
     fun getComponent(index:Int):IComponent? {
         if (!hasComponent(index)) {
             val errorMsg = "Cannot get component at index $index from ${toString()}"
             throw EntityDoesNotHaveComponentException(errorMsg, index)
         }
-
         return components[index]
     }
 
+    /**
+     *
+     *  Returns all added components.
+     */
     fun getComponents():MutableList<IComponent> {
         if (componentsCache.size == 0) {
             componentsCache.addAll(components.filterNotNull().toMutableList())
@@ -73,23 +99,38 @@ class Entity (totalComponents:Int) {
         return componentsCache
     }
 
+    /**
+     *
+     *  Determines whether this entity has a component at the specified index.
+     */
     fun hasComponent(index:Int):Boolean {
         return components[index] != null
-
     }
 
+    /**
+     *
+     *  Determines whether this entity has components at all the specified indices.
+     */
     fun hasComponents(indices:IntArray):Boolean {
         for (index in indices)
             if (components[index] == null) return false
         return true
     }
 
+    /**
+     *
+     *  Determines whether this entity has a component at any of the specified indices.
+     */
     fun hasAnyComponent(indices:IntArray):Boolean {
         for (index in indices)
             if (components[index] != null) return true
         return false
     }
 
+    /**
+     *
+     *  Removes all components.
+     */
     fun removeAllComponents() {
         for (index in 0..totalComponents-1)
             if (components[index] != null)
@@ -109,6 +150,11 @@ class Entity (totalComponents:Int) {
             throw Exception("Entity is already released ${toString()}")
     }
 
+    /**
+     *
+     *  Returns a cached string to describe the entity with the following format:
+     *  Entity_{creationIndex}(*{retainCount})({list of components})
+     */
     override fun toString():String {
         if (this.toStringCache == "") {
             val sb = StringBuilder()

@@ -1,5 +1,8 @@
 package com.darkoverlordofdata.entitas.ecs
-
+/**
+ * Entitas Exceptions
+ *
+ */
 class EntityAlreadyHasComponentException(message:String, index:Int)
     : Exception("$message\nEntity already has a component at index ($index)") {}
 

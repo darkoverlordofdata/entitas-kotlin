@@ -1,7 +1,10 @@
 package com.darkoverlordofdata.entitas.ecs
-
 import java.util.ArrayList
 
+interface EventArgs {}
+/**
+ * Base Event Object
+ */
 open class Event<eventArg : EventArgs> {
     private val handlers = ArrayList<((eventArg) -> Unit)>()
 

@@ -1,5 +1,8 @@
 package com.darkoverlordofdata.entitas.ecs
-
+/**
+ * Entitas Interfaces
+ *
+ */
 interface IComponent {}
 interface IMatcher {
     val id:Int

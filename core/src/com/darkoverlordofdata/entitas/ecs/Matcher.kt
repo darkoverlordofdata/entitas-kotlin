@@ -1,65 +1,15 @@
 package com.darkoverlordofdata.entitas.ecs
-
 import java.util.*
-
+/**
+ * Matcher
+ *
+ * Select entities by component makeup
+ *
+ */
 class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
-    companion object static {
-        private var _uniqueId = 0
-        fun uniqueId():Int {return _uniqueId++}
-        fun distinctIndices(indices:IntArray):IntArray {
-            val indicesSet:HashSet<Int> = hashSetOf()
-            for (index in indices) indicesSet.add(index)
-            return indicesSet.toIntArray()
-        }
-        fun mergeIndices(matchers:Array<IMatcher>):IntArray {
-            val indices:MutableList<Int> = ArrayList(listOf())
-            for (matcher in matchers) {
-                if (matcher.indices.size != 1)
-                    throw MatcherException(matcher)
-                indices.add(matcher.indices[0])
-            }
-            return indices.toIntArray()
-
-        }
-        fun allOf(vararg args:Int):IAllOfMatcher {
-            val matcher = Matcher()
-            matcher.allOfIndices = Matcher.distinctIndices(args)
-            return matcher
-        }
-        fun allOf(vararg args:IMatcher):IAllOfMatcher {
-            val result:MutableList<IMatcher> = ArrayList(listOf())
-            for (arg in args) result.add(arg)
-            return Matcher.allOf(*Matcher.mergeIndices(result.toTypedArray()))
-        }
-
-        fun anyOf(vararg args:Int):IAnyOfMatcher {
-            val matcher = Matcher()
-            matcher.anyOfIndices = Matcher.distinctIndices(args)
-            return matcher
-        }
-        fun anyOf(vararg args:IMatcher):IAnyOfMatcher {
-            val result:MutableList<IMatcher> = ArrayList(listOf())
-            for (arg in args) result.add(arg)
-            return Matcher.anyOf(*Matcher.mergeIndices(result.toTypedArray()))
-        }
-        private fun appendIndices(sb:StringBuilder, prefix:String, indexArray:IntArray) {
-            sb.append(prefix)
-            sb.append("(")
-            val last = indexArray.size - 1
-            for (i in 0..last) {
-                sb.append(indexArray[i].toString())
-                if (i < last) sb.append(", ")
-            }
-            sb.append(")")
-        }
-    }
-
-    val _id = uniqueId()
-    var _indices = intArrayOf()
     override var allOfIndices = intArrayOf()
     override var anyOfIndices = intArrayOf()
     override var noneOfIndices = intArrayOf()
-    var toStringCache = ""
 
     override val id:Int get() = _id
     override val indices:IntArray
@@ -69,6 +19,9 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
             return _indices
         }
 
+    internal val _id = uniqueId()
+    internal var _indices = intArrayOf()
+    internal var toStringCache = ""
 
     override fun matches(entity:Entity):Boolean {
         val matchesAllOf = if (allOfIndices.size == 0) true else entity.hasComponents(allOfIndices)
@@ -136,5 +89,56 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
 
     fun onEntityAddedOrRemoved():TriggerOnEvent{
         return TriggerOnEvent(this, GroupEventType.OnEntityAddedOrRemoved)
+    }
+
+    companion object static {
+        private var _uniqueId = 0
+        fun uniqueId():Int {return _uniqueId++}
+        fun distinctIndices(indices:IntArray):IntArray {
+            val indicesSet:HashSet<Int> = hashSetOf()
+            for (index in indices) indicesSet.add(index)
+            return indicesSet.toIntArray()
+        }
+        fun mergeIndices(matchers:Array<IMatcher>):IntArray {
+            val indices:MutableList<Int> = ArrayList(listOf())
+            for (matcher in matchers) {
+                if (matcher.indices.size != 1)
+                    throw MatcherException(matcher)
+                indices.add(matcher.indices[0])
+            }
+            return indices.toIntArray()
+
+        }
+        fun allOf(vararg args:Int):IAllOfMatcher {
+            val matcher = Matcher()
+            matcher.allOfIndices = Matcher.distinctIndices(args)
+            return matcher
+        }
+        fun allOf(vararg args:IMatcher):IAllOfMatcher {
+            val result:MutableList<IMatcher> = ArrayList(listOf())
+            for (arg in args) result.add(arg)
+            return Matcher.allOf(*Matcher.mergeIndices(result.toTypedArray()))
+        }
+
+        fun anyOf(vararg args:Int):IAnyOfMatcher {
+            val matcher = Matcher()
+            matcher.anyOfIndices = Matcher.distinctIndices(args)
+            return matcher
+        }
+        fun anyOf(vararg args:IMatcher):IAnyOfMatcher {
+            val result:MutableList<IMatcher> = ArrayList(listOf())
+            for (arg in args) result.add(arg)
+            return Matcher.anyOf(*Matcher.mergeIndices(result.toTypedArray()))
+        }
+        private fun appendIndices(sb:StringBuilder, prefix:String, indexArray:IntArray) {
+            sb.append(prefix)
+            sb.append("(")
+            val last = indexArray.size - 1
+            for (i in 0..last) {
+                sb.append(indexArray[i].toString())
+                if (i < last) sb.append(", ")
+            }
+            sb.append(")")
+        }
     }
 }

@@ -1,18 +1,22 @@
 package com.darkoverlordofdata.entitas.ecs
-
 import java.util.*
-
-
+/**
+ *
+ * A ReactiveSystem manages your implementation of a IReactiveSystem or a IMultiReactiveSystem subsystem.
+ * It will only call subsystem.Execute() if there were changes based on the triggers and eventTypes specified by your subsystem
+ * and will only pass in changed entities. A common use-case is to react to changes,
+ * e.g. a change of the position of an entity to update the gameObject.transform.position of the related gameObject.
+ * Recommended way to create systems in general: pool.CreateSystem<RenderPositionSystem>();
+ */
 class ReactiveSystem(pool:Pool, subsystem: IReactiveExecuteSystem) : IExecuteSystem {
 
     val pool = pool
-    val _subsystem = subsystem
-    var _clearAfterExecute:Boolean = false
-    var _buffer:MutableList<Entity> = ArrayList(listOf())
-    var _ensureComponents:IMatcher? = null
-    var _excludeComponents:IMatcher? = null
-    lateinit var _observer:GroupObserver
-
+    internal val _subsystem = subsystem
+    internal var _clearAfterExecute:Boolean = false
+    internal var _buffer:MutableList<Entity> = ArrayList(listOf())
+    internal var _ensureComponents:IMatcher? = null
+    internal var _excludeComponents:IMatcher? = null
+    internal lateinit var _observer:GroupObserver
 
     val subsystem:IReactiveExecuteSystem
         get() = _subsystem
@@ -41,21 +45,39 @@ class ReactiveSystem(pool:Pool, subsystem: IReactiveExecuteSystem) : IExecuteSys
 
     }
 
+    /**
+     *
+     * Activates the ReactiveSystem (ReactiveSystem are activated by default) and starts observing changes
+     * based on the triggers and eventTypes specified by the subsystem.
+     */
     fun activate() {
         _observer.activate()
     }
 
+    /**
+     *
+     * Deactivates the ReactiveSystem (ReactiveSystem are activated by default).
+     * No changes will be tracked while deactivated.
+     * This will also clear the ReactiveSystems.
+     */
     fun deactivate() {
         _observer.deactivate()
     }
 
+    /**
+     *
+     * Clears all accumulated changes.
+     */
     fun clear() {
         _observer.clearCollectedEntities()
     }
 
+    /**
+     *
+     * Will call subsystem.Execute() with changed entities if there are any. Otherwise it will not call subsystem.Execute().
+     */
     override fun execute() {
         val collectedEntities = _observer.collectedEntities
-
         if (collectedEntities.size != 0) {
             if (_ensureComponents != null) {
                 if (_excludeComponents != null) {
