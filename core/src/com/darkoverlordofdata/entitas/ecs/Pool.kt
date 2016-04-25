@@ -94,7 +94,8 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
      *
      * Destroys the entity, removes all its components and pushs it back to the internal ObjectPool for entities.
      */
-    fun destroyEntity(entity: Entity) {
+    fun destroyEntity(entity: Entity?) {
+        if (entity == null) return
         if (entity !in _entities) {
             throw PoolDoesNotContainEntityException(entity, "Could not destroy entity!")
         }

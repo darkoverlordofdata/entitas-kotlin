@@ -6,6 +6,9 @@ import java.util.*
  */
 class Entity(totalComponents:Int) {
 
+//    companion object static {
+//        val pool:Array<IComponent> = Array(1, null)
+//    }
     var id = ""
     var name = ""
     val totalComponents = totalComponents
