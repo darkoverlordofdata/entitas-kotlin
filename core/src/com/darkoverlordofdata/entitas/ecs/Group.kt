@@ -11,9 +11,9 @@ class Group(matcher:IMatcher) {
 
     val count:Int get() = entities.size
 
-    internal val onEntityAdded = Event<GroupChangedArgs>()
-    internal val onEntityRemoved = Event<GroupChangedArgs>()
-    internal val onEntityUpdated = Event<GroupUpdatedArgs>()
+    val onEntityAdded = Event<GroupChangedArgs>()
+    val onEntityRemoved = Event<GroupChangedArgs>()
+    val onEntityUpdated = Event<GroupUpdatedArgs>()
     internal var entities:HashSet<Entity> = hashSetOf()
     internal val matcher = matcher
     internal var toStringCache = ""

@@ -41,7 +41,9 @@ class Systems : IInitializeSystem, IExecuteSystem {
      * Calls Initialize() on all IInitializeSystem in the order you added them.
      */
     override fun initialize() {
-        _initializeSystems.map { initialize() }
+        for (system in _initializeSystems) system.initialize()
+
+        /** compact the execute system array for performance */
         executeSystems = _executeSystems.toTypedArray()
     }
 
@@ -50,7 +52,7 @@ class Systems : IInitializeSystem, IExecuteSystem {
      * Calls Execute() on all IExecuteSystem, ReactiveSystem and other nested Systems instances in the order you added them.
      */
     override fun execute() {
-        executeSystems.map { execute() }
+        for (system in executeSystems) system.execute()
     }
 
     /**

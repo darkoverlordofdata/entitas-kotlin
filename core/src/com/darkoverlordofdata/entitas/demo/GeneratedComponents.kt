@@ -75,11 +75,11 @@ class ScaleAnimationComponent() : IComponent {
 }
 
 class SoundEffectComponent() : IComponent {
-    var effect:Float = 0f
+    var effect:Int = 0
 }
 
 class ViewComponent() : IComponent {
-    var layer:Float = 0f
+    var layer:Int = 0
     var sprite:com.badlogic.gdx.graphics.g2d.Sprite? = null
 }
 
@@ -111,7 +111,7 @@ class ResourceComponent() : IComponent {
 }
 
 class LayerComponent() : IComponent {
-    var ordinal:Float = 0f
+    var ordinal:Int = 0
 }
 
 enum class Component {

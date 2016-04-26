@@ -14,10 +14,10 @@ class Entity(totalComponents:Int) {
     val totalComponents = totalComponents
     val creationIndex:Int get() = _creationIndex
 
-    internal val onEntityReleased = Event<EntityReleasedArgs>()
-    internal val onComponentAdded = Event<EntityChangedArgs>()
-    internal val onComponentRemoved = Event<EntityChangedArgs>()
-    internal val onComponentReplaced = Event<ComponentReplacedArgs>()
+    val onEntityReleased = Event<EntityReleasedArgs>()
+    val onComponentAdded = Event<EntityChangedArgs>()
+    val onComponentRemoved = Event<EntityChangedArgs>()
+    val onComponentReplaced = Event<ComponentReplacedArgs>()
     internal val components: Array<IComponent?> = Array(totalComponents, { i-> null })
     internal val componentsCache: MutableList<IComponent> = ArrayList(listOf())
     internal var refCount = 0

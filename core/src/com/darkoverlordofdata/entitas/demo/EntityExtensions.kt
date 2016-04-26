@@ -59,6 +59,11 @@ var Entity.isBullet:Boolean
             removeComponent(Component.Bullet.ordinal)
     }
 
+fun Entity.toBullet(value:Boolean):Entity {
+    isBullet = value
+    return this
+}
+
 /** Entity: ColorAnimation methods*/
 
 val Entity_colorAnimationComponentPool:MutableList<ColorAnimationComponent> = ArrayList(listOf())
@@ -142,6 +147,11 @@ var Entity.isEnemy:Boolean
             removeComponent(Component.Enemy.ordinal)
     }
 
+fun Entity.toEnemy(value:Boolean):Entity {
+    isEnemy = value
+    return this
+}
+
 /** Entity: Expires methods*/
 
 val Entity_expiresComponentPool:MutableList<ExpiresComponent> = ArrayList(listOf())
@@ -192,6 +202,11 @@ var Entity.isFiring:Boolean
         else
             removeComponent(Component.Firing.ordinal)
     }
+
+fun Entity.toFiring(value:Boolean):Entity {
+    isFiring = value
+    return this
+}
 
 /** Entity: Health methods*/
 
@@ -246,6 +261,11 @@ var Entity.isParallaxStar:Boolean
             removeComponent(Component.ParallaxStar.ordinal)
     }
 
+fun Entity.toParallaxStar(value:Boolean):Entity {
+    isParallaxStar = value
+    return this
+}
+
 /** Entity: Player methods*/
 
 val Entity_playerComponent =  PlayerComponent()
@@ -258,6 +278,11 @@ var Entity.isPlayer:Boolean
         else
             removeComponent(Component.Player.ordinal)
     }
+
+fun Entity.toPlayer(value:Boolean):Entity {
+    isPlayer = value
+    return this
+}
 
 /** Entity: Position methods*/
 
@@ -359,14 +384,14 @@ fun Entity.clearSoundEffectComponentPool() {
     Entity_soundEffectComponentPool.clear()
 }
 
-fun Entity.addSoundEffect(effect:Float):Entity {
+fun Entity.addSoundEffect(effect:Int):Entity {
     val component = if (Entity_soundEffectComponentPool.size > 0) Entity_soundEffectComponentPool.last() else SoundEffectComponent()
     component.effect = effect
     addComponent(Component.SoundEffect.ordinal, component)
     return this
 }
 
-fun Entity.replaceSoundEffect(effect:Float):Entity {
+fun Entity.replaceSoundEffect(effect:Int):Entity {
     val previousComponent = if (hasSoundEffect) soundEffect else null
     val component = if (Entity_soundEffectComponentPool.size > 0) Entity_soundEffectComponentPool.last() else SoundEffectComponent()
     component.effect = effect
@@ -397,7 +422,7 @@ fun Entity.clearViewComponentPool() {
     Entity_viewComponentPool.clear()
 }
 
-fun Entity.addView(layer:Float, sprite:com.badlogic.gdx.graphics.g2d.Sprite?):Entity {
+fun Entity.addView(layer:Int, sprite:com.badlogic.gdx.graphics.g2d.Sprite?):Entity {
     val component = if (Entity_viewComponentPool.size > 0) Entity_viewComponentPool.last() else ViewComponent()
     component.layer = layer
     component.sprite = sprite
@@ -405,7 +430,7 @@ fun Entity.addView(layer:Float, sprite:com.badlogic.gdx.graphics.g2d.Sprite?):En
     return this
 }
 
-fun Entity.replaceView(layer:Float, sprite:com.badlogic.gdx.graphics.g2d.Sprite?):Entity {
+fun Entity.replaceView(layer:Int, sprite:com.badlogic.gdx.graphics.g2d.Sprite?):Entity {
     val previousComponent = if (hasView) view else null
     val component = if (Entity_viewComponentPool.size > 0) Entity_viewComponentPool.last() else ViewComponent()
     component.layer = layer
@@ -513,6 +538,11 @@ var Entity.isDestroy:Boolean
         else
             removeComponent(Component.Destroy.ordinal)
     }
+
+fun Entity.toDestroy(value:Boolean):Entity {
+    isDestroy = value
+    return this
+}
 
 /** Entity: Mouse methods*/
 
@@ -646,14 +676,14 @@ fun Entity.clearLayerComponentPool() {
     Entity_layerComponentPool.clear()
 }
 
-fun Entity.addLayer(ordinal:Float):Entity {
+fun Entity.addLayer(ordinal:Int):Entity {
     val component = if (Entity_layerComponentPool.size > 0) Entity_layerComponentPool.last() else LayerComponent()
     component.ordinal = ordinal
     addComponent(Component.Layer.ordinal, component)
     return this
 }
 
-fun Entity.replaceLayer(ordinal:Float):Entity {
+fun Entity.replaceLayer(ordinal:Int):Entity {
     val previousComponent = if (hasLayer) layer else null
     val component = if (Entity_layerComponentPool.size > 0) Entity_layerComponentPool.last() else LayerComponent()
     component.ordinal = ordinal

@@ -1,89 +1,84 @@
 {
   "namespace": "com.darkoverlordofdata.entitas.demo",
   "src": "core/src/com/darkoverlordofdata/entitas/demo/",
-  "output": {
-    "javascript": "web/src/example/generatedExtensions.js",
-    "typescript": "example/src/generatedComponents.ts",
-    "declaration": "example/ext/example.d.ts"
-  },
   "alloc": {
     "entities": 200,
     "components": 128
   },
   "components": {
     "Bounds": [
-      "radius:number"
+      "radius:Float"
     ],
     "Bullet": false,
     "ColorAnimation": [
-      "redMin:number",
-      "redMax:number",
-      "redSpeed:number",
-      "greenMin:number",
-      "greenMax:number",
-      "greenSpeed:number",
-      "blueMin:number",
-      "blueMax:number",
-      "blueSpeed:number",
-      "alphaMin:number",
-      "alphaMax:number",
-      "alphaSpeed:number",
-      "redAnimate:boolean",
-      "greenAnimate:boolean",
-      "blueAnimate:boolean",
-      "alphaAnimate:boolean",
-      "repeat:boolean"
+      "redMin:Float",
+      "redMax:Float",
+      "redSpeed:Float",
+      "greenMin:Float",
+      "greenMax:Float",
+      "greenSpeed:Float",
+      "blueMin:Float",
+      "blueMax:Float",
+      "blueSpeed:Float",
+      "alphaMin:Float",
+      "alphaMax:Float",
+      "alphaSpeed:Float",
+      "redAnimate:Boolean",
+      "greenAnimate:Boolean",
+      "blueAnimate:Boolean",
+      "alphaAnimate:Boolean",
+      "repeat:Boolean"
     ],
     "Enemy": false,
     "Expires": [
-      "delay:number"
+      "delay:Float"
     ],
     "Firing": false,
     "Health": [
-      "currentHealth:number",
-      "maximumHealth:number"
+      "currentHealth:Float",
+      "maximumHealth:Float"
     ],
     "ParallaxStar": false,
     "Player": false,
     "Position": [
-      "x:number",
-      "y:number"
+      "x:Float",
+      "y:Float"
     ],
     "ScaleAnimation": [
-      "min:number",
-      "max:number",
-      "speed:number",
-      "repeat:boolean",
-      "active:boolean"
+      "min:Float",
+      "max:Float",
+      "speed:Float",
+      "repeat:Boolean",
+      "active:Boolean"
     ],
     "SoundEffect": [
-      "effect:number"
+      "effect:Int"
     ],
     "View": [
-      "layer:number",
+      "layer:Int",
       "sprite:com.badlogic.gdx.graphics.g2d.Sprite"
     ],
     "Velocity": [
-      "x:number",
-      "y:number"
+      "x:Float",
+      "y:Float"
     ],
     "Score": [
-      "value:number"
+      "value:Float"
     ],
     "Destroy": false,
     "Mouse": [
-      "x:number",
-      "y:number"
+      "x:Float",
+      "y:Float"
     ],
     "Scale": [
-      "x:number",
-      "y:number"
+      "x:Float",
+      "y:Float"
     ],
     "Resource": [
-      "name:string"
+      "name:String"
     ],
     "Layer": [
-      "ordinal:number"
+      "ordinal:Int"
     ]
   },
   "systems": {
@@ -161,20 +156,20 @@
     "Pool": {
       "createPlayer:void": [],
       "createBullet:void": [
-        "x:number",
-        "y:number"
+        "x:Float",
+        "y:Float"
       ],
       "createParticle:void": [
-        "x:number",
-        "y:number"
+        "x:Float",
+        "y:Float"
       ],
       "createSmallExplosion:void": [
-        "x:number",
-        "y:number"
+        "x:Float",
+        "y:Float"
       ],
       "createBigExplosion:void": [
-        "x:number",
-        "y:number"
+        "x:Float",
+        "y:Float"
       ],
       "createEnemy1:void": [],
       "createEnemy2:void": [],
