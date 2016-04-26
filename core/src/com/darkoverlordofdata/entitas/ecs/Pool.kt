@@ -49,8 +49,12 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
         if (_groupsForIndex[e.index] != null) {
             for (i in 0.._groupsForIndex[e.index].size()) {
                 val group = _groupsForIndex[e.index][i]
-                if (e.component != null)
-                    group!!.handleEntity(e.entity, e.index, e.component)
+                if (group == null) {
+                } else {
+                    if (e.component != null)
+                        group.handleEntity(e.entity, e.index, e.component)
+
+                }
             }
         }
     }
@@ -84,6 +88,10 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
         entity._creationIndex = _creationIndex++
         entity.id = UUID.randomUUID().toString()
         entity.retain()
+        entity.onComponentAdded += updateGroupsComponentAddedOrRemoved
+        entity.onComponentRemoved += updateGroupsComponentAddedOrRemoved
+        entity.onComponentReplaced += updateGroupsComponentReplaced
+        entity.onEntityReleased += onEntityReleased
         _entities.add(entity)
         _entitiesCache.clear()
         onEntityCreated(PoolEntityChangedArgs(this, entity))

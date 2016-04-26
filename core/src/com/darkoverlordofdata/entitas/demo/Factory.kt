@@ -3,6 +3,11 @@ package com.darkoverlordofdata.entitas.demo
 import com.darkoverlordofdata.entitas.ecs.Entity
 import com.darkoverlordofdata.entitas.ecs.Pool
 
+enum class Enemies {
+    Enemy1,
+    Enemy2,
+    Enemy3
+}
 enum class Layer {
     DEFAULT,
     BACKGROUND,

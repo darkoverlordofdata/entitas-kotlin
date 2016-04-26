@@ -65,15 +65,9 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
     override fun toString():String {
         if (toStringCache == "") {
             val sb = StringBuilder()
-            if (anyOfIndices.size == 0) {
-                if (allOfIndices.size == 0) {
-                    sb.append(".")
-                }
-                Matcher.appendIndices(sb, "AnyOf", anyOfIndices)
-            }
-            if (noneOfIndices.size == 0) {
-                Matcher.appendIndices(sb, ".NoneOf", noneOfIndices)
-            }
+            Matcher.toStringHelper(sb, "AllOf", allOfIndices)
+            Matcher.toStringHelper(sb, "AnyOf", anyOfIndices)
+            Matcher.toStringHelper(sb, "NoneOf", noneOfIndices)
             toStringCache = sb.toString()
         }
         return toStringCache
@@ -94,6 +88,18 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
     companion object static {
         private var _uniqueId = 0
         fun uniqueId():Int {return _uniqueId++}
+        fun toStringHelper(sb:StringBuilder, prefix:String, indexArray:IntArray) {
+            if (indexArray.size > 0) {
+                sb.append(prefix)
+                sb.append("(")
+                for (i in 0..indexArray.size-1) {
+                    sb.append(indexArray[i].toString())
+                    if (i < indexArray.size-1) sb.append(",")
+                }
+                sb.append(")")
+            }
+
+        }
         fun distinctIndices(indices:IntArray):IntArray {
             val indicesSet:HashSet<Int> = hashSetOf()
             for (index in indices) indicesSet.add(index)
@@ -129,16 +135,6 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
             val result:MutableList<IMatcher> = ArrayList(listOf())
             for (arg in args) result.add(arg)
             return Matcher.anyOf(*Matcher.mergeIndices(result.toTypedArray()))
-        }
-        private fun appendIndices(sb:StringBuilder, prefix:String, indexArray:IntArray) {
-            sb.append(prefix)
-            sb.append("(")
-            val last = indexArray.size - 1
-            for (i in 0..last) {
-                sb.append(indexArray[i].toString())
-                if (i < last) sb.append(", ")
-            }
-            sb.append(")")
         }
     }
 }

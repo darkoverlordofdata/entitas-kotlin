@@ -167,7 +167,11 @@ class Entity(totalComponents:Int) {
             sb.append(id.toString())
             sb.append(")(")
             for (i in 0..totalComponents-1) {
-                sb.append(components[i]?.javaClass?.typeName)
+                val className = components[i]?.javaClass?.typeName
+                if (className != null)  {
+                    sb.append(className.substring(className.lastIndexOf(".")+1))
+                    if (i < totalComponents-1) sb.append(",")
+                }
             }
             sb.append(")")
             toStringCache = sb.toString()
