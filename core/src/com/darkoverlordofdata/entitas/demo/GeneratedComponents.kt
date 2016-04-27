@@ -7,6 +7,7 @@ package com.darkoverlordofdata.entitas.demo
 
 import com.darkoverlordofdata.entitas.IComponent
 
+
 class BoundsComponent() : IComponent {
     var radius:Float = 0f
 }
@@ -88,7 +89,7 @@ class VelocityComponent() : IComponent {
 }
 
 class ScoreComponent() : IComponent {
-    var value:Float = 0f
+    var value:Int = 0
 }
 
 class DestroyComponent() : IComponent {

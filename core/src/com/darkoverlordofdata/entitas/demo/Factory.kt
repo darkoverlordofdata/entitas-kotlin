@@ -34,6 +34,7 @@ fun Pool.createPlayer(width:Float, height:Float): Entity {
         .addPosition(width/4, 80f)
         .addLayer(Layer.ACTORS_3.ordinal)
         .addResource("fighter")
+        .addScore(0)
         .toPlayer(true)
 }
 

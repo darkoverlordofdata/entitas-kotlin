@@ -15,8 +15,9 @@ import com.darkoverlordofdata.entitas.IEnsureComponents
 import com.darkoverlordofdata.entitas.IExcludeComponents
 import com.darkoverlordofdata.entitas.IClearReactiveSystem
 import com.darkoverlordofdata.entitas.Pool
+import com.darkoverlordofdata.entitas.demo.GameController
 
-class HudRenderSystem()
+class HudRenderSystem(game: GameController)
     : IInitializeSystem, IExecuteSystem, ISetPool {
 
     private lateinit var pool: Pool

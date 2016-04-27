@@ -2,6 +2,7 @@ package com.darkoverlordofdata.entitas.demo
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.darkoverlordofdata.entitas.Systems
 import com.darkoverlordofdata.entitas.demo.systems.*
@@ -20,16 +21,20 @@ class GameController : Screen {
     lateinit var systems: Systems
     lateinit var textureAtlas: TextureAtlas
     lateinit var spriteRenderSystem: SpriteRenderSystem
+    lateinit var camera: OrthographicCamera
 
     //override fun create() {
     init {
 
         textureAtlas = TextureAtlas("level1.atlas")
+        camera = OrthographicCamera(width.toFloat()/pixelFactor, height.toFloat()/pixelFactor)
 
         pool = Pool(Component.TotalComponents.ordinal)
         systems = createSystems(pool)
         systems.initialize()
+        pool.setScore(0)
         pool.createPlayer(width.toFloat(), height.toFloat())
+
     }
 
     fun createSystems(pool: Pool): Systems {
@@ -45,8 +50,9 @@ class GameController : Screen {
             .add(pool.createSystem(RemoveOffscreenShipsSystem()))
             .add(pool.createSystem(spriteRenderSystem))
             .add(pool.createSystem(AddViewSystem(this)))
-            .add(pool.createSystem(HealthRenderSystem()))
-            .add(pool.createSystem(HudRenderSystem()))
+            .add(pool.createSystem(HealthRenderSystem(this)))
+            .add(pool.createSystem(HudRenderSystem(this)))
+            .add(pool.createSystem(ScoreRenderSystem(this)))
             .add(pool.createSystem(DestroySystem()))
     }
 

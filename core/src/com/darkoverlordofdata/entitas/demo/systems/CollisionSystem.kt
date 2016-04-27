@@ -14,11 +14,14 @@ class CollisionSystem()
     private lateinit var pool: Pool
     private lateinit var bullets: Group
     private lateinit var enemies: Group
+    private lateinit var players: Group
 
     override fun setPool(pool: Pool) {
         this.pool = pool
         bullets = pool.getGroup(Matcher.Bullet)
         enemies = pool.getGroup(Matcher.Enemy)
+        players = pool.getGroup(Matcher.Player)
+
     }
 
     override fun execute() {
@@ -48,6 +51,11 @@ class CollisionSystem()
         if (health.currentHealth <= 0f) {
             val position = ship.position
             ship.toDestroy(true)
+            val player = players.singleEntity
+            if (player != null) {
+                player.score.value += health.maximumHealth.toInt()
+            }
+
             pool.createBigExplosion(position.x, position.y)
         }
     }

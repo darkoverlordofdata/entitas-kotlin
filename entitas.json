@@ -63,7 +63,7 @@
       "y:Float"
     ],
     "Score": [
-      "value:Float"
+      "value:Int"
     ],
     "Destroy": false,
     "Mouse": [
@@ -135,6 +135,11 @@
       "IExecuteSystem",
       "ISetPool"
     ],
+    "ScoreRenderSystem": [
+      "IInitializeSystem",
+      "IExecuteSystem",
+      "ISetPool"
+    ],
     "HudRenderSystem": [
       "IInitializeSystem",
       "IExecuteSystem",
@@ -149,8 +154,7 @@
     ]
   },
   "entities": {
-    "Score": "Float",
-    "Firing": true
+    "Score": "Int"
   },
   "extensions": {
     "Pool": {

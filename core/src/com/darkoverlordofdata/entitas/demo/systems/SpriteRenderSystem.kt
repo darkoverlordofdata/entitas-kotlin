@@ -43,7 +43,7 @@ class SpriteRenderSystem(game:GameController)
     override fun initialize() {
 
         batch = SpriteBatch()
-        camera = OrthographicCamera(width/pixelFactor, height/pixelFactor)
+        camera = game.camera// OrthographicCamera(width/pixelFactor, height/pixelFactor)
         viewport = FillViewport(width/pixelFactor, height/pixelFactor, camera)
         viewport.apply()
         camera.position.set(width/(pixelFactor*2f), height/(pixelFactor*2f), 0f)

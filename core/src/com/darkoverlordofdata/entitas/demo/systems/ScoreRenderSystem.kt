@@ -11,14 +11,17 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.math.MathUtils
 import com.darkoverlordofdata.entitas.*
 import com.darkoverlordofdata.entitas.demo.*
 
-class HealthRenderSystem(game:GameController)
+class ScoreRenderSystem(game:GameController)
     : IInitializeSystem, IExecuteSystem, ISetPool {
 
     val game = game
+    val width = game.width.toFloat()
+    val height = game.height.toFloat()
+    val pixelFactor = game.pixelFactor
+
     private lateinit var pool: Pool
     private lateinit var group: Group
     private lateinit var batch: SpriteBatch
@@ -29,32 +32,26 @@ class HealthRenderSystem(game:GameController)
 
     override fun setPool(pool: Pool) {
         this.pool = pool
-        group = pool.getGroup(Matcher.allOf(Matcher.Position, Matcher.Health))
+        group = pool.getGroup(Matcher.allOf(Matcher.Player, Matcher.Score))
     }
 
     override fun initialize() {
         camera = game.camera// OrthographicCamera(width/pixelFactor, height/pixelFactor)
         batch = SpriteBatch()
-        fontTexture = Texture(Gdx.files.internal("fonts/normal_0.png"))
+        fontTexture = Texture(Gdx.files.internal("fonts/hud_0.png"))
         fontTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.MipMapLinearLinear)
         fontRegion = TextureRegion(fontTexture)
-        font = BitmapFont(Gdx.files.internal("fonts/normal.fnt"), fontRegion, false)
+        font = BitmapFont(Gdx.files.internal("fonts/hud.fnt"), fontRegion, false)
         font.setUseIntegerPositions(false)
     }
 
     override fun execute() {
-        // This overlays over the game
-        // Draw batch; don't clear screen first.
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        for (entity in group.entities) {
-            val health = entity.health
-            val position = entity.position
-
-            val percentage = MathUtils.round(health.currentHealth/health.maximumHealth*100f).toInt()
-            font.draw(batch, "$percentage%", position.x, position.y)
+        val player = group.singleEntity
+        if (player != null) {
+            font.draw(batch, "${player.score.value}", width/2, height-10f)
         }
         batch.end();
-
     }
 }

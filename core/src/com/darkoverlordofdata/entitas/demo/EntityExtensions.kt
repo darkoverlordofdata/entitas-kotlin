@@ -22,14 +22,14 @@ fun Entity.clearBoundsComponentPool() {
     Entity_boundsComponentPool.clear()
 }
 
-fun Entity.addBounds(radius:Float): Entity {
+fun Entity.addBounds(radius:Float):Entity {
     val component = if (Entity_boundsComponentPool.size > 0) Entity_boundsComponentPool.last() else BoundsComponent()
     component.radius = radius
     addComponent(Component.Bounds.ordinal, component)
     return this
 }
 
-fun Entity.replaceBounds(radius:Float): Entity {
+fun Entity.replaceBounds(radius:Float):Entity {
     val previousComponent = if (hasBounds) bounds else null
     val component = if (Entity_boundsComponentPool.size > 0) Entity_boundsComponentPool.last() else BoundsComponent()
     component.radius = radius
@@ -39,7 +39,7 @@ fun Entity.replaceBounds(radius:Float): Entity {
     return this
 }
 
-fun Entity.removeBounds(): Entity {
+fun Entity.removeBounds():Entity {
     val component = bounds
     removeComponent(Component.Bounds.ordinal)
     Entity_boundsComponentPool.add(component)
@@ -59,7 +59,7 @@ var Entity.isBullet:Boolean
             removeComponent(Component.Bullet.ordinal)
     }
 
-fun Entity.toBullet(value:Boolean): Entity {
+fun Entity.toBullet(value:Boolean):Entity {
     isBullet = value
     return this
 }
@@ -78,7 +78,7 @@ fun Entity.clearColorAnimationComponentPool() {
     Entity_colorAnimationComponentPool.clear()
 }
 
-fun Entity.addColorAnimation(redMin:Float, redMax:Float, redSpeed:Float, greenMin:Float, greenMax:Float, greenSpeed:Float, blueMin:Float, blueMax:Float, blueSpeed:Float, alphaMin:Float, alphaMax:Float, alphaSpeed:Float, redAnimate:Boolean, greenAnimate:Boolean, blueAnimate:Boolean, alphaAnimate:Boolean, repeat:Boolean): Entity {
+fun Entity.addColorAnimation(redMin:Float, redMax:Float, redSpeed:Float, greenMin:Float, greenMax:Float, greenSpeed:Float, blueMin:Float, blueMax:Float, blueSpeed:Float, alphaMin:Float, alphaMax:Float, alphaSpeed:Float, redAnimate:Boolean, greenAnimate:Boolean, blueAnimate:Boolean, alphaAnimate:Boolean, repeat:Boolean):Entity {
     val component = if (Entity_colorAnimationComponentPool.size > 0) Entity_colorAnimationComponentPool.last() else ColorAnimationComponent()
     component.redMin = redMin
     component.redMax = redMax
@@ -101,7 +101,7 @@ fun Entity.addColorAnimation(redMin:Float, redMax:Float, redSpeed:Float, greenMi
     return this
 }
 
-fun Entity.replaceColorAnimation(redMin:Float, redMax:Float, redSpeed:Float, greenMin:Float, greenMax:Float, greenSpeed:Float, blueMin:Float, blueMax:Float, blueSpeed:Float, alphaMin:Float, alphaMax:Float, alphaSpeed:Float, redAnimate:Boolean, greenAnimate:Boolean, blueAnimate:Boolean, alphaAnimate:Boolean, repeat:Boolean): Entity {
+fun Entity.replaceColorAnimation(redMin:Float, redMax:Float, redSpeed:Float, greenMin:Float, greenMax:Float, greenSpeed:Float, blueMin:Float, blueMax:Float, blueSpeed:Float, alphaMin:Float, alphaMax:Float, alphaSpeed:Float, redAnimate:Boolean, greenAnimate:Boolean, blueAnimate:Boolean, alphaAnimate:Boolean, repeat:Boolean):Entity {
     val previousComponent = if (hasColorAnimation) colorAnimation else null
     val component = if (Entity_colorAnimationComponentPool.size > 0) Entity_colorAnimationComponentPool.last() else ColorAnimationComponent()
     component.redMin = redMin
@@ -127,7 +127,7 @@ fun Entity.replaceColorAnimation(redMin:Float, redMax:Float, redSpeed:Float, gre
     return this
 }
 
-fun Entity.removeColorAnimation(): Entity {
+fun Entity.removeColorAnimation():Entity {
     val component = colorAnimation
     removeComponent(Component.ColorAnimation.ordinal)
     Entity_colorAnimationComponentPool.add(component)
@@ -147,7 +147,7 @@ var Entity.isEnemy:Boolean
             removeComponent(Component.Enemy.ordinal)
     }
 
-fun Entity.toEnemy(value:Boolean): Entity {
+fun Entity.toEnemy(value:Boolean):Entity {
     isEnemy = value
     return this
 }
@@ -166,14 +166,14 @@ fun Entity.clearExpiresComponentPool() {
     Entity_expiresComponentPool.clear()
 }
 
-fun Entity.addExpires(delay:Float): Entity {
+fun Entity.addExpires(delay:Float):Entity {
     val component = if (Entity_expiresComponentPool.size > 0) Entity_expiresComponentPool.last() else ExpiresComponent()
     component.delay = delay
     addComponent(Component.Expires.ordinal, component)
     return this
 }
 
-fun Entity.replaceExpires(delay:Float): Entity {
+fun Entity.replaceExpires(delay:Float):Entity {
     val previousComponent = if (hasExpires) expires else null
     val component = if (Entity_expiresComponentPool.size > 0) Entity_expiresComponentPool.last() else ExpiresComponent()
     component.delay = delay
@@ -183,7 +183,7 @@ fun Entity.replaceExpires(delay:Float): Entity {
     return this
 }
 
-fun Entity.removeExpires(): Entity {
+fun Entity.removeExpires():Entity {
     val component = expires
     removeComponent(Component.Expires.ordinal)
     Entity_expiresComponentPool.add(component)
@@ -203,7 +203,7 @@ var Entity.isFiring:Boolean
             removeComponent(Component.Firing.ordinal)
     }
 
-fun Entity.toFiring(value:Boolean): Entity {
+fun Entity.toFiring(value:Boolean):Entity {
     isFiring = value
     return this
 }
@@ -222,7 +222,7 @@ fun Entity.clearHealthComponentPool() {
     Entity_healthComponentPool.clear()
 }
 
-fun Entity.addHealth(currentHealth:Float, maximumHealth:Float): Entity {
+fun Entity.addHealth(currentHealth:Float, maximumHealth:Float):Entity {
     val component = if (Entity_healthComponentPool.size > 0) Entity_healthComponentPool.last() else HealthComponent()
     component.currentHealth = currentHealth
     component.maximumHealth = maximumHealth
@@ -230,7 +230,7 @@ fun Entity.addHealth(currentHealth:Float, maximumHealth:Float): Entity {
     return this
 }
 
-fun Entity.replaceHealth(currentHealth:Float, maximumHealth:Float): Entity {
+fun Entity.replaceHealth(currentHealth:Float, maximumHealth:Float):Entity {
     val previousComponent = if (hasHealth) health else null
     val component = if (Entity_healthComponentPool.size > 0) Entity_healthComponentPool.last() else HealthComponent()
     component.currentHealth = currentHealth
@@ -241,7 +241,7 @@ fun Entity.replaceHealth(currentHealth:Float, maximumHealth:Float): Entity {
     return this
 }
 
-fun Entity.removeHealth(): Entity {
+fun Entity.removeHealth():Entity {
     val component = health
     removeComponent(Component.Health.ordinal)
     Entity_healthComponentPool.add(component)
@@ -261,7 +261,7 @@ var Entity.isParallaxStar:Boolean
             removeComponent(Component.ParallaxStar.ordinal)
     }
 
-fun Entity.toParallaxStar(value:Boolean): Entity {
+fun Entity.toParallaxStar(value:Boolean):Entity {
     isParallaxStar = value
     return this
 }
@@ -279,7 +279,7 @@ var Entity.isPlayer:Boolean
             removeComponent(Component.Player.ordinal)
     }
 
-fun Entity.toPlayer(value:Boolean): Entity {
+fun Entity.toPlayer(value:Boolean):Entity {
     isPlayer = value
     return this
 }
@@ -298,7 +298,7 @@ fun Entity.clearPositionComponentPool() {
     Entity_positionComponentPool.clear()
 }
 
-fun Entity.addPosition(x:Float, y:Float): Entity {
+fun Entity.addPosition(x:Float, y:Float):Entity {
     val component = if (Entity_positionComponentPool.size > 0) Entity_positionComponentPool.last() else PositionComponent()
     component.x = x
     component.y = y
@@ -306,7 +306,7 @@ fun Entity.addPosition(x:Float, y:Float): Entity {
     return this
 }
 
-fun Entity.replacePosition(x:Float, y:Float): Entity {
+fun Entity.replacePosition(x:Float, y:Float):Entity {
     val previousComponent = if (hasPosition) position else null
     val component = if (Entity_positionComponentPool.size > 0) Entity_positionComponentPool.last() else PositionComponent()
     component.x = x
@@ -317,7 +317,7 @@ fun Entity.replacePosition(x:Float, y:Float): Entity {
     return this
 }
 
-fun Entity.removePosition(): Entity {
+fun Entity.removePosition():Entity {
     val component = position
     removeComponent(Component.Position.ordinal)
     Entity_positionComponentPool.add(component)
@@ -338,7 +338,7 @@ fun Entity.clearScaleAnimationComponentPool() {
     Entity_scaleAnimationComponentPool.clear()
 }
 
-fun Entity.addScaleAnimation(min:Float, max:Float, speed:Float, repeat:Boolean, active:Boolean): Entity {
+fun Entity.addScaleAnimation(min:Float, max:Float, speed:Float, repeat:Boolean, active:Boolean):Entity {
     val component = if (Entity_scaleAnimationComponentPool.size > 0) Entity_scaleAnimationComponentPool.last() else ScaleAnimationComponent()
     component.min = min
     component.max = max
@@ -349,7 +349,7 @@ fun Entity.addScaleAnimation(min:Float, max:Float, speed:Float, repeat:Boolean, 
     return this
 }
 
-fun Entity.replaceScaleAnimation(min:Float, max:Float, speed:Float, repeat:Boolean, active:Boolean): Entity {
+fun Entity.replaceScaleAnimation(min:Float, max:Float, speed:Float, repeat:Boolean, active:Boolean):Entity {
     val previousComponent = if (hasScaleAnimation) scaleAnimation else null
     val component = if (Entity_scaleAnimationComponentPool.size > 0) Entity_scaleAnimationComponentPool.last() else ScaleAnimationComponent()
     component.min = min
@@ -363,7 +363,7 @@ fun Entity.replaceScaleAnimation(min:Float, max:Float, speed:Float, repeat:Boole
     return this
 }
 
-fun Entity.removeScaleAnimation(): Entity {
+fun Entity.removeScaleAnimation():Entity {
     val component = scaleAnimation
     removeComponent(Component.ScaleAnimation.ordinal)
     Entity_scaleAnimationComponentPool.add(component)
@@ -384,14 +384,14 @@ fun Entity.clearSoundEffectComponentPool() {
     Entity_soundEffectComponentPool.clear()
 }
 
-fun Entity.addSoundEffect(effect:Int): Entity {
+fun Entity.addSoundEffect(effect:Int):Entity {
     val component = if (Entity_soundEffectComponentPool.size > 0) Entity_soundEffectComponentPool.last() else SoundEffectComponent()
     component.effect = effect
     addComponent(Component.SoundEffect.ordinal, component)
     return this
 }
 
-fun Entity.replaceSoundEffect(effect:Int): Entity {
+fun Entity.replaceSoundEffect(effect:Int):Entity {
     val previousComponent = if (hasSoundEffect) soundEffect else null
     val component = if (Entity_soundEffectComponentPool.size > 0) Entity_soundEffectComponentPool.last() else SoundEffectComponent()
     component.effect = effect
@@ -401,7 +401,7 @@ fun Entity.replaceSoundEffect(effect:Int): Entity {
     return this
 }
 
-fun Entity.removeSoundEffect(): Entity {
+fun Entity.removeSoundEffect():Entity {
     val component = soundEffect
     removeComponent(Component.SoundEffect.ordinal)
     Entity_soundEffectComponentPool.add(component)
@@ -422,7 +422,7 @@ fun Entity.clearViewComponentPool() {
     Entity_viewComponentPool.clear()
 }
 
-fun Entity.addView(layer:Int, sprite:com.badlogic.gdx.graphics.g2d.Sprite?): Entity {
+fun Entity.addView(layer:Int, sprite:com.badlogic.gdx.graphics.g2d.Sprite?):Entity {
     val component = if (Entity_viewComponentPool.size > 0) Entity_viewComponentPool.last() else ViewComponent()
     component.layer = layer
     component.sprite = sprite
@@ -430,7 +430,7 @@ fun Entity.addView(layer:Int, sprite:com.badlogic.gdx.graphics.g2d.Sprite?): Ent
     return this
 }
 
-fun Entity.replaceView(layer:Int, sprite:com.badlogic.gdx.graphics.g2d.Sprite?): Entity {
+fun Entity.replaceView(layer:Int, sprite:com.badlogic.gdx.graphics.g2d.Sprite?):Entity {
     val previousComponent = if (hasView) view else null
     val component = if (Entity_viewComponentPool.size > 0) Entity_viewComponentPool.last() else ViewComponent()
     component.layer = layer
@@ -441,7 +441,7 @@ fun Entity.replaceView(layer:Int, sprite:com.badlogic.gdx.graphics.g2d.Sprite?):
     return this
 }
 
-fun Entity.removeView(): Entity {
+fun Entity.removeView():Entity {
     val component = view
     removeComponent(Component.View.ordinal)
     Entity_viewComponentPool.add(component)
@@ -462,7 +462,7 @@ fun Entity.clearVelocityComponentPool() {
     Entity_velocityComponentPool.clear()
 }
 
-fun Entity.addVelocity(x:Float, y:Float): Entity {
+fun Entity.addVelocity(x:Float, y:Float):Entity {
     val component = if (Entity_velocityComponentPool.size > 0) Entity_velocityComponentPool.last() else VelocityComponent()
     component.x = x
     component.y = y
@@ -470,7 +470,7 @@ fun Entity.addVelocity(x:Float, y:Float): Entity {
     return this
 }
 
-fun Entity.replaceVelocity(x:Float, y:Float): Entity {
+fun Entity.replaceVelocity(x:Float, y:Float):Entity {
     val previousComponent = if (hasVelocity) velocity else null
     val component = if (Entity_velocityComponentPool.size > 0) Entity_velocityComponentPool.last() else VelocityComponent()
     component.x = x
@@ -481,7 +481,7 @@ fun Entity.replaceVelocity(x:Float, y:Float): Entity {
     return this
 }
 
-fun Entity.removeVelocity(): Entity {
+fun Entity.removeVelocity():Entity {
     val component = velocity
     removeComponent(Component.Velocity.ordinal)
     Entity_velocityComponentPool.add(component)
@@ -502,14 +502,14 @@ fun Entity.clearScoreComponentPool() {
     Entity_scoreComponentPool.clear()
 }
 
-fun Entity.addScore(value:Float): Entity {
+fun Entity.addScore(value:Int):Entity {
     val component = if (Entity_scoreComponentPool.size > 0) Entity_scoreComponentPool.last() else ScoreComponent()
     component.value = value
     addComponent(Component.Score.ordinal, component)
     return this
 }
 
-fun Entity.replaceScore(value:Float): Entity {
+fun Entity.replaceScore(value:Int):Entity {
     val previousComponent = if (hasScore) score else null
     val component = if (Entity_scoreComponentPool.size > 0) Entity_scoreComponentPool.last() else ScoreComponent()
     component.value = value
@@ -519,7 +519,7 @@ fun Entity.replaceScore(value:Float): Entity {
     return this
 }
 
-fun Entity.removeScore(): Entity {
+fun Entity.removeScore():Entity {
     val component = score
     removeComponent(Component.Score.ordinal)
     Entity_scoreComponentPool.add(component)
@@ -539,7 +539,7 @@ var Entity.isDestroy:Boolean
             removeComponent(Component.Destroy.ordinal)
     }
 
-fun Entity.toDestroy(value:Boolean): Entity {
+fun Entity.toDestroy(value:Boolean):Entity {
     isDestroy = value
     return this
 }
@@ -558,7 +558,7 @@ fun Entity.clearMouseComponentPool() {
     Entity_mouseComponentPool.clear()
 }
 
-fun Entity.addMouse(x:Float, y:Float): Entity {
+fun Entity.addMouse(x:Float, y:Float):Entity {
     val component = if (Entity_mouseComponentPool.size > 0) Entity_mouseComponentPool.last() else MouseComponent()
     component.x = x
     component.y = y
@@ -566,7 +566,7 @@ fun Entity.addMouse(x:Float, y:Float): Entity {
     return this
 }
 
-fun Entity.replaceMouse(x:Float, y:Float): Entity {
+fun Entity.replaceMouse(x:Float, y:Float):Entity {
     val previousComponent = if (hasMouse) mouse else null
     val component = if (Entity_mouseComponentPool.size > 0) Entity_mouseComponentPool.last() else MouseComponent()
     component.x = x
@@ -577,7 +577,7 @@ fun Entity.replaceMouse(x:Float, y:Float): Entity {
     return this
 }
 
-fun Entity.removeMouse(): Entity {
+fun Entity.removeMouse():Entity {
     val component = mouse
     removeComponent(Component.Mouse.ordinal)
     Entity_mouseComponentPool.add(component)
@@ -598,7 +598,7 @@ fun Entity.clearScaleComponentPool() {
     Entity_scaleComponentPool.clear()
 }
 
-fun Entity.addScale(x:Float, y:Float): Entity {
+fun Entity.addScale(x:Float, y:Float):Entity {
     val component = if (Entity_scaleComponentPool.size > 0) Entity_scaleComponentPool.last() else ScaleComponent()
     component.x = x
     component.y = y
@@ -606,7 +606,7 @@ fun Entity.addScale(x:Float, y:Float): Entity {
     return this
 }
 
-fun Entity.replaceScale(x:Float, y:Float): Entity {
+fun Entity.replaceScale(x:Float, y:Float):Entity {
     val previousComponent = if (hasScale) scale else null
     val component = if (Entity_scaleComponentPool.size > 0) Entity_scaleComponentPool.last() else ScaleComponent()
     component.x = x
@@ -617,7 +617,7 @@ fun Entity.replaceScale(x:Float, y:Float): Entity {
     return this
 }
 
-fun Entity.removeScale(): Entity {
+fun Entity.removeScale():Entity {
     val component = scale
     removeComponent(Component.Scale.ordinal)
     Entity_scaleComponentPool.add(component)
@@ -638,14 +638,14 @@ fun Entity.clearResourceComponentPool() {
     Entity_resourceComponentPool.clear()
 }
 
-fun Entity.addResource(name:String): Entity {
+fun Entity.addResource(name:String):Entity {
     val component = if (Entity_resourceComponentPool.size > 0) Entity_resourceComponentPool.last() else ResourceComponent()
     component.name = name
     addComponent(Component.Resource.ordinal, component)
     return this
 }
 
-fun Entity.replaceResource(name:String): Entity {
+fun Entity.replaceResource(name:String):Entity {
     val previousComponent = if (hasResource) resource else null
     val component = if (Entity_resourceComponentPool.size > 0) Entity_resourceComponentPool.last() else ResourceComponent()
     component.name = name
@@ -655,7 +655,7 @@ fun Entity.replaceResource(name:String): Entity {
     return this
 }
 
-fun Entity.removeResource(): Entity {
+fun Entity.removeResource():Entity {
     val component = resource
     removeComponent(Component.Resource.ordinal)
     Entity_resourceComponentPool.add(component)
@@ -676,14 +676,14 @@ fun Entity.clearLayerComponentPool() {
     Entity_layerComponentPool.clear()
 }
 
-fun Entity.addLayer(ordinal:Int): Entity {
+fun Entity.addLayer(ordinal:Int):Entity {
     val component = if (Entity_layerComponentPool.size > 0) Entity_layerComponentPool.last() else LayerComponent()
     component.ordinal = ordinal
     addComponent(Component.Layer.ordinal, component)
     return this
 }
 
-fun Entity.replaceLayer(ordinal:Int): Entity {
+fun Entity.replaceLayer(ordinal:Int):Entity {
     val previousComponent = if (hasLayer) layer else null
     val component = if (Entity_layerComponentPool.size > 0) Entity_layerComponentPool.last() else LayerComponent()
     component.ordinal = ordinal
@@ -693,7 +693,7 @@ fun Entity.replaceLayer(ordinal:Int): Entity {
     return this
 }
 
-fun Entity.removeLayer(): Entity {
+fun Entity.removeLayer():Entity {
     val component = layer
     removeComponent(Component.Layer.ordinal)
     Entity_layerComponentPool.add(component)

@@ -11,7 +11,7 @@ import com.darkoverlordofdata.entitas.Matcher
 
 /** Pool: Score methods*/
 
-val Pool.scoreEntity: Entity?
+val Pool.scoreEntity:Entity?
     get() = getGroup(Matcher.Score)?.singleEntity
 
 val Pool.score:ScoreComponent?
@@ -20,14 +20,14 @@ val Pool.score:ScoreComponent?
 val Pool.hasScore:Boolean
     get() = scoreEntity != null
 
-fun Pool.setScore(newValue:Float): Entity {
+fun Pool.setScore(newValue:Int):Entity {
     if (hasScore) throw Exception("Single Entity Exception: Score")
     val entity = createEntity("Score")
     entity.addScore(newValue)
     return entity
 }
 
-fun Pool.replaceScore(newValue:Float): Entity {
+fun Pool.replaceScore(newValue:Int):Entity {
     var entity = scoreEntity
     if (entity == null)
         entity = setScore(newValue)
@@ -39,19 +39,3 @@ fun Pool.replaceScore(newValue:Float): Entity {
 fun Pool.removeScore() {
     destroyEntity(scoreEntity)
 }
-
-/** Pool: Firing methods*/
-
-val Pool.firingEntity: Entity?
-    get() = getGroup(Matcher.Firing)?.singleEntity
-
-var Pool.isFiring:Boolean
-    get() = firingEntity != null
-    set(value) {
-        val entity = firingEntity
-        if (value != (entity != null))
-            if (value)
-                createEntity("Firing").isFiring = true
-            else
-                destroyEntity(entity)
-    }
