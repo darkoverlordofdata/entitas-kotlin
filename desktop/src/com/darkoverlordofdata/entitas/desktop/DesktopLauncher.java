@@ -8,6 +8,8 @@ import com.darkoverlordofdata.entitas.demo.GameController;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.height = 480;
+		config.width = 320;
 		new LwjglApplication(new GameController(), config);
 	}
 }

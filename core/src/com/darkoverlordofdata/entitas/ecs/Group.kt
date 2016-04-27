@@ -17,7 +17,7 @@ class Group(matcher:IMatcher) {
     internal var entities:HashSet<Entity> = hashSetOf()
     internal val matcher = matcher
     internal var toStringCache = ""
-    internal var entitiesCache: Array<Entity>? = null
+    internal var entitiesCache: Array<Entity> = arrayOf()
     internal var singleEntityCache:Entity? = null
 
     fun createObserver(eventType:GroupEventType):GroupObserver {
@@ -50,7 +50,7 @@ class Group(matcher:IMatcher) {
     fun addEntitySilently(entity:Entity) {
         if (entity !in entities) {
             entities.add(entity)
-            entitiesCache = null
+            entitiesCache = arrayOf()
             toStringCache = ""
             entity.retain()
         }
@@ -59,7 +59,7 @@ class Group(matcher:IMatcher) {
     fun addEntity(entity:Entity, index:Int, component:IComponent) {
         if (entity !in entities) {
             entities.add(entity)
-            entitiesCache = null
+            entitiesCache = arrayOf()
             toStringCache = ""
             entity.retain()
             onEntityAdded(GroupChangedArgs(this, entity, index, component))
@@ -69,7 +69,7 @@ class Group(matcher:IMatcher) {
     fun removeEntitySilently(entity:Entity) {
         if (entity in entities) {
             entities.remove(entity)
-            entitiesCache = null
+            entitiesCache = arrayOf()
             singleEntityCache = null
             entity.release()
         }
@@ -78,7 +78,7 @@ class Group(matcher:IMatcher) {
     fun removeEntity(entity:Entity, index:Int, component:IComponent) {
         if (entity in entities) {
             entities.remove(entity)
-            entitiesCache = null
+            entitiesCache = arrayOf()
             singleEntityCache = null
             onEntityRemoved(GroupChangedArgs(this, entity, index, component))
             entity.release()
@@ -89,8 +89,8 @@ class Group(matcher:IMatcher) {
         return entity in entities
     }
 
-    fun getEntities():Array<Entity>? {
-        if (entitiesCache == null) {
+    fun getEntities():Array<Entity> {
+        if (entitiesCache.size == 0) {
             entitiesCache = entities.toTypedArray()
         }
         return entitiesCache

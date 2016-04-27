@@ -12,7 +12,7 @@ class SoundEffectSystem()
     : IInitializeSystem, IExecuteSystem, ISetPool {
 
     private lateinit var pool: Pool
-    private var group: Group? = null
+    private lateinit var group: Group
 
     override fun setPool(pool: Pool) {
         this.pool = pool

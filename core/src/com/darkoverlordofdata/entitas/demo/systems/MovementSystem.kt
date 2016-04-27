@@ -19,21 +19,17 @@ import com.darkoverlordofdata.entitas.ecs.Matcher
 class MovementSystem()
     : IExecuteSystem, ISetPool {
 
-    var group: Group? = null
+    private lateinit var group: Group
 
     override fun setPool(pool:Pool) {
         group = pool.getGroup(Matcher.allOf(Matcher.Position, Matcher.Velocity))
     }
 
     override fun execute() {
-        val entities = group?.getEntities()
-        if (entities != null) {
-
-            val delta = Gdx.graphics.deltaTime
-            for (e in entities) {
-                e.position.x += (e.velocity.x * delta)
-                e.position.y -= (e.velocity.y * delta)
-            }
+        val delta = Gdx.graphics.deltaTime
+        for (e in group.getEntities()) {
+            e.position.x += (e.velocity.x * delta)
+            e.position.y -= (e.velocity.y * delta)
         }
     }
 }

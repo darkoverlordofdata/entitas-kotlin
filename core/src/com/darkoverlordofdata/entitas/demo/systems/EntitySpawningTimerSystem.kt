@@ -43,25 +43,22 @@ class EntitySpawningTimerSystem(game: GameController)
     }
 
     fun spawnEnemy(delta: Float, t:Float, enemy: Enemies): Float {
-        val d = t - delta
-        return if (d < 0) {
+        val remaining = t - delta
+        return if (remaining < 0) {
             when (enemy) {
                 Enemies.Enemy1 -> {
-                    val e = pool.createEnemy1(game.rnd.nextInt(game.width - 43).toFloat(), (game.height - 50).toFloat())
-                    println("Spawn Enemy1 $e")
+                    pool.createEnemy1(game.rnd.nextInt(game.width - 43).toFloat(), (game.height - 50).toFloat())
                     Timer1
                 }
                 Enemies.Enemy2 -> {
-                    val e = pool.createEnemy2(game.rnd.nextInt(game.width - 86).toFloat(), (game.height - 50).toFloat())
-                    println("Spawn Enemy2 $e")
+                    pool.createEnemy2(game.rnd.nextInt(game.width - 86).toFloat(), (game.height - 50).toFloat())
                     Timer2
                 }
                 Enemies.Enemy3 -> {
-                    val e = pool.createEnemy3(game.rnd.nextInt(game.width - 160).toFloat(), (game.height - 50).toFloat())
-                    println("Spawn Enemy3 $e")
+                    pool.createEnemy3(game.rnd.nextInt(game.width - 160).toFloat(), (game.height - 50).toFloat())
                     Timer3
                 }
             }
-        } else d
+        } else remaining
     }
 }

@@ -114,7 +114,4 @@ class GameScene() : Screen, InputProcessor {
     override fun scrolled(amount: Int) : Boolean {
         return false
     }
-
-
-
 }

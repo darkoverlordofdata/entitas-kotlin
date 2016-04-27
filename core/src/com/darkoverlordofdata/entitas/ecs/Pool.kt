@@ -86,7 +86,6 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
         entity.isEnabled = true
         entity.name = name
         entity._creationIndex = _creationIndex++
-        entity.id = UUID.randomUUID().toString()
         entity.retain()
         entity.onComponentAdded += updateGroupsComponentAddedOrRemoved
         entity.onComponentRemoved += updateGroupsComponentAddedOrRemoved
@@ -168,13 +167,12 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
      * Returns a group for the specified matcher.
      * Calling pool.GetGroup(matcher) with the same matcher will always return the same instance of the group.
      */
-    fun getGroup(matcher: IMatcher):Group? {
-        var group:Group? = null
-
-        if (matcher in _groups) {
-            group = _groups[matcher]
+    fun getGroup(matcher: IMatcher):Group {
+        var group = _groups[matcher]
+        if (group != null) {
+            return group
         } else {
-            group = Group(matcher)
+            val group = Group(matcher)
             val entities = getEntities()
             for (i in 0..entities.size()-1)
                 group.handleEntitySilently(entities.get(i))
@@ -185,9 +183,8 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
                 _groupsForIndex[index].add(group)
             }
             onGroupCreated(PoolGroupChangedArgs(this, group))
+            return group
         }
-
-        return group
     }
 
     companion object static {

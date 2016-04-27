@@ -5,23 +5,28 @@ package com.darkoverlordofdata.entitas.demo.systems
  *
  */
 
-import com.darkoverlordofdata.entitas.demo.Bounds
-import com.darkoverlordofdata.entitas.demo.Health
-import com.darkoverlordofdata.entitas.demo.Position
-import com.darkoverlordofdata.entitas.demo.Velocity
+import com.badlogic.gdx.Gdx
+import com.darkoverlordofdata.entitas.demo.*
 import com.darkoverlordofdata.entitas.ecs.*
 
 class RemoveOffscreenShipsSystem()
     : IExecuteSystem, ISetPool {
 
     private lateinit var pool: Pool
-    private var group: Group? = null
+    private lateinit var group: Group
 
     override fun setPool(pool: Pool) {
         this.pool = pool
-        group = pool.getGroup(Matcher.allOf(Matcher.Velocity, Matcher.Position, Matcher.Health, Matcher.Bounds))
+        group = pool.getGroup(Matcher.allOf(Matcher.Position))
     }
 
     override fun execute() {
+        for (entity in group.getEntities()) {
+            if (entity.isEnemy) {
+                if (entity.position.y < 0) {
+                    pool.destroyEntity(entity)
+                }
+            }
+        }
     }
 }

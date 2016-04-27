@@ -5,8 +5,7 @@ package com.darkoverlordofdata.entitas.demo.systems
  *
  */
 
-import com.darkoverlordofdata.entitas.demo.GameController
-import com.darkoverlordofdata.entitas.demo.Resource
+import com.darkoverlordofdata.entitas.demo.*
 import com.darkoverlordofdata.entitas.ecs.*
 
 class AddViewSystem(game: GameController)
@@ -15,25 +14,24 @@ class AddViewSystem(game: GameController)
     val game = game
 
     override fun setPool(pool: Pool) {
-        //println("setPool Matcher.Resource ${Matcher.Resource} - ${Matcher.Resource.indices[0]}")
-
         val group = pool.getGroup(Matcher.Resource)
-        if (group != null) group.onEntityAdded += onEntityAdded
-    }
+        group.onEntityAdded += {e:GroupChangedArgs ->
 
-    /**
-     * OnEntityAdded - Resource component.
-     *
-     * Load & configure the sprite for this resource component
-     *
-     * @param e.group
-     * @param e.entity
-     * @param e.index
-     * @param e.component
-     */
-    val onEntityAdded = {e:GroupChangedArgs ->
-        println("onEntityAdded ${e.entity.name}")
-        //textureAtlas.createSprite(entity.name)
+            val entity = e.entity
+
+            val layer = entity.layer.ordinal
+            val sprite = game.textureAtlas.createSprite(entity.resource.name)
+            if (entity.hasPosition) {
+                val pos = entity.position
+                sprite.x = pos.x
+                sprite.y = pos.y
+            }
+            if (entity.hasScale) {
+                val scale = entity.scale
+                sprite.setScale(scale.x, scale.y)
+            }
+            val ignore = entity.addView(layer, sprite)
+        }
     }
 
 }

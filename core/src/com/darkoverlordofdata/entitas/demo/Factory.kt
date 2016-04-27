@@ -31,7 +31,7 @@ fun Pool.createPlayer(width:Float, height:Float): Entity {
     return createEntity("Player")
         .addBounds(43f)
         .addVelocity(0f, 0f)
-        .addPosition(width/4, height-80)
+        .addPosition(width/4, 80f)
         .addLayer(Layer.ACTORS_3.ordinal)
         .addResource("fighter")
         .toPlayer(true)
@@ -46,7 +46,7 @@ fun Pool.createBullet(x:Float, y:Float):Entity {
         .addSoundEffect(Effect.PEW.ordinal)
         .addLayer(Layer.PARTICLES.ordinal)
         .addResource("bullet")
-        .toBullet(true);
+        .toBullet(true)
     
 }
 
@@ -93,42 +93,42 @@ fun Pool.createBigExplosion(x:Float, y:Float):Entity {
 
 fun Pool.createEnemy1(width:Float, height:Float):Entity {
     val x = Random.nextInt(width.toInt())
-    val y = height/2 - 200
+    val y = height
     return createEntity("Enemy1")
         .addBounds(20f)
         .addPosition(x.toFloat(), y)
-        .addVelocity(0f, -40f)
+        .addVelocity(0f, 40f)
         .addLayer(Layer.ACTORS_1.ordinal)
         .addResource("enemy1")
         .addHealth(10f, 10f)
-        .toEnemy(true);
+        .toEnemy(true)
 
 }
 
 fun Pool.createEnemy2(width:Float, height:Float):Entity {
     val x = Random.nextInt(width.toInt())
-    val y = height/2 - 200
-    return createEntity("Enemy1")
-        .addBounds(20f)
+    val y = height
+    return createEntity("Enemy2")
+        .addBounds(50f)
         .addPosition(x.toFloat(), y)
-        .addVelocity(0f, -40f)
+        .addVelocity(0f, 30f)
         .addLayer(Layer.ACTORS_1.ordinal)
-        .addResource("enemy1")
-        .addHealth(10f, 10f)
-        .toEnemy(true);
+        .addResource("enemy2")
+        .addHealth(20f, 20f)
+        .toEnemy(true)
 
 }
 
 fun Pool.createEnemy3(width:Float, height:Float):Entity {
     val x = Random.nextInt(width.toInt())
-    val y = height/2 - 200
-    return createEntity("Enemy1")
+    val y = height
+    return createEntity("Enemy3")
         .addBounds(70f)
         .addPosition(x.toFloat(), y)
-        .addVelocity(0f, -20f)
+        .addVelocity(0f, 20f)
         .addLayer(Layer.ACTORS_2.ordinal)
-        .addResource("enemy1")
+        .addResource("enemy3")
         .addHealth(60f, 60f)
-        .toEnemy(true);
+        .toEnemy(true)
 
 }

@@ -9,7 +9,6 @@ class Entity(totalComponents:Int) {
 //    companion object static {
 //        val pool:Array<IComponent> = Array(1, null)
 //    }
-    var id = ""
     var name = ""
     val totalComponents = totalComponents
     val creationIndex:Int get() = _creationIndex
@@ -156,20 +155,21 @@ class Entity(totalComponents:Int) {
     /**
      *
      *  Returns a cached string to describe the entity with the following format:
-     *  Entity_{creationIndex}(*{retainCount})({list of components})
+     *  Entity_{name|creationIndex}(*{retainCount})({list of components})
      */
     override fun toString():String {
         if (this.toStringCache == "") {
             val sb = StringBuilder()
             sb.append("Entity_")
-            sb.append(name)
-            sb.append("(")
-            sb.append(id.toString())
-            sb.append(")(")
+            sb.append(if (name != "") name else creationIndex.toString())
+            sb.append("(${_creationIndex},")
+            sb.append("${Pool.instance!!.reusableEntitiesCount},")
+            sb.append("${Pool.instance!!.retainedEntitiesCount})(")
             for (i in 0..totalComponents-1) {
                 val className = components[i]?.javaClass?.typeName
                 if (className != null)  {
-                    sb.append(className.substring(className.lastIndexOf(".")+1))
+                    val name = className.substring(className.lastIndexOf(".")+1)
+                    sb.append(name.replace("Component", ""))
                     if (i < totalComponents-1) sb.append(",")
                 }
             }

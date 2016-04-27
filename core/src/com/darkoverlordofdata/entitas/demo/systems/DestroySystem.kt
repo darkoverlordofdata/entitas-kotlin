@@ -5,14 +5,14 @@ package com.darkoverlordofdata.entitas.demo.systems
  *
  */
 
-import com.darkoverlordofdata.entitas.demo.Destroy
+import com.darkoverlordofdata.entitas.demo.*
 import com.darkoverlordofdata.entitas.ecs.*
 
 class DestroySystem()
     : IExecuteSystem, ISetPool {
 
     private lateinit var pool: Pool
-    private var group: Group? = null
+    private lateinit var group: Group
 
     override fun setPool(pool: Pool) {
         this.pool = pool
@@ -20,6 +20,14 @@ class DestroySystem()
     }
 
     override fun execute() {
+        for (entity in group.getEntities()) {
+            if (entity.hasView) {
+                val sprite = entity.view.sprite
+                if (sprite != null) sprite.texture.dispose()
+                entity.view.sprite = null
+            }
+            pool.destroyEntity(entity)
+        }
     }
 
 }
