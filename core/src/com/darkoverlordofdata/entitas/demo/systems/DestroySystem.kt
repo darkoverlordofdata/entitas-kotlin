@@ -24,12 +24,7 @@ class DestroySystem()
     }
 
     override fun execute() {
-        for (entity in group.getEntities()) {
-            if (entity.hasView) {
-                val sprite = entity.view.sprite
-                if (sprite != null) sprite.texture.dispose()
-                entity.view.sprite = null
-            }
+        for (entity in group.entities) {
             pool.destroyEntity(entity)
         }
     }

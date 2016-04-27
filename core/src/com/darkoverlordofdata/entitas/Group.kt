@@ -2,23 +2,46 @@ package com.darkoverlordofdata.entitas
 import java.util.*
 /**
  *
- * Use pool.GetGroup(matcher) to get a group of entities which match the specified matcher.
+ * Use pool.GetGroup(matcher) to get a group of _entities which match the specified matcher.
  * Calling pool.GetGroup(matcher) with the same matcher will always return the same instance of the group.
  * The created group is managed by the pool and will always be up to date.
- * It will automatically add entities that match the matcher or remove entities as soon as they don't match the matcher anymore.
+ * It will automatically add _entities that match the matcher or remove _entities as soon as they don't match the matcher anymore.
  */
 class Group(matcher: IMatcher) {
 
-    val count:Int get() = entities.size
-
+    val count:Int get() = _entities.size
     val onEntityAdded = Event<GroupChangedArgs>()
     val onEntityRemoved = Event<GroupChangedArgs>()
     val onEntityUpdated = Event<GroupUpdatedArgs>()
-    internal var entities: HashSet<Entity> = hashSetOf()
     internal val matcher = matcher
-    internal var toStringCache = ""
-    internal var entitiesCache: Array<Entity> = arrayOf()
-    internal var singleEntityCache: Entity? = null
+    private var _entities: HashSet<Entity> = hashSetOf()
+    private var _toStringCache = ""
+    private var _entitiesCache: Array<Entity> = arrayOf()
+    private var _singleEntityCache: Entity? = null
+
+    val entities:Array<Entity>
+        get() {
+            if (_entitiesCache.size == 0) {
+                _entitiesCache = _entities.toTypedArray()
+            }
+            return _entitiesCache
+        }
+
+    val singleEntity: Entity?
+        get() {
+            if (_singleEntityCache == null) {
+                when (_entities.size) {
+                    0 -> {
+                        _singleEntityCache = null
+                    }
+                    1 -> {
+                        _singleEntityCache = _entities.toTypedArray()[0]
+                    }
+                    else -> throw SingleEntityException(matcher)
+                }
+            }
+            return _singleEntityCache
+        }
 
     fun createObserver(eventType: GroupEventType): GroupObserver {
         return GroupObserver(arrayOf(this), arrayOf(eventType))
@@ -40,7 +63,7 @@ class Group(matcher: IMatcher) {
 
 
     fun updateEntity(entity: Entity, index:Int, previousComponent: IComponent, newComponent: IComponent?) {
-        if (entity in entities) {
+        if (entity in _entities) {
             onEntityRemoved(GroupChangedArgs(this, entity, index, previousComponent))
             onEntityAdded(GroupChangedArgs(this, entity, index, newComponent))
             onEntityUpdated(GroupUpdatedArgs(this, entity, index, previousComponent, newComponent))
@@ -48,73 +71,52 @@ class Group(matcher: IMatcher) {
     }
 
     fun addEntitySilently(entity: Entity) {
-        if (entity !in entities) {
-            entities.add(entity)
-            entitiesCache = arrayOf()
-            toStringCache = ""
+        if (entity !in _entities) {
+            _entities.add(entity)
+            _entitiesCache = arrayOf()
+            _toStringCache = ""
             entity.retain()
         }
     }
 
     fun addEntity(entity: Entity, index:Int, component: IComponent) {
-        if (entity !in entities) {
-            entities.add(entity)
-            entitiesCache = arrayOf()
-            toStringCache = ""
+        if (entity !in _entities) {
+            _entities.add(entity)
+            _entitiesCache = arrayOf()
+            _toStringCache = ""
             entity.retain()
             onEntityAdded(GroupChangedArgs(this, entity, index, component))
         }
     }
 
     fun removeEntitySilently(entity: Entity) {
-        if (entity in entities) {
-            entities.remove(entity)
-            entitiesCache = arrayOf()
-            singleEntityCache = null
+        if (entity in _entities) {
+            _entities.remove(entity)
+            _entitiesCache = arrayOf()
+            _singleEntityCache = null
             entity.release()
         }
     }
 
     fun removeEntity(entity: Entity, index:Int, component: IComponent) {
-        if (entity in entities) {
-            entities.remove(entity)
-            entitiesCache = arrayOf()
-            singleEntityCache = null
+        if (entity in _entities) {
+            _entities.remove(entity)
+            _entitiesCache = arrayOf()
+            _singleEntityCache = null
             onEntityRemoved(GroupChangedArgs(this, entity, index, component))
             entity.release()
         }
     }
 
     fun containsEntity(entity: Entity):Boolean {
-        return entity in entities
+        return entity in _entities
     }
 
-    fun getEntities():Array<Entity> {
-        if (entitiesCache.size == 0) {
-            entitiesCache = entities.toTypedArray()
-        }
-        return entitiesCache
-    }
-
-    fun getSingleEntity(): Entity? {
-        if (singleEntityCache == null) {
-            when (entities.size) {
-                0 -> {
-                    singleEntityCache = null
-                }
-                1 -> {
-                    singleEntityCache = entities.toTypedArray()[0]
-                }
-                else -> throw SingleEntityException(matcher)
-            }
-        }
-        return singleEntityCache
-    }
 
     override fun toString():String {
-        if (toStringCache == "") {
-            toStringCache = "Group(${matcher.toString()})"
+        if (_toStringCache == "") {
+            _toStringCache = "Group(${matcher.toString()})"
         }
-        return toStringCache
+        return _toStringCache
     }
 }

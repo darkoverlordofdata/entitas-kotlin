@@ -27,7 +27,7 @@ class ExpiringSystem()
 
     override fun execute() {
         val delta = Gdx.graphics.deltaTime
-        for (entity in group.getEntities()) {
+        for (entity in group.entities) {
             val value = entity.expires.delay - delta
             entity.expires.delay = value
             if (value < 0) {

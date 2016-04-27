@@ -5,29 +5,50 @@ package com.darkoverlordofdata.entitas.demo.systems
  *
  */
 
-import com.darkoverlordofdata.entitas.ISetPool
-import com.darkoverlordofdata.entitas.IExecuteSystem
-import com.darkoverlordofdata.entitas.IInitializeSystem
-import com.darkoverlordofdata.entitas.IReactiveExecuteSystem
-import com.darkoverlordofdata.entitas.IMultiReactiveSystem
-import com.darkoverlordofdata.entitas.IReactiveSystem
-import com.darkoverlordofdata.entitas.IEnsureComponents
-import com.darkoverlordofdata.entitas.IExcludeComponents
-import com.darkoverlordofdata.entitas.IClearReactiveSystem
-import com.darkoverlordofdata.entitas.Pool
+import com.darkoverlordofdata.entitas.*
+import com.darkoverlordofdata.entitas.demo.*
 
 class CollisionSystem()
-    : IInitializeSystem, IExecuteSystem, ISetPool {
+    : IExecuteSystem, ISetPool {
 
     private lateinit var pool: Pool
+    private lateinit var bullets: Group
+    private lateinit var enemies: Group
 
     override fun setPool(pool: Pool) {
         this.pool = pool
-    }
-
-    override fun initialize() {
+        bullets = pool.getGroup(Matcher.Bullet)
+        enemies = pool.getGroup(Matcher.Enemy)
     }
 
     override fun execute() {
+        for (bullet in bullets.entities) {
+            for (enemy in enemies.entities) {
+                if (collidesWith(bullet, enemy))
+                        collisionHandler(bullet, enemy)
+            }
+        }
+    }
+
+    fun collidesWith(e1:Entity, e2:Entity):Boolean {
+        val position1 = e1.position
+        var position2 = e2.position
+        val a = (position1.x - position2.x).toDouble()
+        val b = (position1.y - position2.y).toDouble()
+
+        return ((Math.sqrt(a * a + b * b)) - e1.bounds.radius) < e2.bounds.radius
+    }
+
+    fun collisionHandler(weapon:Entity, ship:Entity) {
+        val pos = weapon.position
+        pool.createSmallExplosion(pos.x, pos.y)
+        weapon.toDestroy(true)
+        var health = ship.health
+        health.currentHealth -=1
+        if (health.currentHealth <= 0f) {
+            val position = ship.position
+            ship.toDestroy(true)
+            pool.createBigExplosion(position.x, position.y)
+        }
     }
 }

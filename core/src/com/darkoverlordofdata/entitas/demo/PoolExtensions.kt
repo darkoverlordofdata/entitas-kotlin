@@ -12,7 +12,7 @@ import com.darkoverlordofdata.entitas.Matcher
 /** Pool: Score methods*/
 
 val Pool.scoreEntity: Entity?
-    get() = getGroup(Matcher.Score)?.getSingleEntity()
+    get() = getGroup(Matcher.Score)?.singleEntity
 
 val Pool.score:ScoreComponent?
     get() = scoreEntity?.score
@@ -43,7 +43,7 @@ fun Pool.removeScore() {
 /** Pool: Firing methods*/
 
 val Pool.firingEntity: Entity?
-    get() = getGroup(Matcher.Firing)?.getSingleEntity()
+    get() = getGroup(Matcher.Firing)?.singleEntity
 
 var Pool.isFiring:Boolean
     get() = firingEntity != null

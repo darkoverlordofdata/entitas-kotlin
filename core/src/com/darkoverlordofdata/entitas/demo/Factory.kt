@@ -68,7 +68,7 @@ fun Pool.createParticle(x:Float, y:Float): Entity {
 }
 
 fun Pool.createSmallExplosion(x:Float, y:Float): Entity {
-    val scale = .1f
+    val scale = .2f
     return createEntity("SmallExp")
         .addExpires(0.5f)
         .addScaleAnimation(scale / 100, scale, -3f, false, true)

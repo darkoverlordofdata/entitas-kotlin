@@ -27,7 +27,7 @@ class MovementSystem()
 
     override fun execute() {
         val delta = Gdx.graphics.deltaTime
-        for (e in group.getEntities()) {
+        for (e in group.entities) {
             e.position.x += (e.velocity.x * delta)
             e.position.y -= (e.velocity.y * delta)
         }

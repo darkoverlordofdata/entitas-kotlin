@@ -57,7 +57,7 @@ class SpriteRenderSystem(game:GameController)
         batch.projectionMatrix = camera.combined
         batch.begin()
         batch.draw(background, 0f, 0f, width, height)
-        for (entity in group.getEntities()) {
+        for (entity in group.entities) {
             val sprite = entity.view.sprite
             if (sprite != null) {
                 if (entity.hasScale)

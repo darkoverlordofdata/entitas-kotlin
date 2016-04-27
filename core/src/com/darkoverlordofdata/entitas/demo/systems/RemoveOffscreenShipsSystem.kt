@@ -25,7 +25,7 @@ class RemoveOffscreenShipsSystem()
     }
 
     override fun execute() {
-        for (entity in group.getEntities()) {
+        for (entity in group.entities) {
             if (entity.isEnemy) {
                 if (entity.position.y < 0) {
                     pool.destroyEntity(entity)

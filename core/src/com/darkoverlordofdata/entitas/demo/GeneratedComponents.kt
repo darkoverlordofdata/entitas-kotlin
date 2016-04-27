@@ -7,7 +7,6 @@ package com.darkoverlordofdata.entitas.demo
 
 import com.darkoverlordofdata.entitas.IComponent
 
-
 class BoundsComponent() : IComponent {
     var radius:Float = 0f
 }

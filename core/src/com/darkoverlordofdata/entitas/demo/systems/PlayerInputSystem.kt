@@ -47,7 +47,7 @@ class PlayerInputSystem(game: GameController)
     }
 
     override fun execute() {
-        val player = group.getSingleEntity()
+        val player = group.singleEntity
         if (player != null) {
             player.position.x = mouseX.toFloat()
             player.position.y = mouseY.toFloat()

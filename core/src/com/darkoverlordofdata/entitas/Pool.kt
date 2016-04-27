@@ -148,7 +148,8 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
     }
 
     fun getEntities(matcher: IMatcher): Array<Entity>? {
-        return getGroup(matcher)!!.getEntities()
+        return getGroup(matcher)!!.entities
+//        return getGroup(matcher)!!.getEntities()
     }
 
     fun createSystem(system: ISystem): ISystem {
