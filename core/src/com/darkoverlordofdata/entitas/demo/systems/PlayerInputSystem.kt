@@ -8,10 +8,17 @@ package com.darkoverlordofdata.entitas.demo.systems
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
+import com.darkoverlordofdata.entitas.Group
+import com.darkoverlordofdata.entitas.IExecuteSystem
+import com.darkoverlordofdata.entitas.IInitializeSystem
+import com.darkoverlordofdata.entitas.ISetPool
+import com.darkoverlordofdata.entitas.Matcher
+import com.darkoverlordofdata.entitas.Pool
+import com.darkoverlordofdata.entitas.demo.Position
 import com.darkoverlordofdata.entitas.demo.GameController
 import com.darkoverlordofdata.entitas.demo.Player
+import com.darkoverlordofdata.entitas.demo.createBullet
 import com.darkoverlordofdata.entitas.demo.position
-import com.darkoverlordofdata.entitas.ecs.*
 
 class PlayerInputSystem(game: GameController)
     : IInitializeSystem, IExecuteSystem, ISetPool, InputProcessor {
@@ -20,12 +27,14 @@ class PlayerInputSystem(game: GameController)
     val width = game.width
     val height = game.height
     val pixelFactor = game.pixelFactor
+    val FireRate = .1f
 
-    private lateinit var pool:Pool
+    private lateinit var pool: Pool
     private lateinit var group: Group
     private var shoot = false
     private var mouseX = 0
     private var mouseY = 0
+    private var timeToFire = 0f
 
 
     override fun setPool(pool: Pool) {
@@ -42,6 +51,14 @@ class PlayerInputSystem(game: GameController)
         if (player != null) {
             player.position.x = mouseX.toFloat()
             player.position.y = mouseY.toFloat()
+            if (shoot) {
+                timeToFire = timeToFire - Gdx.graphics.deltaTime
+                if (timeToFire < 0) {
+                    pool.createBullet(mouseX - 27f, mouseY - 10f)
+                    pool.createBullet(mouseX + 27f, mouseY - 10f)
+                    timeToFire = FireRate
+                }
+            }
         }
     }
 

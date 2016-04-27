@@ -1,4 +1,4 @@
-package com.darkoverlordofdata.entitas.ecs
+package com.darkoverlordofdata.entitas
 import java.util.*
 /**
  *
@@ -8,17 +8,17 @@ import java.util.*
  * e.g. a change of the position of an entity to update the gameObject.transform.position of the related gameObject.
  * Recommended way to create systems in general: pool.CreateSystem<RenderPositionSystem>();
  */
-class ReactiveSystem(pool:Pool, subsystem: IReactiveExecuteSystem) : IExecuteSystem {
+class ReactiveSystem(pool: Pool, subsystem: IReactiveExecuteSystem) : IExecuteSystem {
 
     val pool = pool
     internal val _subsystem = subsystem
     internal var _clearAfterExecute:Boolean = false
     internal var _buffer:MutableList<Entity> = ArrayList(listOf())
-    internal var _ensureComponents:IMatcher? = null
-    internal var _excludeComponents:IMatcher? = null
-    internal lateinit var _observer:GroupObserver
+    internal var _ensureComponents: IMatcher? = null
+    internal var _excludeComponents: IMatcher? = null
+    internal lateinit var _observer: GroupObserver
 
-    val subsystem:IReactiveExecuteSystem
+    val subsystem: IReactiveExecuteSystem
         get() = _subsystem
 
     init {

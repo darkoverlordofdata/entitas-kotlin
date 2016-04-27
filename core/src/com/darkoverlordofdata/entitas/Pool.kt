@@ -1,4 +1,4 @@
-package com.darkoverlordofdata.entitas.ecs
+package com.darkoverlordofdata.entitas
 import com.badlogic.ashley.utils.Bag
 import java.util.*
 /**
@@ -22,17 +22,17 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
     internal val onGroupCreated = Event<PoolGroupChangedArgs>()
     internal var _creationIndex:Int = startCreationIndex
     internal val _entities: HashSet<Entity> = hashSetOf()
-    internal val _groups: HashMap<IMatcher,Group> = hashMapOf()
+    internal val _groups: HashMap<IMatcher, Group> = hashMapOf()
     internal val _groupsForIndex: Bag<Bag<Group>> = Bag()
     internal val _reusableEntities: Bag<Entity> = Bag()
     internal val _retainedEntities: HashSet<Entity> = hashSetOf()
     internal val _entitiesCache: Bag<Entity> = Bag()
-    internal lateinit var onEntityReleasedCache : (e:EntityReleasedArgs) -> Unit
+    internal lateinit var onEntityReleasedCache : (e: EntityReleasedArgs) -> Unit
 
     /**
      * Event onEntityReleased
      */
-    val onEntityReleased = {e:EntityReleasedArgs ->
+    val onEntityReleased = {e: EntityReleasedArgs ->
         if (e.entity.isEnabled)
             throw EntityIsNotDestroyedException("Cannot release entity.")
 
@@ -45,7 +45,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
     /**
      * Event updateGroupsComponentAddedOrRemoved
      */
-    val updateGroupsComponentAddedOrRemoved = {e:EntityChangedArgs ->
+    val updateGroupsComponentAddedOrRemoved = {e: EntityChangedArgs ->
         if (_groupsForIndex[e.index] != null) {
             for (i in 0.._groupsForIndex[e.index].size()) {
                 val group = _groupsForIndex[e.index][i]
@@ -62,7 +62,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
     /**
      * Event updateGroupsComponentReplaced
      */
-    val updateGroupsComponentReplaced = {e:ComponentReplacedArgs ->
+    val updateGroupsComponentReplaced = {e: ComponentReplacedArgs ->
         if (_groupsForIndex[e.index] != null) {
             for (i in 0.._groupsForIndex[e.index].size()) {
                 val group = _groupsForIndex[e.index][i]
@@ -74,7 +74,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
 
     init {
         onEntityReleasedCache = onEntityReleased
-        Pool._instance = this
+        _instance = this
     }
 
     /**
@@ -147,12 +147,12 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
         return _entitiesCache
     }
 
-    fun getEntities(matcher:IMatcher): Array<Entity>? {
+    fun getEntities(matcher: IMatcher): Array<Entity>? {
         return getGroup(matcher)!!.getEntities()
     }
 
-    fun createSystem(system:ISystem):ISystem {
-        Pool.setPool(system, this)
+    fun createSystem(system: ISystem): ISystem {
+        setPool(system, this)
         if (system is IReactiveSystem) {
             return ReactiveSystem(this, system)
         }
@@ -167,7 +167,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
      * Returns a group for the specified matcher.
      * Calling pool.GetGroup(matcher) with the same matcher will always return the same instance of the group.
      */
-    fun getGroup(matcher: IMatcher):Group {
+    fun getGroup(matcher: IMatcher): Group {
         var group = _groups[matcher]
         if (group != null) {
             return group
@@ -188,9 +188,9 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
     }
 
     companion object static {
-        private var _instance:Pool? = null
-        val instance :Pool? get() = Pool._instance
-        fun setPool(system:ISystem, pool:Pool) {
+        private var _instance: Pool? = null
+        val instance : Pool? get() = _instance
+        fun setPool(system: ISystem, pool: Pool) {
             if (system is ISetPool) {
                 system.setPool(pool)
             }

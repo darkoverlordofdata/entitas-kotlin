@@ -1,7 +1,7 @@
 package com.darkoverlordofdata.entitas.demo
 
-import com.darkoverlordofdata.entitas.ecs.Entity
-import com.darkoverlordofdata.entitas.ecs.Pool
+import com.darkoverlordofdata.entitas.Entity
+import com.darkoverlordofdata.entitas.Pool
 
 enum class Enemies {
     Enemy1,
@@ -37,12 +37,12 @@ fun Pool.createPlayer(width:Float, height:Float): Entity {
         .toPlayer(true)
 }
 
-fun Pool.createBullet(x:Float, y:Float):Entity {
+fun Pool.createBullet(x:Float, y:Float): Entity {
     return createEntity("Bullet")
         .addPosition(x, y)
-        .addVelocity(0f, 800f)
+        .addVelocity(0f, -800f)
         .addBounds(5f)
-        .addExpires(1f)
+        .addExpires(.5f)
         .addSoundEffect(Effect.PEW.ordinal)
         .addLayer(Layer.PARTICLES.ordinal)
         .addResource("bullet")
@@ -50,7 +50,7 @@ fun Pool.createBullet(x:Float, y:Float):Entity {
     
 }
 
-fun Pool.createParticle(x:Float, y:Float):Entity {
+fun Pool.createParticle(x:Float, y:Float): Entity {
     val radians = Random.nextDouble() * Tau
     val magnitude = Random.nextInt(200)
     val velocityX = magnitude * Math.cos(radians)
@@ -67,7 +67,7 @@ fun Pool.createParticle(x:Float, y:Float):Entity {
         .addResource("particle")
 }
 
-fun Pool.createSmallExplosion(x:Float, y:Float):Entity {
+fun Pool.createSmallExplosion(x:Float, y:Float): Entity {
     val scale = .1f
     return createEntity("SmallExp")
         .addExpires(0.5f)
@@ -79,7 +79,7 @@ fun Pool.createSmallExplosion(x:Float, y:Float):Entity {
     
 }
 
-fun Pool.createBigExplosion(x:Float, y:Float):Entity {
+fun Pool.createBigExplosion(x:Float, y:Float): Entity {
     val scale = .5f
     return createEntity("BigExp")
         .addExpires(0.5f)
@@ -91,7 +91,7 @@ fun Pool.createBigExplosion(x:Float, y:Float):Entity {
     
 }
 
-fun Pool.createEnemy1(width:Float, height:Float):Entity {
+fun Pool.createEnemy1(width:Float, height:Float): Entity {
     val x = Random.nextInt(width.toInt())
     val y = height
     return createEntity("Enemy1")
@@ -105,7 +105,7 @@ fun Pool.createEnemy1(width:Float, height:Float):Entity {
 
 }
 
-fun Pool.createEnemy2(width:Float, height:Float):Entity {
+fun Pool.createEnemy2(width:Float, height:Float): Entity {
     val x = Random.nextInt(width.toInt())
     val y = height
     return createEntity("Enemy2")
@@ -119,7 +119,7 @@ fun Pool.createEnemy2(width:Float, height:Float):Entity {
 
 }
 
-fun Pool.createEnemy3(width:Float, height:Float):Entity {
+fun Pool.createEnemy3(width:Float, height:Float): Entity {
     val x = Random.nextInt(width.toInt())
     val y = height
     return createEntity("Enemy3")

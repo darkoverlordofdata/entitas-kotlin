@@ -5,16 +5,16 @@ package com.darkoverlordofdata.entitas.demo.systems
  *
  */
 
-import com.darkoverlordofdata.entitas.ecs.ISetPool
-import com.darkoverlordofdata.entitas.ecs.IExecuteSystem
-import com.darkoverlordofdata.entitas.ecs.IInitializeSystem
-import com.darkoverlordofdata.entitas.ecs.IReactiveExecuteSystem
-import com.darkoverlordofdata.entitas.ecs.IMultiReactiveSystem
-import com.darkoverlordofdata.entitas.ecs.IReactiveSystem
-import com.darkoverlordofdata.entitas.ecs.IEnsureComponents
-import com.darkoverlordofdata.entitas.ecs.IExcludeComponents
-import com.darkoverlordofdata.entitas.ecs.IClearReactiveSystem
-import com.darkoverlordofdata.entitas.ecs.Pool
+import com.darkoverlordofdata.entitas.ISetPool
+import com.darkoverlordofdata.entitas.IExecuteSystem
+import com.darkoverlordofdata.entitas.IInitializeSystem
+import com.darkoverlordofdata.entitas.IReactiveExecuteSystem
+import com.darkoverlordofdata.entitas.IMultiReactiveSystem
+import com.darkoverlordofdata.entitas.IReactiveSystem
+import com.darkoverlordofdata.entitas.IEnsureComponents
+import com.darkoverlordofdata.entitas.IExcludeComponents
+import com.darkoverlordofdata.entitas.IClearReactiveSystem
+import com.darkoverlordofdata.entitas.Pool
 
 class HudRenderSystem()
     : IInitializeSystem, IExecuteSystem, ISetPool {

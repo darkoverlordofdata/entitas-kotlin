@@ -5,11 +5,15 @@ package com.darkoverlordofdata.entitas.demo.systems
  *
  */
 
+import com.darkoverlordofdata.entitas.Group
+import com.darkoverlordofdata.entitas.GroupChangedArgs
+import com.darkoverlordofdata.entitas.IExecuteSystem
+import com.darkoverlordofdata.entitas.ISetPool
+import com.darkoverlordofdata.entitas.Matcher
+import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.demo.Enemy
 import com.darkoverlordofdata.entitas.demo.Health
 import com.darkoverlordofdata.entitas.demo.Position
-import com.darkoverlordofdata.entitas.demo.resource
-import com.darkoverlordofdata.entitas.ecs.*
 
 class HealthRenderSystem()
     : IExecuteSystem, ISetPool {
@@ -27,10 +31,10 @@ class HealthRenderSystem()
         }
     }
 
-    val onEntityAdded = {e:GroupChangedArgs ->
+    val onEntityAdded = {e: GroupChangedArgs ->
     }
 
-    val onEntityRemoved = {e:GroupChangedArgs ->
+    val onEntityRemoved = {e: GroupChangedArgs ->
     }
 
     override fun execute() {

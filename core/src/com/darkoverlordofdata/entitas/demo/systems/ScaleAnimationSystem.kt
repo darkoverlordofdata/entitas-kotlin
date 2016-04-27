@@ -5,8 +5,12 @@ package com.darkoverlordofdata.entitas.demo.systems
  *
  */
 
+import com.darkoverlordofdata.entitas.Group
+import com.darkoverlordofdata.entitas.IExecuteSystem
+import com.darkoverlordofdata.entitas.ISetPool
+import com.darkoverlordofdata.entitas.Matcher
+import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.demo.ScaleAnimation
-import com.darkoverlordofdata.entitas.ecs.*
 
 class ScaleAnimationSystem()
     : IExecuteSystem, ISetPool {

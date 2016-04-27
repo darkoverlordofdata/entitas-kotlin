@@ -1,4 +1,4 @@
-package com.darkoverlordofdata.entitas.ecs
+package com.darkoverlordofdata.entitas
 /**
  * Entitas Exceptions
  *
@@ -21,13 +21,13 @@ class EntityIsNotEnabledException(message:String)
 class GroupObserverException(message:String)
     : Exception("$message"){}
 
-class MatcherException(matcher:IMatcher)
+class MatcherException(matcher: IMatcher)
     : Exception("matcher.indices.length must be 1 but was ${matcher.indices.size}"){}
 
-class PoolDoesNotContainEntityException(entity:Entity, message:String)
+class PoolDoesNotContainEntityException(entity: Entity, message:String)
     : Exception("$message\nPool does not contain entity ${entity.toString()}"){}
 
-class SingleEntityException(matcher:IMatcher)
+class SingleEntityException(matcher: IMatcher)
     : Exception("Multiple entities exist matching ${matcher.toString()}"){}
 
 

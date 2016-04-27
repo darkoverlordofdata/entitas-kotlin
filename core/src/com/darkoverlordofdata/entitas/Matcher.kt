@@ -1,4 +1,4 @@
-package com.darkoverlordofdata.entitas.ecs
+package com.darkoverlordofdata.entitas
 import java.util.*
 /**
  * Matcher
@@ -23,7 +23,7 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
     internal var _indices = intArrayOf()
     internal var toStringCache = ""
 
-    override fun matches(entity:Entity):Boolean {
+    override fun matches(entity: Entity):Boolean {
         val matchesAllOf = if (allOfIndices.size == 0) true else entity.hasComponents(allOfIndices)
         val matchesAnyOf = if (anyOfIndices.size == 0) true else entity.hasAnyComponent(anyOfIndices)
         val matchesNoneOf = if (noneOfIndices.size == 0) true else !entity.hasAnyComponent(noneOfIndices)
@@ -37,26 +37,26 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
         if (anyOfIndices.size > 0) indicesList += anyOfIndices
         if (noneOfIndices.size > 0) indicesList += noneOfIndices
 
-        return Matcher.distinctIndices(indicesList)
+        return static.distinctIndices(indicesList)
     }
 
     override fun anyOf(indices: Array<IMatcher>): IAnyOfMatcher {
-        return anyOf(Matcher.mergeIndices(indices))
+        return anyOf(static.mergeIndices(indices))
     }
 
     override fun anyOf(indices: IntArray): IAnyOfMatcher {
-        anyOfIndices = Matcher.distinctIndices(indices)
+        anyOfIndices = static.distinctIndices(indices)
         _indices = intArrayOf()
         return this
     }
 
     override fun noneOf(indices: Array<IMatcher>): INoneOfMatcher {
-        return noneOf(Matcher.mergeIndices(indices))
+        return noneOf(static.mergeIndices(indices))
 
     }
 
     override fun noneOf(indices: IntArray): INoneOfMatcher {
-        noneOfIndices = Matcher.distinctIndices(indices)
+        noneOfIndices = static.distinctIndices(indices)
         _indices = intArrayOf()
         return this
     }
@@ -65,23 +65,23 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
     override fun toString():String {
         if (toStringCache == "") {
             val sb = StringBuilder()
-            Matcher.toStringHelper(sb, "AllOf", allOfIndices)
-            Matcher.toStringHelper(sb, "AnyOf", anyOfIndices)
-            Matcher.toStringHelper(sb, "NoneOf", noneOfIndices)
+            static.toStringHelper(sb, "AllOf", allOfIndices)
+            static.toStringHelper(sb, "AnyOf", anyOfIndices)
+            static.toStringHelper(sb, "NoneOf", noneOfIndices)
             toStringCache = sb.toString()
         }
         return toStringCache
     }
 
-    fun onEntityAdded():TriggerOnEvent{
+    fun onEntityAdded(): TriggerOnEvent {
         return TriggerOnEvent(this, GroupEventType.OnEntityAdded)
     }
 
-    fun onEntityRemoved():TriggerOnEvent{
+    fun onEntityRemoved(): TriggerOnEvent {
         return TriggerOnEvent(this, GroupEventType.OnEntityRemoved)
     }
 
-    fun onEntityAddedOrRemoved():TriggerOnEvent{
+    fun onEntityAddedOrRemoved(): TriggerOnEvent {
         return TriggerOnEvent(this, GroupEventType.OnEntityAddedOrRemoved)
     }
 
@@ -101,7 +101,7 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
 
         }
         fun distinctIndices(indices:IntArray):IntArray {
-            val indicesSet:HashSet<Int> = hashSetOf()
+            val indicesSet: HashSet<Int> = hashSetOf()
             for (index in indices) indicesSet.add(index)
             return indicesSet.toIntArray()
         }
@@ -115,26 +115,26 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
             return indices.toIntArray()
 
         }
-        fun allOf(vararg args:Int):IAllOfMatcher {
+        fun allOf(vararg args:Int): IAllOfMatcher {
             val matcher = Matcher()
-            matcher.allOfIndices = Matcher.distinctIndices(args)
+            matcher.allOfIndices = static.distinctIndices(args)
             return matcher
         }
-        fun allOf(vararg args:IMatcher):IAllOfMatcher {
+        fun allOf(vararg args: IMatcher): IAllOfMatcher {
             val result:MutableList<IMatcher> = ArrayList(listOf())
             for (arg in args) result.add(arg)
-            return Matcher.allOf(*Matcher.mergeIndices(result.toTypedArray()))
+            return static.allOf(*static.mergeIndices(result.toTypedArray()))
         }
 
-        fun anyOf(vararg args:Int):IAnyOfMatcher {
+        fun anyOf(vararg args:Int): IAnyOfMatcher {
             val matcher = Matcher()
-            matcher.anyOfIndices = Matcher.distinctIndices(args)
+            matcher.anyOfIndices = static.distinctIndices(args)
             return matcher
         }
-        fun anyOf(vararg args:IMatcher):IAnyOfMatcher {
+        fun anyOf(vararg args: IMatcher): IAnyOfMatcher {
             val result:MutableList<IMatcher> = ArrayList(listOf())
             for (arg in args) result.add(arg)
-            return Matcher.anyOf(*Matcher.mergeIndices(result.toTypedArray()))
+            return static.anyOf(*static.mergeIndices(result.toTypedArray()))
         }
     }
 }

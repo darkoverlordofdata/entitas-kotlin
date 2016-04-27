@@ -2,13 +2,14 @@ package com.darkoverlordofdata.entitas.demo
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.darkoverlordofdata.entitas.ecs.Systems
+import com.darkoverlordofdata.entitas.Systems
 import com.darkoverlordofdata.entitas.demo.systems.*
 import com.darkoverlordofdata.entitas.demo.systems.SpriteRenderSystem
-import com.darkoverlordofdata.entitas.ecs.Pool
+import com.darkoverlordofdata.entitas.Pool
 
-class GameController : ApplicationAdapter() {
+class GameController : Screen { //} ApplicationAdapter() {
 
     val rnd = java.util.Random()
     val width:Int by lazy { Gdx.graphics.width }
@@ -21,7 +22,8 @@ class GameController : ApplicationAdapter() {
     lateinit var textureAtlas: TextureAtlas
     lateinit var spriteRenderSystem: SpriteRenderSystem
 
-    override fun create() {
+    //override fun create() {
+    init {
 
         textureAtlas = TextureAtlas("level1.atlas")
 
@@ -31,7 +33,7 @@ class GameController : ApplicationAdapter() {
         pool.createPlayer(width.toFloat(), height.toFloat())
     }
 
-    fun createSystems(pool:Pool):Systems {
+    fun createSystems(pool: Pool): Systems {
         spriteRenderSystem = SpriteRenderSystem(this)
         return Systems()
             .add(pool.createSystem(MovementSystem()))
@@ -49,11 +51,21 @@ class GameController : ApplicationAdapter() {
             .add(pool.createSystem(DestroySystem()))
     }
 
-    override fun resize(width: Int, height: Int) {
-        spriteRenderSystem.resize(width, height)
-    }
-
-    override fun render() {
+    override fun render(delta: Float) {
         systems.execute()
     }
+
+    override fun dispose() {}
+    override fun show() {}
+    override fun hide() {}
+    override fun pause() {}
+    override fun resize(width: Int, height:Int) {
+        spriteRenderSystem.resize(width, height)
+    }
+    override fun resume() {}
+
+
+//    override fun render() {
+//        systems.execute()
+//    }
 }

@@ -1,4 +1,4 @@
-package com.darkoverlordofdata.entitas.ecs
+package com.darkoverlordofdata.entitas
 import java.util.*
 /**
  *
@@ -6,11 +6,11 @@ import java.util.*
  */
 class GroupObserver(groups:Array<Group>, eventTypes:Array<GroupEventType>) {
 
-    private var _collectedEntities:HashSet<Entity> = hashSetOf()
+    private var _collectedEntities: HashSet<Entity> = hashSetOf()
     private val groups = groups
     private val eventTypes = eventTypes
 
-    val collectedEntities:HashSet<Entity> get() = _collectedEntities
+    val collectedEntities: HashSet<Entity> get() = _collectedEntities
 
     init {
         if (groups.size != eventTypes.size) {
@@ -19,7 +19,7 @@ class GroupObserver(groups:Array<Group>, eventTypes:Array<GroupEventType>) {
         activate()
     }
 
-    val addEntity = {e:GroupChangedArgs ->
+    val addEntity = {e: GroupChangedArgs ->
         if (e.entity !in _collectedEntities) {
             _collectedEntities.add(e.entity)
             e.entity.retain()
@@ -73,7 +73,7 @@ class GroupObserver(groups:Array<Group>, eventTypes:Array<GroupEventType>) {
      * Clears all collected entities.
      */
     fun clearCollectedEntities() {
-        for (entity:Entity in _collectedEntities)
+        for (entity: Entity in _collectedEntities)
             entity.release()
         _collectedEntities = hashSetOf()
     }

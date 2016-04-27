@@ -1,4 +1,4 @@
-package com.darkoverlordofdata.entitas.ecs
+package com.darkoverlordofdata.entitas
 import java.util.*
 /**
  *
@@ -30,7 +30,7 @@ class Entity(totalComponents:Int) {
      *  Each component type must have its own constant index.
      *  The prefered way is to use the generated methods from the code generator.
      */
-    fun addComponent(index:Int, component:IComponent):Entity {
+    fun addComponent(index:Int, component: IComponent): Entity {
         if (!isEnabled)
             throw EntityIsNotEnabledException("Cannot add component!")
         if (hasComponent(index)) {
@@ -49,7 +49,7 @@ class Entity(totalComponents:Int) {
      *  Removes a component at a certain index. You can only remove a component at an index if it exists.
      *  The prefered way is to use the generated methods from the code generator.
      */
-    fun removeComponent(index:Int):Entity {
+    fun removeComponent(index:Int): Entity {
         if (!isEnabled)
             throw EntityIsNotEnabledException("Entity is disabled, cannot remove component")
         if (!hasComponent(index)) {
@@ -65,7 +65,7 @@ class Entity(totalComponents:Int) {
      *  Replaces an existing component at a certain index or adds it if it doesn't exist yet.
      *  The prefered way is to use the generated methods from the code generator.
      */
-    fun replaceComponent(index:Int, component: IComponent?):Entity {
+    fun replaceComponent(index:Int, component: IComponent?): Entity {
         if (!isEnabled)
             throw EntityIsNotEnabledException("Entity is disabled, cannot replace at index $index, ${toString()}")
 
@@ -82,7 +82,7 @@ class Entity(totalComponents:Int) {
      *  Returns a component at a certain index. You can only get a component at an index if it exists.
      *  The prefered way is to use the generated methods from the code generator.
      */
-    fun getComponent(index:Int):IComponent? {
+    fun getComponent(index:Int): IComponent? {
         if (!hasComponent(index)) {
             val errorMsg = "Cannot get component at index $index from ${toString()}"
             throw EntityDoesNotHaveComponentException(errorMsg, index)
@@ -139,7 +139,7 @@ class Entity(totalComponents:Int) {
                 _replaceComponent(index, null)
     }
 
-    fun retain():Entity {
+    fun retain(): Entity {
         refCount += 1
         return this
     }
@@ -187,7 +187,7 @@ class Entity(totalComponents:Int) {
     }
 
 
-    private fun _replaceComponent(index:Int, replacement: IComponent?):Entity {
+    private fun _replaceComponent(index:Int, replacement: IComponent?): Entity {
         val previousComponent = components[index]
         if (previousComponent != null) {
             if (previousComponent.equals(replacement)) {

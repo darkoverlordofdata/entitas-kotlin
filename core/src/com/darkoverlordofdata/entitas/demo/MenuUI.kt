@@ -1,4 +1,4 @@
-package com.darkoverlordofdata.entitas
+package com.darkoverlordofdata.entitas.demo
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import com.uwsoft.editor.renderer.SceneLoader
 import com.uwsoft.editor.renderer.scene2d.CompositeActor
 
-class MenuUI(game:ShmupWarz, sceneLoader: SceneLoader) : Stage() {
+class MenuUI(game: ShmupWarz, sceneLoader: SceneLoader) : Stage() {
 
     val playButtonVo = sceneLoader.loadVoFromLibrary("playButton")
     val playButtonActor = CompositeActor(playButtonVo, sceneLoader.rm)

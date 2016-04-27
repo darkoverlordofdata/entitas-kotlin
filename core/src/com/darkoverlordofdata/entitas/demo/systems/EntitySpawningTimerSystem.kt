@@ -7,10 +7,10 @@ package com.darkoverlordofdata.entitas.demo.systems
 
 import com.badlogic.gdx.Gdx
 import com.darkoverlordofdata.entitas.demo.*
-import com.darkoverlordofdata.entitas.ecs.ISetPool
-import com.darkoverlordofdata.entitas.ecs.IExecuteSystem
-import com.darkoverlordofdata.entitas.ecs.IInitializeSystem
-import com.darkoverlordofdata.entitas.ecs.Pool
+import com.darkoverlordofdata.entitas.ISetPool
+import com.darkoverlordofdata.entitas.IExecuteSystem
+import com.darkoverlordofdata.entitas.IInitializeSystem
+import com.darkoverlordofdata.entitas.Pool
 
 class EntitySpawningTimerSystem(game: GameController)
     : IInitializeSystem, IExecuteSystem, ISetPool {

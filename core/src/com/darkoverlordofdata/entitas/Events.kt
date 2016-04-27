@@ -1,4 +1,4 @@
-package com.darkoverlordofdata.entitas.ecs
+package com.darkoverlordofdata.entitas
 
 enum class GroupEventType {
     OnEntityAdded,
@@ -6,31 +6,31 @@ enum class GroupEventType {
     OnEntityAddedOrRemoved
 }
 
-class EntityReleasedArgs(entity:Entity) : EventArgs {
+class EntityReleasedArgs(entity: Entity) : EventArgs {
     val entity = entity
 }
 
-class EntityChangedArgs(entity:Entity, index:Int, component:IComponent?) : EventArgs {
+class EntityChangedArgs(entity: Entity, index:Int, component: IComponent?) : EventArgs {
     val entity = entity
     val index = index
     val component = component
 }
 
-class ComponentReplacedArgs(entity:Entity, index:Int, previous:IComponent, replacement:IComponent?) : EventArgs {
+class ComponentReplacedArgs(entity: Entity, index:Int, previous: IComponent, replacement: IComponent?) : EventArgs {
     val entity = entity
     val index = index
     val previous = previous
     val replacement = replacement
 }
 
-class GroupChangedArgs(group:Group, entity:Entity, index:Int, newComponent:IComponent?) : EventArgs {
+class GroupChangedArgs(group: Group, entity: Entity, index:Int, newComponent: IComponent?) : EventArgs {
     val group = group
     val entity = entity
     val index = index
     val newComponent = newComponent
 }
 
-class GroupUpdatedArgs(group:Group, entity:Entity, index:Int, prevComponent:IComponent, newComponent:IComponent?) : EventArgs {
+class GroupUpdatedArgs(group: Group, entity: Entity, index:Int, prevComponent: IComponent, newComponent: IComponent?) : EventArgs {
     val group = group
     val entity = entity
     val index = index
@@ -48,7 +48,7 @@ class PoolGroupChangedArgs(pool: Pool, group: Group) : EventArgs {
     val group = group
 }
 
-class TriggerOnEvent(trigger:Matcher, eventType:GroupEventType) {
+class TriggerOnEvent(trigger: Matcher, eventType: GroupEventType) {
     val trigger = trigger
     val eventType = eventType
 }
