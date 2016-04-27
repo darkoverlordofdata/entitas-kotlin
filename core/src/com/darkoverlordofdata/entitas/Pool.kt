@@ -30,7 +30,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
     internal lateinit var onEntityReleasedCache : (e: EntityReleasedArgs) -> Unit
 
     /**
-     * Event onEntityReleased
+     * EventHandler onEntityReleased
      */
     val onEntityReleased = {e: EntityReleasedArgs ->
         if (e.entity.isEnabled)
@@ -43,7 +43,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
     }
 
     /**
-     * Event updateGroupsComponentAddedOrRemoved
+     * EventHandler updateGroupsComponentAddedOrRemoved
      */
     val updateGroupsComponentAddedOrRemoved = {e: EntityChangedArgs ->
         if (_groupsForIndex[e.index] != null) {
@@ -60,7 +60,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
     }
 
     /**
-     * Event updateGroupsComponentReplaced
+     * EventHandler updateGroupsComponentReplaced
      */
     val updateGroupsComponentReplaced = {e: ComponentReplacedArgs ->
         if (_groupsForIndex[e.index] != null) {

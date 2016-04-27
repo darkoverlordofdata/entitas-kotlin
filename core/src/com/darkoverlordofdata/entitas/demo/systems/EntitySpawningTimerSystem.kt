@@ -24,6 +24,11 @@ class EntitySpawningTimerSystem(game: GameController)
     private var t3 = 0f
     private lateinit var pool: Pool
 
+    val toWorldX:Float get() = 320f/game.width
+    val toWorldY:Float get() = 480f/game.height
+    val width:Int get() = (game.width*toWorldX).toInt()
+    val height:Int get() = (game.height*toWorldY).toInt()
+
 
     override fun setPool(pool: Pool) {
         this.pool = pool
@@ -47,15 +52,15 @@ class EntitySpawningTimerSystem(game: GameController)
         return if (remaining < 0) {
             when (enemy) {
                 Enemies.Enemy1 -> {
-                    pool.createEnemy1(game.rnd.nextInt(game.width - 43).toFloat(), (game.height - 50).toFloat())
+                    pool.createEnemy1(game.rnd.nextInt(width - 43).toFloat(), (height - 50).toFloat())
                     Timer1
                 }
                 Enemies.Enemy2 -> {
-                    pool.createEnemy2(game.rnd.nextInt(game.width - 86).toFloat(), (game.height - 50).toFloat())
+                    pool.createEnemy2(game.rnd.nextInt(width - 86).toFloat(), (height - 50).toFloat())
                     Timer2
                 }
                 Enemies.Enemy3 -> {
-                    pool.createEnemy3(game.rnd.nextInt(game.width - 160).toFloat(), (game.height - 50).toFloat())
+                    pool.createEnemy3(game.rnd.nextInt(width - 160).toFloat(), (height - 50).toFloat())
                     Timer3
                 }
             }

@@ -3,6 +3,6 @@
 
 Kotlin implementation port of https://github.com/sschmid/Entitas-CSharp
 
-status - in process
+status - poc working
 
 

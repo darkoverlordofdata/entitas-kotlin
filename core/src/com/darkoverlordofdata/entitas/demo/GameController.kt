@@ -1,6 +1,5 @@
 package com.darkoverlordofdata.entitas.demo
 
-import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -9,7 +8,7 @@ import com.darkoverlordofdata.entitas.demo.systems.*
 import com.darkoverlordofdata.entitas.demo.systems.SpriteRenderSystem
 import com.darkoverlordofdata.entitas.Pool
 
-class GameController : Screen { //} ApplicationAdapter() {
+class GameController : Screen {
 
     val rnd = java.util.Random()
     val width:Int by lazy { Gdx.graphics.width }
@@ -65,7 +64,4 @@ class GameController : Screen { //} ApplicationAdapter() {
     override fun resume() {}
 
 
-//    override fun render() {
-//        systems.execute()
-//    }
 }
