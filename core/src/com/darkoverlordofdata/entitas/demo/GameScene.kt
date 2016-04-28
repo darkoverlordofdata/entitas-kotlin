@@ -4,12 +4,11 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.darkoverlordofdata.entitas.Systems
 import com.darkoverlordofdata.entitas.demo.systems.*
-import com.darkoverlordofdata.entitas.demo.systems.SpriteRenderSystem
+import com.darkoverlordofdata.entitas.Systems
 import com.darkoverlordofdata.entitas.Pool
 
-class GameController : Screen {
+class GameScene : Screen {
 
     val rnd = java.util.Random()
     val width:Int by lazy { Gdx.graphics.width }
@@ -19,14 +18,11 @@ class GameController : Screen {
 
     lateinit var pool: Pool
     lateinit var systems: Systems
-    lateinit var textureAtlas: TextureAtlas
     lateinit var spriteRenderSystem: SpriteRenderSystem
     lateinit var camera: OrthographicCamera
 
-    //override fun create() {
     init {
 
-        textureAtlas = TextureAtlas("level1.atlas")
         camera = OrthographicCamera(width.toFloat()/pixelFactor, height.toFloat()/pixelFactor)
 
         pool = Pool(Component.TotalComponents.ordinal)

@@ -15,8 +15,10 @@ import com.badlogic.gdx.math.MathUtils
 import com.darkoverlordofdata.entitas.*
 import com.darkoverlordofdata.entitas.demo.*
 
-class HealthRenderSystem(game:GameController)
-    : IInitializeSystem, IExecuteSystem, ISetPool {
+class HealthRenderSystem(game: GameScene)
+      : IInitializeSystem,
+        IExecuteSystem,
+        ISetPool {
 
     val game = game
     private lateinit var pool: Pool

@@ -1,24 +1,23 @@
 package com.darkoverlordofdata.entitas.demo
+
 import com.badlogic.gdx.Game
-import com.darkoverlordofdata.entitas.demo.GameController
 import com.uwsoft.editor.renderer.SceneLoader
 
-class ShmupWarz() : com.badlogic.gdx.Game() {
 
-    var menuScene: com.darkoverlordofdata.entitas.demo.MenuScene? = null
-    //var gameScene: GameScene? = null
-    var gameScene: com.darkoverlordofdata.entitas.demo.GameController? = null
-    var optionScene: com.darkoverlordofdata.entitas.demo.MenuScene? = null
-    var scoreScene: com.darkoverlordofdata.entitas.demo.MenuScene? = null
+class ShmupWarz() : Game() {
+
+    var menuScene: MenuScene? = null
+    var gameScene: GameScene? = null
+    var optionScene: MenuScene? = null
+    var scoreScene: MenuScene? = null
 
     override fun create() {
         menuGame()
-//        this.setScreen(MainScreen())
     }
 
     fun menuGame() {
-        val sceneLoader = com.uwsoft.editor.renderer.SceneLoader()
-        menuScene = com.darkoverlordofdata.entitas.demo.MenuScene(sceneLoader, com.darkoverlordofdata.entitas.demo.MenuUI(this, sceneLoader))
+        val sceneLoader = SceneLoader()
+        menuScene = MenuScene(sceneLoader, MenuUI(this, sceneLoader))
         optionScene = null
         scoreScene = null
         gameScene = null
@@ -26,19 +25,19 @@ class ShmupWarz() : com.badlogic.gdx.Game() {
     }
 
     fun optionsGame() {
-        val sceneLoader = com.uwsoft.editor.renderer.SceneLoader()
+        val sceneLoader = SceneLoader()
         menuScene = null
-        optionScene = com.darkoverlordofdata.entitas.demo.MenuScene(sceneLoader, com.darkoverlordofdata.entitas.demo.OptionUI(this, sceneLoader))
+        optionScene = MenuScene(sceneLoader, OptionUI(this, sceneLoader))
         this.setScreen(optionScene)
         scoreScene = null
         gameScene = null
     }
 
     fun scoreGame() {
-        val sceneLoader = com.uwsoft.editor.renderer.SceneLoader()
+        val sceneLoader = SceneLoader()
         menuScene = null
         optionScene = null
-        scoreScene = com.darkoverlordofdata.entitas.demo.MenuScene(sceneLoader, com.darkoverlordofdata.entitas.demo.ScoreUI(this, sceneLoader))
+        scoreScene = MenuScene(sceneLoader, ScoreUI(this, sceneLoader))
         this.setScreen(scoreScene)
         gameScene = null
     }
@@ -47,10 +46,9 @@ class ShmupWarz() : com.badlogic.gdx.Game() {
         menuScene = null
         optionScene = null
         scoreScene = null
-        gameScene = com.darkoverlordofdata.entitas.demo.GameController()
+        gameScene = GameScene()
         this.setScreen(gameScene)
     }
-
 
 }
 

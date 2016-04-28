@@ -19,8 +19,10 @@ import com.darkoverlordofdata.entitas.Matcher
 import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.demo.*
 
-class SpriteRenderSystem(game:GameController)
-    : IInitializeSystem, IExecuteSystem, ISetPool {
+class SpriteRenderSystem(game: GameScene)
+      : IInitializeSystem,
+        IExecuteSystem,
+        ISetPool {
 
     val scale = 2f/3f
     val game = game
@@ -48,7 +50,7 @@ class SpriteRenderSystem(game:GameController)
         viewport.apply()
         camera.position.set(width/(pixelFactor*2f), height/(pixelFactor*2f), 0f)
         camera.update()
-        background = game.textureAtlas.createSprite("BackdropBlackLittleSparkBlack")
+        background = O2d.sprites.createSprite("BackdropBlackLittleSparkBlack")
     }
 
     override fun execute() {
@@ -69,12 +71,16 @@ class SpriteRenderSystem(game:GameController)
                 val y = sprite.height / 2f
 
                 sprite.setPosition(entity.position.x - x, entity.position.y - y)
+                val color = batch.color
+                if (entity.hasTint)
+                    sprite.setColor(entity.tint.r, entity.tint.g, entity.tint.b, entity.tint.a)
+
                 sprite.draw(batch)
+                batch.color = color
             }
         }
         batch.end()
     }
-
 
     fun resize(width: Int, height: Int) {
         viewport.update(width,height)

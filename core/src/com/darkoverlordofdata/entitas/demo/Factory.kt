@@ -28,108 +28,95 @@ val Tau = Math.PI*2f
 
 
 fun Pool.createPlayer(width:Float, height:Float): Entity {
-    return createEntity("Player")
+    val name = "player"
+    return createEntity(name)
         .addBounds(43f)
-        .addVelocity(0f, 0f)
-        .addPosition(width/4, 80f)
-        .addLayer(Layer.ACTORS_3.ordinal)
-        .addResource("fighter")
+        .addPosition(width/4, 80f)          // project.libraryItems["player"].x
+        .addLayer(Layer.ACTORS_3.ordinal)   // project.libraryItems["player"].layerName
+        .addResource(O2d.getResource(name))
         .addScore(0)
-        .toPlayer(true)
+        .setPlayer(true)
 }
 
 fun Pool.createBullet(x:Float, y:Float): Entity {
-    return createEntity("Bullet")
+    val name = "bullet"
+    return createEntity(name)
         .addPosition(x, y)
         .addVelocity(0f, -800f)
         .addBounds(5f)
         .addExpires(.5f)
         .addSoundEffect(Effect.PEW.ordinal)
         .addLayer(Layer.PARTICLES.ordinal)
-        .addResource("bullet")
-        .toBullet(true)
-    
+        .addResource(O2d.getResource(name))
+        .addTint(1f, 1f, 115f/255f, 1f)
+        .setBullet(true)
 }
 
-fun Pool.createParticle(x:Float, y:Float): Entity {
-    val radians = Random.nextDouble() * Tau
-    val magnitude = Random.nextInt(200)
-    val velocityX = magnitude * Math.cos(radians)
-    val velocityY = magnitude * Math.sin(radians)
-    val scale = Random.nextDouble() * .5f + .5f
-    
-    return createEntity("Particle")
-        .addExpires(1f)
-        .addColorAnimation(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, -1f, false, false, false, true, true)
-        .addPosition(x, y)
-        .addVelocity(velocityX.toFloat(), velocityY.toFloat())
-        .addScale(scale.toFloat(), scale.toFloat())
-        .addLayer(Layer.PARTICLES.ordinal)
-        .addResource("particle")
-}
 
 fun Pool.createSmallExplosion(x:Float, y:Float): Entity {
-    val scale = .2f
-    return createEntity("SmallExp")
+    val name = "bang"
+    val scale = 1f
+    return createEntity(name)
         .addExpires(0.5f)
         .addScaleAnimation(scale / 100, scale, -3f, false, true)
         .addPosition(x, y)
         .addScale(scale, scale)
         .addLayer(Layer.PARTICLES.ordinal)
-        .addResource("explosion")
-    
+        .addTint(1f, 1f, 39/255f, .5f)
+        .addResource(O2d.getResource(name))
 }
 
 fun Pool.createBigExplosion(x:Float, y:Float): Entity {
+    val name = "explosion"
     val scale = .5f
-    return createEntity("BigExp")
+    return createEntity(name)
         .addExpires(0.5f)
         .addScaleAnimation(scale / 100, scale, -3f, false, true)
         .addPosition(x, y)
         .addScale(scale, scale)
         .addLayer(Layer.PARTICLES.ordinal)
-        .addResource("explosion")
-    
+        .addTint(1f, 1f, 39/255f, .5f)
+        .addResource(O2d.getResource(name))
 }
 
 fun Pool.createEnemy1(width:Float, height:Float): Entity {
+    val name = "enemy1"
     val x = Random.nextInt(width.toInt())
-    val y = height
-    return createEntity("Enemy1")
+    val y = height-50f
+    return createEntity(name)
         .addBounds(20f)
         .addPosition(x.toFloat(), y)
         .addVelocity(0f, 40f)
         .addLayer(Layer.ACTORS_1.ordinal)
-        .addResource("enemy1")
+        .addResource(O2d.getResource(name))
         .addHealth(10f, 10f)
-        .toEnemy(true)
-
+        .setEnemy(true)
 }
 
 fun Pool.createEnemy2(width:Float, height:Float): Entity {
+    val name = "enemy2"
     val x = Random.nextInt(width.toInt())
-    val y = height
-    return createEntity("Enemy2")
+    val y = height-50f
+    return createEntity(name)
         .addBounds(50f)
         .addPosition(x.toFloat(), y)
         .addVelocity(0f, 30f)
         .addLayer(Layer.ACTORS_1.ordinal)
-        .addResource("enemy2")
+        .addResource(O2d.getResource(name))
         .addHealth(20f, 20f)
-        .toEnemy(true)
-
+        .setEnemy(true)
 }
 
 fun Pool.createEnemy3(width:Float, height:Float): Entity {
+    val name = "enemy3"
     val x = Random.nextInt(width.toInt())
-    val y = height
-    return createEntity("Enemy3")
+    val y = height-50f
+    return createEntity(name)
         .addBounds(70f)
         .addPosition(x.toFloat(), y)
         .addVelocity(0f, 20f)
         .addLayer(Layer.ACTORS_2.ordinal)
-        .addResource("enemy3")
+        .addResource(O2d.getResource(name))
         .addHealth(60f, 60f)
-        .toEnemy(true)
-
+        .setEnemy(true)
 }

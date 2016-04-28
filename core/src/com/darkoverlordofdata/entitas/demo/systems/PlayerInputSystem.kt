@@ -15,13 +15,16 @@ import com.darkoverlordofdata.entitas.ISetPool
 import com.darkoverlordofdata.entitas.Matcher
 import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.demo.Position
-import com.darkoverlordofdata.entitas.demo.GameController
+import com.darkoverlordofdata.entitas.demo.GameScene
 import com.darkoverlordofdata.entitas.demo.Player
 import com.darkoverlordofdata.entitas.demo.createBullet
 import com.darkoverlordofdata.entitas.demo.position
 
-class PlayerInputSystem(game: GameController)
-    : IInitializeSystem, IExecuteSystem, ISetPool, InputProcessor {
+class PlayerInputSystem(game: GameScene)
+      : IInitializeSystem,
+        IExecuteSystem,
+        ISetPool,
+        InputProcessor {
 
     val game = game
     val width = game.width

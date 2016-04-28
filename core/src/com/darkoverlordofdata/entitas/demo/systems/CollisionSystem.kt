@@ -9,7 +9,8 @@ import com.darkoverlordofdata.entitas.*
 import com.darkoverlordofdata.entitas.demo.*
 
 class CollisionSystem()
-    : IExecuteSystem, ISetPool {
+      : IExecuteSystem,
+        ISetPool {
 
     private lateinit var pool: Pool
     private lateinit var bullets: Group
@@ -21,7 +22,6 @@ class CollisionSystem()
         bullets = pool.getGroup(Matcher.Bullet)
         enemies = pool.getGroup(Matcher.Enemy)
         players = pool.getGroup(Matcher.Player)
-
     }
 
     override fun execute() {
@@ -45,18 +45,16 @@ class CollisionSystem()
     fun collisionHandler(weapon:Entity, ship:Entity) {
         val pos = weapon.position
         pool.createSmallExplosion(pos.x, pos.y)
-        weapon.toDestroy(true)
+        weapon.setDestroy(true)
         var health = ship.health
         health.currentHealth -=1
         if (health.currentHealth <= 0f) {
             val position = ship.position
-            ship.toDestroy(true)
-            val player = players.singleEntity
-            if (player != null) {
-                player.score.value += health.maximumHealth.toInt()
-            }
-
             pool.createBigExplosion(position.x, position.y)
+            ship.setDestroy(true)
+            val player = players.singleEntity
+            if (player != null)
+                player.score.value += health.maximumHealth.toInt()
         }
     }
 }

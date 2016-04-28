@@ -78,6 +78,13 @@ class SoundEffectComponent() : IComponent {
     var effect:Int = 0
 }
 
+class TintComponent() : IComponent {
+    var r:Float = 0f
+    var g:Float = 0f
+    var b:Float = 0f
+    var a:Float = 0f
+}
+
 class ViewComponent() : IComponent {
     var layer:Int = 0
     var sprite:com.badlogic.gdx.graphics.g2d.Sprite? = null
@@ -127,6 +134,7 @@ enum class Component {
     Position,
     ScaleAnimation,
     SoundEffect,
+    Tint,
     View,
     Velocity,
     Score,

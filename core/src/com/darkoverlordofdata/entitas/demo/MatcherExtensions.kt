@@ -56,6 +56,10 @@ val Matcher.static.ScaleAnimation:IMatcher
 val Matcher.static.SoundEffect:IMatcher
      get() = Matcher.static.allOf(Component.SoundEffect.ordinal) 
 
+/** Matcher: Tint methods*/
+val Matcher.static.Tint:IMatcher
+     get() = Matcher.static.allOf(Component.Tint.ordinal) 
+
 /** Matcher: View methods*/
 val Matcher.static.View:IMatcher
      get() = Matcher.static.allOf(Component.View.ordinal) 

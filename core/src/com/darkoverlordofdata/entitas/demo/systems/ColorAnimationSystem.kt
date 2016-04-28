@@ -14,7 +14,8 @@ import com.darkoverlordofdata.entitas.demo.ColorAnimation
 import com.darkoverlordofdata.entitas.demo.View
 
 class ColorAnimationSystem()
-    : IExecuteSystem, ISetPool {
+      : IExecuteSystem,
+        ISetPool {
 
     private lateinit var pool: Pool
     private lateinit var group: Group

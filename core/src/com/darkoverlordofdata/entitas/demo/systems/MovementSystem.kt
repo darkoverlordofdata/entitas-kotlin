@@ -17,7 +17,8 @@ import com.darkoverlordofdata.entitas.Group
 import com.darkoverlordofdata.entitas.Matcher
 
 class MovementSystem()
-    : IExecuteSystem, ISetPool {
+      : IExecuteSystem,
+        ISetPool {
 
     private lateinit var group: Group
 
@@ -27,9 +28,9 @@ class MovementSystem()
 
     override fun execute() {
         val delta = Gdx.graphics.deltaTime
-        for (e in group.entities) {
-            e.position.x += (e.velocity.x * delta)
-            e.position.y -= (e.velocity.y * delta)
+        for (entity in group.entities) {
+            entity.position.x += (entity.velocity.x * delta)
+            entity.position.y -= (entity.velocity.y * delta)
         }
     }
 }

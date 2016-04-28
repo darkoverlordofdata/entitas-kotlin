@@ -15,7 +15,8 @@ import com.darkoverlordofdata.entitas.demo.Expires
 import com.darkoverlordofdata.entitas.demo.expires
 
 class ExpiringSystem()
-    : IExecuteSystem, ISetPool {
+      : IExecuteSystem,
+        ISetPool {
 
     private lateinit var pool: Pool
     private lateinit var group: Group

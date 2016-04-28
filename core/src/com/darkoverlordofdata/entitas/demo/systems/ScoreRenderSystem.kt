@@ -14,12 +14,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.darkoverlordofdata.entitas.*
 import com.darkoverlordofdata.entitas.demo.*
 
-class ScoreRenderSystem(game:GameController)
-    : IInitializeSystem, IExecuteSystem, ISetPool {
+class ScoreRenderSystem(game: GameScene)
+      : IInitializeSystem,
+        IExecuteSystem,
+        ISetPool {
 
     val game = game
-    val width = game.width.toFloat()
-    val height = game.height.toFloat()
+    val width = game.width
+    val height = game.height
     val pixelFactor = game.pixelFactor
 
     private lateinit var pool: Pool
@@ -30,13 +32,19 @@ class ScoreRenderSystem(game:GameController)
     private lateinit var font: BitmapFont
     private lateinit var camera: OrthographicCamera
 
+    /**
+     * ISetPool::setPool
+     */
     override fun setPool(pool: Pool) {
         this.pool = pool
         group = pool.getGroup(Matcher.allOf(Matcher.Player, Matcher.Score))
     }
 
+    /**
+     * IInitializeSystem::initialize
+     */
     override fun initialize() {
-        camera = game.camera// OrthographicCamera(width/pixelFactor, height/pixelFactor)
+        camera = game.camera
         batch = SpriteBatch()
         fontTexture = Texture(Gdx.files.internal("fonts/hud_0.png"))
         fontTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.MipMapLinearLinear)
@@ -45,12 +53,15 @@ class ScoreRenderSystem(game:GameController)
         font.setUseIntegerPositions(false)
     }
 
+    /**
+     * IExecuteSystem::execute
+     */
     override fun execute() {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         val player = group.singleEntity
         if (player != null) {
-            font.draw(batch, "${player.score.value}", width/2, height-10f)
+            font.draw(batch, "${player.score.value}", width/(2f*pixelFactor), (height/pixelFactor)-10f)
         }
         batch.end();
     }

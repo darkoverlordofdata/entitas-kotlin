@@ -5,6 +5,8 @@ package com.darkoverlordofdata.entitas.demo.systems
  *
  */
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.darkoverlordofdata.entitas.GroupChangedArgs
 import com.darkoverlordofdata.entitas.ISetPool
 import com.darkoverlordofdata.entitas.ISystem
@@ -12,10 +14,12 @@ import com.darkoverlordofdata.entitas.Matcher
 import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.demo.*
 
-class AddViewSystem(game: GameController)
-    : ISystem, ISetPool {
+class AddViewSystem(game: GameScene)
+      : ISystem,
+        ISetPool {
 
     val game = game
+
 
     override fun setPool(pool: Pool) {
         val group = pool.getGroup(Matcher.Resource)
@@ -24,7 +28,7 @@ class AddViewSystem(game: GameController)
             val entity = e.entity
 
             val layer = entity.layer.ordinal
-            val sprite = game.textureAtlas.createSprite(entity.resource.name)
+            val sprite = O2d.sprites.createSprite(entity.resource.name)
             if (entity.hasPosition) {
                 val pos = entity.position
                 sprite.x = pos.x

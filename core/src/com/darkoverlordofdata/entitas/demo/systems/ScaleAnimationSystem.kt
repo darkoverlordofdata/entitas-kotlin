@@ -14,7 +14,8 @@ import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.demo.*
 
 class ScaleAnimationSystem()
-    : IExecuteSystem, ISetPool {
+      : IExecuteSystem,
+        ISetPool {
 
     private lateinit var pool: Pool
     private lateinit var group: Group

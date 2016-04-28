@@ -54,6 +54,12 @@
     "SoundEffect": [
       "effect:Int"
     ],
+    "Tint": [
+      "r:Float",
+      "g:Float",
+      "b:Float",
+      "a:Float"
+    ],
     "View": [
       "layer:Int",
       "sprite:com.badlogic.gdx.graphics.g2d.Sprite"

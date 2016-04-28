@@ -59,7 +59,7 @@ var Entity.isBullet:Boolean
             removeComponent(Component.Bullet.ordinal)
     }
 
-fun Entity.toBullet(value:Boolean):Entity {
+fun Entity.setBullet(value:Boolean):Entity {
     isBullet = value
     return this
 }
@@ -147,7 +147,7 @@ var Entity.isEnemy:Boolean
             removeComponent(Component.Enemy.ordinal)
     }
 
-fun Entity.toEnemy(value:Boolean):Entity {
+fun Entity.setEnemy(value:Boolean):Entity {
     isEnemy = value
     return this
 }
@@ -203,7 +203,7 @@ var Entity.isFiring:Boolean
             removeComponent(Component.Firing.ordinal)
     }
 
-fun Entity.toFiring(value:Boolean):Entity {
+fun Entity.setFiring(value:Boolean):Entity {
     isFiring = value
     return this
 }
@@ -261,7 +261,7 @@ var Entity.isParallaxStar:Boolean
             removeComponent(Component.ParallaxStar.ordinal)
     }
 
-fun Entity.toParallaxStar(value:Boolean):Entity {
+fun Entity.setParallaxStar(value:Boolean):Entity {
     isParallaxStar = value
     return this
 }
@@ -279,7 +279,7 @@ var Entity.isPlayer:Boolean
             removeComponent(Component.Player.ordinal)
     }
 
-fun Entity.toPlayer(value:Boolean):Entity {
+fun Entity.setPlayer(value:Boolean):Entity {
     isPlayer = value
     return this
 }
@@ -405,6 +405,50 @@ fun Entity.removeSoundEffect():Entity {
     val component = soundEffect
     removeComponent(Component.SoundEffect.ordinal)
     Entity_soundEffectComponentPool.add(component)
+    return this
+}
+
+/** Entity: Tint methods*/
+
+val Entity_tintComponentPool:MutableList<TintComponent> = ArrayList(listOf())
+
+val Entity.tint:TintComponent
+    get() = getComponent(Component.Tint.ordinal) as TintComponent
+
+val Entity.hasTint:Boolean
+    get() = hasComponent(Component.Tint.ordinal)
+
+fun Entity.clearTintComponentPool() {
+    Entity_tintComponentPool.clear()
+}
+
+fun Entity.addTint(r:Float, g:Float, b:Float, a:Float):Entity {
+    val component = if (Entity_tintComponentPool.size > 0) Entity_tintComponentPool.last() else TintComponent()
+    component.r = r
+    component.g = g
+    component.b = b
+    component.a = a
+    addComponent(Component.Tint.ordinal, component)
+    return this
+}
+
+fun Entity.replaceTint(r:Float, g:Float, b:Float, a:Float):Entity {
+    val previousComponent = if (hasTint) tint else null
+    val component = if (Entity_tintComponentPool.size > 0) Entity_tintComponentPool.last() else TintComponent()
+    component.r = r
+    component.g = g
+    component.b = b
+    component.a = a
+    replaceComponent(Component.Tint.ordinal, component)
+    if (previousComponent != null)
+        Entity_tintComponentPool.add(previousComponent)
+    return this
+}
+
+fun Entity.removeTint():Entity {
+    val component = tint
+    removeComponent(Component.Tint.ordinal)
+    Entity_tintComponentPool.add(component)
     return this
 }
 
@@ -539,7 +583,7 @@ var Entity.isDestroy:Boolean
             removeComponent(Component.Destroy.ordinal)
     }
 
-fun Entity.toDestroy(value:Boolean):Entity {
+fun Entity.setDestroy(value:Boolean):Entity {
     isDestroy = value
     return this
 }
