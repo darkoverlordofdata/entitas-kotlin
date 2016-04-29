@@ -248,24 +248,6 @@ fun Entity.removeHealth():Entity {
     return this
 }
 
-/** Entity: ParallaxStar methods*/
-
-val Entity_parallaxStarComponent =  ParallaxStarComponent()
-
-var Entity.isParallaxStar:Boolean
-    get() = hasComponent(Component.ParallaxStar.ordinal)
-    set(value) {
-        if (value != isParallaxStar)
-            addComponent(Component.ParallaxStar.ordinal, Entity_parallaxStarComponent)
-        else
-            removeComponent(Component.ParallaxStar.ordinal)
-    }
-
-fun Entity.setParallaxStar(value:Boolean):Entity {
-    isParallaxStar = value
-    return this
-}
-
 /** Entity: Player methods*/
 
 val Entity_playerComponent =  PlayerComponent()
@@ -324,49 +306,49 @@ fun Entity.removePosition():Entity {
     return this
 }
 
-/** Entity: ScaleAnimation methods*/
+/** Entity: Tween methods*/
 
-val Entity_scaleAnimationComponentPool:MutableList<ScaleAnimationComponent> = ArrayList(listOf())
+val Entity_tweenComponentPool:MutableList<TweenComponent> = ArrayList(listOf())
 
-val Entity.scaleAnimation:ScaleAnimationComponent
-    get() = getComponent(Component.ScaleAnimation.ordinal) as ScaleAnimationComponent
+val Entity.tween:TweenComponent
+    get() = getComponent(Component.Tween.ordinal) as TweenComponent
 
-val Entity.hasScaleAnimation:Boolean
-    get() = hasComponent(Component.ScaleAnimation.ordinal)
+val Entity.hasTween:Boolean
+    get() = hasComponent(Component.Tween.ordinal)
 
-fun Entity.clearScaleAnimationComponentPool() {
-    Entity_scaleAnimationComponentPool.clear()
+fun Entity.clearTweenComponentPool() {
+    Entity_tweenComponentPool.clear()
 }
 
-fun Entity.addScaleAnimation(min:Float, max:Float, speed:Float, repeat:Boolean, active:Boolean):Entity {
-    val component = if (Entity_scaleAnimationComponentPool.size > 0) Entity_scaleAnimationComponentPool.last() else ScaleAnimationComponent()
+fun Entity.addTween(min:Float, max:Float, speed:Float, repeat:Boolean, active:Boolean):Entity {
+    val component = if (Entity_tweenComponentPool.size > 0) Entity_tweenComponentPool.last() else TweenComponent()
     component.min = min
     component.max = max
     component.speed = speed
     component.repeat = repeat
     component.active = active
-    addComponent(Component.ScaleAnimation.ordinal, component)
+    addComponent(Component.Tween.ordinal, component)
     return this
 }
 
-fun Entity.replaceScaleAnimation(min:Float, max:Float, speed:Float, repeat:Boolean, active:Boolean):Entity {
-    val previousComponent = if (hasScaleAnimation) scaleAnimation else null
-    val component = if (Entity_scaleAnimationComponentPool.size > 0) Entity_scaleAnimationComponentPool.last() else ScaleAnimationComponent()
+fun Entity.replaceTween(min:Float, max:Float, speed:Float, repeat:Boolean, active:Boolean):Entity {
+    val previousComponent = if (hasTween) tween else null
+    val component = if (Entity_tweenComponentPool.size > 0) Entity_tweenComponentPool.last() else TweenComponent()
     component.min = min
     component.max = max
     component.speed = speed
     component.repeat = repeat
     component.active = active
-    replaceComponent(Component.ScaleAnimation.ordinal, component)
+    replaceComponent(Component.Tween.ordinal, component)
     if (previousComponent != null)
-        Entity_scaleAnimationComponentPool.add(previousComponent)
+        Entity_tweenComponentPool.add(previousComponent)
     return this
 }
 
-fun Entity.removeScaleAnimation():Entity {
-    val component = scaleAnimation
-    removeComponent(Component.ScaleAnimation.ordinal)
-    Entity_scaleAnimationComponentPool.add(component)
+fun Entity.removeTween():Entity {
+    val component = tween
+    removeComponent(Component.Tween.ordinal)
+    Entity_tweenComponentPool.add(component)
     return this
 }
 
@@ -384,14 +366,14 @@ fun Entity.clearSoundEffectComponentPool() {
     Entity_soundEffectComponentPool.clear()
 }
 
-fun Entity.addSoundEffect(effect:com.darkoverlordofdata.entitas.demo.Effect?):Entity {
+fun Entity.addSoundEffect(effect:com.darkoverlordofdata.entitas.demo.Effect):Entity {
     val component = if (Entity_soundEffectComponentPool.size > 0) Entity_soundEffectComponentPool.last() else SoundEffectComponent()
     component.effect = effect
     addComponent(Component.SoundEffect.ordinal, component)
     return this
 }
 
-fun Entity.replaceSoundEffect(effect:com.darkoverlordofdata.entitas.demo.Effect?):Entity {
+fun Entity.replaceSoundEffect(effect:com.darkoverlordofdata.entitas.demo.Effect):Entity {
     val previousComponent = if (hasSoundEffect) soundEffect else null
     val component = if (Entity_soundEffectComponentPool.size > 0) Entity_soundEffectComponentPool.last() else SoundEffectComponent()
     component.effect = effect
@@ -466,14 +448,14 @@ fun Entity.clearViewComponentPool() {
     Entity_viewComponentPool.clear()
 }
 
-fun Entity.addView(sprite:com.badlogic.gdx.graphics.g2d.Sprite?):Entity {
+fun Entity.addView(sprite:com.badlogic.gdx.graphics.g2d.Sprite):Entity {
     val component = if (Entity_viewComponentPool.size > 0) Entity_viewComponentPool.last() else ViewComponent()
     component.sprite = sprite
     addComponent(Component.View.ordinal, component)
     return this
 }
 
-fun Entity.replaceView(sprite:com.badlogic.gdx.graphics.g2d.Sprite?):Entity {
+fun Entity.replaceView(sprite:com.badlogic.gdx.graphics.g2d.Sprite):Entity {
     val previousComponent = if (hasView) view else null
     val component = if (Entity_viewComponentPool.size > 0) Entity_viewComponentPool.last() else ViewComponent()
     component.sprite = sprite
@@ -718,14 +700,14 @@ fun Entity.clearLayerComponentPool() {
     Entity_layerComponentPool.clear()
 }
 
-fun Entity.addLayer(ordinal:com.darkoverlordofdata.entitas.demo.Layer?):Entity {
+fun Entity.addLayer(ordinal:com.darkoverlordofdata.entitas.demo.Layer):Entity {
     val component = if (Entity_layerComponentPool.size > 0) Entity_layerComponentPool.last() else LayerComponent()
     component.ordinal = ordinal
     addComponent(Component.Layer.ordinal, component)
     return this
 }
 
-fun Entity.replaceLayer(ordinal:com.darkoverlordofdata.entitas.demo.Layer?):Entity {
+fun Entity.replaceLayer(ordinal:com.darkoverlordofdata.entitas.demo.Layer):Entity {
     val previousComponent = if (hasLayer) layer else null
     val component = if (Entity_layerComponentPool.size > 0) Entity_layerComponentPool.last() else LayerComponent()
     component.ordinal = ordinal

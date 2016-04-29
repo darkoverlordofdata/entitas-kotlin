@@ -1,12 +1,12 @@
 package com.darkoverlordofdata.entitas.demo.systems
 
 /**
- * Entitas Generated Systems for com.darkoverlordofdata.entitas.demo
+ * ViewManagerSystem
+ *
+ * Modify view appearance when components are added or removed
  *
  */
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.darkoverlordofdata.entitas.GroupChangedArgs
 import com.darkoverlordofdata.entitas.ISetPool
 import com.darkoverlordofdata.entitas.ISystem
@@ -14,7 +14,7 @@ import com.darkoverlordofdata.entitas.Matcher
 import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.demo.*
 
-class AddViewSystem()
+class ViewManagerSystem()
       : ISystem,
         ISetPool {
 
@@ -53,6 +53,10 @@ class AddViewSystem()
             }
         }
 
+        /**
+         * Remove the sprite color
+         * when a TintComponent is removed
+         */
         pool.getGroup(Matcher.Tint).onEntityRemoved +=
         { e: GroupChangedArgs ->
 

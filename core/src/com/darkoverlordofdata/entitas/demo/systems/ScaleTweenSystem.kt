@@ -1,8 +1,9 @@
 package com.darkoverlordofdata.entitas.demo.systems
 
 /**
- * Entitas Generated Systems for com.darkoverlordofdata.entitas.demo
+ * ScaleTweenSystem
  *
+ * Tween the scale - used for explosions
  */
 
 import com.badlogic.gdx.Gdx
@@ -13,7 +14,7 @@ import com.darkoverlordofdata.entitas.Matcher
 import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.demo.*
 
-class ScaleAnimationSystem()
+class ScaleTweenSystem()
       : IExecuteSystem,
         ISetPool {
 
@@ -22,14 +23,14 @@ class ScaleAnimationSystem()
 
     override fun setPool(pool: Pool) {
         this.pool = pool
-        group = pool.getGroup(Matcher.allOf(Matcher.Scale, Matcher.ScaleAnimation))
+        group = pool.getGroup(Matcher.allOf(Matcher.Scale, Matcher.Tween))
     }
 
     override fun execute() {
         val delta = Gdx.graphics.deltaTime
 
         for (entity in group.entities) {
-            val tween = entity.scaleAnimation
+            val tween = entity.tween
             val scale = entity.scale
             var x = scale.x
             var y = scale.y

@@ -8,34 +8,3 @@ package com.darkoverlordofdata.entitas.demo
 import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.Entity
 import com.darkoverlordofdata.entitas.Matcher
-
-/** Pool: Score methods*/
-
-val Pool.scoreEntity:Entity?
-    get() = getGroup(Matcher.Score)?.singleEntity
-
-val Pool.score:ScoreComponent?
-    get() = scoreEntity?.score
-
-val Pool.hasScore:Boolean
-    get() = scoreEntity != null
-
-fun Pool.setScore(newValue:Int):Entity {
-    if (hasScore) throw Exception("Single Entity Exception: Score")
-    val entity = createEntity("Score")
-    entity.addScore(newValue)
-    return entity
-}
-
-fun Pool.replaceScore(newValue:Int):Entity {
-    var entity = scoreEntity
-    if (entity == null)
-        entity = setScore(newValue)
-    else
-        entity.replaceScore(newValue)
-    return entity
-
-}
-fun Pool.removeScore() {
-    destroyEntity(scoreEntity)
-}

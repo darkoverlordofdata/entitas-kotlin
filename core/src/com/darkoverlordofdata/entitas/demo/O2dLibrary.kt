@@ -7,21 +7,11 @@ import com.uwsoft.editor.renderer.data.CompositeItemVO
 import com.uwsoft.editor.renderer.data.ProjectInfoVO
 import com.uwsoft.editor.renderer.data.SceneVO
 
-enum class Layer {
-    DEFAULT,
-    BACKGROUND,
-    ACTORS_1,
-    ACTORS_2,
-    ACTORS_3,
-    PARTICLES
-}
-
-
 /**
  * Hack Overlap2D json data to load our assets
  *
  */
-object O2d {
+object O2dLibrary {
     val project: ProjectInfoVO by lazy {
         val file = Gdx.files.internal("project.dt")
         val json = Json()
@@ -44,15 +34,15 @@ object O2d {
         return project.libraryItems[name]
     }
 
-    fun getLayer(name:String):Layer? {
+    fun getLayer(name:String):Layer {
         val layerName = getItem(name)!!.layerName
         return when (layerName) {
-            "battle" -> Layer.PARTICLES
-            "player" -> Layer.ACTORS_3
-            "enemy1" -> Layer.ACTORS_3
-            "enemy2" -> Layer.ACTORS_2
-            "enemy3" -> Layer.ACTORS_1
-            else -> null
+            "battle" -> Layer.BATTLE
+            "player" -> Layer.PLAYER
+            "enemy1" -> Layer.ENEMY1
+            "enemy2" -> Layer.ENEMY2
+            "enemy3" -> Layer.ENEMY3
+            else -> Layer.DEFAULT
         }
     }
 }

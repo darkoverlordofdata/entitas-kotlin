@@ -1,7 +1,9 @@
 package com.darkoverlordofdata.entitas.demo.systems
 
 /**
- * Entitas Generated Systems for com.darkoverlordofdata.entitas.demo
+ * HealthRenderSystem
+ *
+ * display the remaining health for enemy ships
  *
  */
 
@@ -35,7 +37,7 @@ class HealthRenderSystem(game: GameScene)
     }
 
     override fun initialize() {
-        camera = game.camera// OrthographicCamera(width/pixelFactor, height/pixelFactor)
+        camera = game.camera
         batch = SpriteBatch()
         fontTexture = Texture(Gdx.files.internal("fonts/normal_0.png"))
         fontTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.MipMapLinearLinear)

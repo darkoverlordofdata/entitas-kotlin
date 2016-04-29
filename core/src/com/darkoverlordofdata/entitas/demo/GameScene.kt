@@ -21,30 +21,26 @@ class GameScene : Screen {
     lateinit var camera: OrthographicCamera
 
     init {
-
         camera = OrthographicCamera(width.toFloat()/pixelFactor, height.toFloat()/pixelFactor)
-
         pool = Pool(Component.TotalComponents.ordinal)
         systems = createSystems(pool)
         systems.initialize()
-
     }
 
     fun createSystems(pool: Pool): Systems {
         spriteRenderSystem = SpriteRenderSystem(this)
         return Systems()
-            .add(pool.createSystem(MovementSystem()))
-            .add(pool.createSystem(AddViewSystem()))
+            .add(pool.createSystem(PhysicsSystem()))
+            .add(pool.createSystem(ViewManagerSystem()))
             .add(pool.createSystem(PlayerInputSystem(this)))
             .add(pool.createSystem(SoundEffectSystem()))
             .add(pool.createSystem(CollisionSystem()))
             .add(pool.createSystem(ExpiringSystem()))
             .add(pool.createSystem(EntitySpawningTimerSystem(this)))
-            .add(pool.createSystem(ScaleAnimationSystem()))
+            .add(pool.createSystem(ScaleTweenSystem()))
             .add(pool.createSystem(RemoveOffscreenShipsSystem()))
             .add(pool.createSystem(spriteRenderSystem))
             .add(pool.createSystem(HealthRenderSystem(this)))
-            .add(pool.createSystem(HudRenderSystem(this)))
             .add(pool.createSystem(ScoreRenderSystem(this)))
             .add(pool.createSystem(DestroySystem()))
     }

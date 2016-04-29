@@ -1,8 +1,9 @@
 package com.darkoverlordofdata.entitas.demo.systems
 
 /**
- * Entitas Generated Systems for com.darkoverlordofdata.entitas.demo
+ * SpriteRenderSystem
  *
+ * Renders all the sprites
  */
 
 import com.badlogic.gdx.Gdx
@@ -36,6 +37,9 @@ class SpriteRenderSystem(game: GameScene)
         this.pool = pool
         group = pool.getGroup(Matcher.allOf(Matcher.Position, Matcher.View))
 
+        /**
+         * Set callback used by Group to sort the list of entities
+         */
         group.setSort({entities: Array<Entity> ->
             entities.sortBy { e:Entity -> e.layer.ordinal }
         })
@@ -49,7 +53,7 @@ class SpriteRenderSystem(game: GameScene)
         viewport.apply()
         camera.position.set(width/(pixelFactor*2f), height/(pixelFactor*2f), 0f)
         camera.update()
-        background = O2d.sprites.createSprite(O2d.getResource("background"))
+        background = O2dLibrary.sprites.createSprite(O2dLibrary.getResource("background"))
     }
 
     override fun execute() {

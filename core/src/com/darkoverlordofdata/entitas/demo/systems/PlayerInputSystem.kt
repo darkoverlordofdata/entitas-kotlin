@@ -1,8 +1,9 @@
 package com.darkoverlordofdata.entitas.demo.systems
 
 /**
- * Entitas Generated Systems for com.darkoverlordofdata.entitas.demo
+ * PlayerInputSystem
  *
+ * Respond to the players touch input
  */
 
 import com.badlogic.gdx.Gdx

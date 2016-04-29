@@ -1,8 +1,9 @@
 package com.darkoverlordofdata.entitas.demo.systems
 
 /**
- * Entitas Generated Systems for com.darkoverlordofdata.entitas.demo
+ * EExpiringSystem
  *
+ * Terminate entities after specified time count
  */
 
 import com.badlogic.gdx.Gdx

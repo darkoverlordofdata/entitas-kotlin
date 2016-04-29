@@ -36,10 +36,6 @@ val Matcher.static.Firing:IMatcher
 val Matcher.static.Health:IMatcher
      get() = Matcher.static.allOf(Component.Health.ordinal) 
 
-/** Matcher: ParallaxStar methods*/
-val Matcher.static.ParallaxStar:IMatcher
-     get() = Matcher.static.allOf(Component.ParallaxStar.ordinal) 
-
 /** Matcher: Player methods*/
 val Matcher.static.Player:IMatcher
      get() = Matcher.static.allOf(Component.Player.ordinal) 
@@ -48,9 +44,9 @@ val Matcher.static.Player:IMatcher
 val Matcher.static.Position:IMatcher
      get() = Matcher.static.allOf(Component.Position.ordinal) 
 
-/** Matcher: ScaleAnimation methods*/
-val Matcher.static.ScaleAnimation:IMatcher
-     get() = Matcher.static.allOf(Component.ScaleAnimation.ordinal) 
+/** Matcher: Tween methods*/
+val Matcher.static.Tween:IMatcher
+     get() = Matcher.static.allOf(Component.Tween.ordinal) 
 
 /** Matcher: SoundEffect methods*/
 val Matcher.static.SoundEffect:IMatcher

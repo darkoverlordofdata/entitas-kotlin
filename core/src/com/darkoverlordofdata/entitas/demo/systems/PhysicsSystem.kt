@@ -1,7 +1,10 @@
 package com.darkoverlordofdata.entitas.demo.systems
 
 /**
- * Entitas Generated Systems for com.darkoverlordofdata.entitas.demo
+ * PhysicsSystem
+ *
+ * Simplest possible motion physics
+ * Calculates new position based on velocity
  *
  */
 
@@ -16,7 +19,7 @@ import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.Group
 import com.darkoverlordofdata.entitas.Matcher
 
-class MovementSystem()
+class PhysicsSystem()
       : IExecuteSystem,
         ISetPool {
 

@@ -4,18 +4,34 @@ import com.darkoverlordofdata.entitas.Entity
 import com.darkoverlordofdata.entitas.Pool
 
 val Random = java.util.Random()
+
 enum class Effect {
     PEW,
     ASPLODE,
     SMALLASPLODE
 }
 
+enum class Layer {
+    DEFAULT,
+    BACKGROUND,
+    ENEMY3,
+    ENEMY2,
+    ENEMY1,
+    PLAYER,
+    BATTLE
+}
 
-fun Pool.createEntityFromTemplate(name:String): Entity {
+
+
+/**
+ * Load values from Overlap2D Library
+ */
+fun Pool.createEntityFromLibrary(name:String): Entity {
+    val layer = O2dLibrary.getLayer(name)
     val entity = createEntity(name)
-    entity.addResource(O2d.getResource(name))
-    entity.addLayer(O2d.getLayer(name))
-    val sprite = O2d.sprites.createSprite(entity.resource.name)
+    entity.addResource(O2dLibrary.getResource(name))
+    entity.addLayer(layer)
+    val sprite = O2dLibrary.sprites.createSprite(entity.resource.name)
     entity.addBounds(sprite.width/4)
     entity.addView(sprite)
     return entity
@@ -23,15 +39,14 @@ fun Pool.createEntityFromTemplate(name:String): Entity {
 }
 
 fun Pool.createPlayer(width:Float, height:Float): Entity {
-    return createEntityFromTemplate("player")
+    return createEntityFromLibrary("player")
         .addPosition(width/2, 80f)
         .addScore(0)
         .setPlayer(true)
 }
 
-
 fun Pool.createBullet(x:Float, y:Float): Entity {
-    return createEntityFromTemplate("bullet")
+    return createEntityFromLibrary("bullet")
         .addExpires(.5f)
         .addPosition(x, y)
         .addSoundEffect(Effect.PEW)
@@ -40,31 +55,30 @@ fun Pool.createBullet(x:Float, y:Float): Entity {
         .setBullet(true)
 }
 
-
 fun Pool.createSmallExplosion(x:Float, y:Float): Entity {
     val scale = 1f
-    return createEntityFromTemplate("bang")
+    return createEntityFromLibrary("bang")
         .addExpires(0.5f)
         .addPosition(x, y)
         .addScale(scale, scale)
-        .addScaleAnimation(scale / 100, scale, -3f, false, true)
         .addSoundEffect(Effect.SMALLASPLODE)
         .addTint(1f, 1f, 39/255f, .5f)
+        .addTween(scale / 100, scale, -3f, false, true)
 }
 
 fun Pool.createBigExplosion(x:Float, y:Float): Entity {
     val scale = .5f
-    return createEntityFromTemplate("explosion")
+    return createEntityFromLibrary("explosion")
         .addExpires(.5f)
         .addPosition(x, y)
         .addScale(scale, scale)
-        .addScaleAnimation(scale / 100, scale, -3f, false, true)
         .addSoundEffect(Effect.ASPLODE)
         .addTint(1f, 1f, 39/255f, .5f)
+        .addTween(scale / 100, scale, -3f, false, true)
 }
 
 fun Pool.createEnemy1(width:Float, height:Float): Entity {
-    val entity = createEntityFromTemplate("enemy1")
+    val entity = createEntityFromLibrary("enemy1")
     return entity
         .addHealth(10f, 10f)
         .addPosition(Random.nextFloat()*width, height-entity.bounds.radius)
@@ -73,7 +87,7 @@ fun Pool.createEnemy1(width:Float, height:Float): Entity {
 }
 
 fun Pool.createEnemy2(width:Float, height:Float): Entity {
-    val entity = createEntityFromTemplate("enemy2")
+    val entity = createEntityFromLibrary("enemy2")
     return entity
         .addHealth(20f, 20f)
         .addPosition(Random.nextFloat()*width, height-entity.bounds.radius)
@@ -82,7 +96,7 @@ fun Pool.createEnemy2(width:Float, height:Float): Entity {
 }
 
 fun Pool.createEnemy3(width:Float, height:Float): Entity {
-    val entity = createEntityFromTemplate("enemy3")
+    val entity = createEntityFromLibrary("enemy3")
     return entity
         .addHealth(60f, 60f)
         .addPosition(Random.nextFloat()*width, height-entity.bounds.radius)

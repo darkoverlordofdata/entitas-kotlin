@@ -1,7 +1,9 @@
 package com.darkoverlordofdata.entitas.demo.systems
 
 /**
- * Entitas Generated Systems for com.darkoverlordofdata.entitas.demo
+ * EntitySpawningTimerSystem
+ *
+ * Periodically spawn enemy ships
  *
  */
 

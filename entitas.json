@@ -38,13 +38,12 @@
       "currentHealth:Float",
       "maximumHealth:Float"
     ],
-    "ParallaxStar": false,
     "Player": false,
     "Position": [
       "x:Float",
       "y:Float"
     ],
-    "ScaleAnimation": [
+    "Tween": [
       "min:Float",
       "max:Float",
       "speed:Float",
@@ -115,16 +114,7 @@
       "IExecuteSystem",
       "ISetPool"
     ],
-    "ParallaxStarRepeatingSystem": [
-      "IInitializeSystem",
-      "IExecuteSystem",
-      "ISetPool"
-    ],
-    "ColorAnimationSystem": [
-      "IExecuteSystem",
-      "ISetPool"
-    ],
-    "ScaleAnimationSystem": [
+    "TweenSystem": [
       "IExecuteSystem",
       "ISetPool"
     ],
@@ -145,44 +135,12 @@
       "IExecuteSystem",
       "ISetPool"
     ],
-    "HudRenderSystem": [
-      "IInitializeSystem",
-      "IExecuteSystem",
-      "ISetPool"
-    ],
     "DestroySystem": [
       "IExecuteSystem",
       "ISetPool"
     ],
-    "AddViewSystem": [
+    "ViewManagerSystem": [
       "ISetPool"
     ]
-  },
-  "entities": {
-    "Score": "Int"
-  },
-  "extensions": {
-    "Pool": {
-      "createPlayer:void": [],
-      "createBullet:void": [
-        "x:Float",
-        "y:Float"
-      ],
-      "createParticle:void": [
-        "x:Float",
-        "y:Float"
-      ],
-      "createSmallExplosion:void": [
-        "x:Float",
-        "y:Float"
-      ],
-      "createBigExplosion:void": [
-        "x:Float",
-        "y:Float"
-      ],
-      "createEnemy1:void": [],
-      "createEnemy2:void": [],
-      "createEnemy3:void": []
-    }
   }
 }

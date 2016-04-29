@@ -6,10 +6,8 @@ import java.util.*
  */
 class Entity(totalComponents:Int) {
 
-//    companion object static {
-//        val pool:Array<IComponent> = Array(1, null)
-//    }
     var name = ""
+
     val totalComponents = totalComponents
     val creationIndex:Int get() = _creationIndex
 

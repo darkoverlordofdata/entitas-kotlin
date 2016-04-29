@@ -1,8 +1,9 @@
 package com.darkoverlordofdata.entitas.demo.systems
 
 /**
- * Entitas Generated Systems for com.darkoverlordofdata.entitas.demo
+ * RemoveOffscreenShipsSystem
  *
+ * Remove enemy ships when they wander off the screen
  */
 
 import com.badlogic.gdx.Gdx

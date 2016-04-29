@@ -53,10 +53,6 @@ class HealthComponent() : IComponent {
     var maximumHealth:Float = 0f
 }
 
-class ParallaxStarComponent() : IComponent {
-    var active:Boolean = false
-}
-
 class PlayerComponent() : IComponent {
     var active:Boolean = false
 }
@@ -66,7 +62,7 @@ class PositionComponent() : IComponent {
     var y:Float = 0f
 }
 
-class ScaleAnimationComponent() : IComponent {
+class TweenComponent() : IComponent {
     var min:Float = 0f
     var max:Float = 0f
     var speed:Float = 0f
@@ -128,10 +124,9 @@ enum class Component {
     Expires,
     Firing,
     Health,
-    ParallaxStar,
     Player,
     Position,
-    ScaleAnimation,
+    Tween,
     SoundEffect,
     Tint,
     View,
