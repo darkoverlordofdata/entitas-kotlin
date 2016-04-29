@@ -25,6 +25,7 @@ interface IAllOfMatcher : ICompoundMatcher {
     fun noneOf(indices:Array<IMatcher>): INoneOfMatcher
     fun noneOf(indices:IntArray): INoneOfMatcher
 }
+
 interface ISystem {}
 interface ISetPool{
     fun setPool(pool: Pool)

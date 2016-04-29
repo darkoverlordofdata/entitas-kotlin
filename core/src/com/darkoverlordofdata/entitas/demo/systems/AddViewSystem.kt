@@ -22,23 +22,24 @@ class AddViewSystem(game: GameScene)
 
 
     override fun setPool(pool: Pool) {
-        val group = pool.getGroup(Matcher.Resource)
+        val group = pool.getGroup(Matcher.View)
         group.onEntityAdded += {e: GroupChangedArgs ->
 
             val entity = e.entity
 
             val layer = entity.layer.ordinal
-            val sprite = O2d.sprites.createSprite(entity.resource.name)
-            if (entity.hasPosition) {
-                val pos = entity.position
-                sprite.x = pos.x
-                sprite.y = pos.y
+            val sprite = entity.view.sprite
+            if (sprite != null) {
+                if (entity.hasPosition) {
+                    val pos = entity.position
+                    sprite.x = pos.x
+                    sprite.y = pos.y
+                }
+                if (entity.hasScale) {
+                    val scale = entity.scale
+                    sprite.setScale(scale.x, scale.y)
+                }
             }
-            if (entity.hasScale) {
-                val scale = entity.scale
-                sprite.setScale(scale.x, scale.y)
-            }
-            val ignore = entity.addView(layer, sprite)
         }
     }
 

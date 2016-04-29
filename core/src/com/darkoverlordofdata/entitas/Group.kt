@@ -18,34 +18,29 @@ class Group(matcher: IMatcher) {
     private var _toStringCache = ""
     private var _entitiesCache: Array<Entity> = arrayOf()
     private var _singleEntityCache: Entity? = null
+    private var _sortEntities: ((entities: Array<Entity>)-> Unit) = {}
 
     val entities:Array<Entity>
         get() {
             if (_entitiesCache.size == 0) {
                 _entitiesCache = _entities.toTypedArray()
+                _sortEntities(_entitiesCache)
             }
             return _entitiesCache
         }
 
     val singleEntity: Entity?
-        get() {
-            if (_singleEntityCache == null) {
-                when (_entities.size) {
-                    0 -> {
-                        _singleEntityCache = null
-                    }
-                    1 -> {
-                        _singleEntityCache = _entities.toTypedArray()[0]
-                    }
-                    else -> throw SingleEntityException(matcher)
-                }
-            }
-            return _singleEntityCache
-        }
+        get() = _entities.singleOrNull()
 
     fun createObserver(eventType: GroupEventType): GroupObserver {
         return GroupObserver(arrayOf(this), arrayOf(eventType))
     }
+
+
+    fun setSort(sorter: (entities: Array<Entity>)-> Unit) {
+        _sortEntities = sorter
+    }
+
 
     fun handleEntitySilently(entity: Entity) {
         if (matcher.matches(entity))

@@ -28,8 +28,6 @@ class GameScene : Screen {
         pool = Pool(Component.TotalComponents.ordinal)
         systems = createSystems(pool)
         systems.initialize()
-        pool.setScore(0)
-        pool.createPlayer(width.toFloat(), height.toFloat())
 
     }
 

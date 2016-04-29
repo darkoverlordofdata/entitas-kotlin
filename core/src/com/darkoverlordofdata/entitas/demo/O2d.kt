@@ -3,19 +3,23 @@ package com.darkoverlordofdata.entitas.demo
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.utils.Json
+import com.uwsoft.editor.renderer.data.CompositeItemVO
 import com.uwsoft.editor.renderer.data.ProjectInfoVO
 import com.uwsoft.editor.renderer.data.SceneVO
+
+enum class Layer {
+    DEFAULT,
+    BACKGROUND,
+    ACTORS_1,
+    ACTORS_2,
+    ACTORS_3,
+    PARTICLES
+}
+
 
 /**
  * Hack Overlap2D json data to load our assets
  *
- * todo:
- *  level
- *  position (x,y)
- *  bounds (width/2)
- *  tint (r-g-b-a)
- *  scaleX, scaleY
- *  use custom data to store health points, expires
  */
 object O2d {
     val project: ProjectInfoVO by lazy {
@@ -33,9 +37,23 @@ object O2d {
         TextureAtlas(packFile)
     }
     fun getResource(name:String):String {
-        return project.libraryItems[name]!!.composite.sImages[0].imageName
+        return getItem(name)!!.composite.sImages[0].imageName
     }
 
-}
+    fun getItem(name:String):CompositeItemVO? {
+        return project.libraryItems[name]
+    }
 
+    fun getLayer(name:String):Int {
+        val layerName = getItem(name)!!.layerName
+        return when (layerName) {
+            "battle" -> 5
+            "player" -> 4
+            "enemy1" -> 3
+            "enemy2" -> 2
+            "enemy3" -> 1
+            else -> 0
+        }
+    }
+}
 

@@ -14,11 +14,7 @@ import com.darkoverlordofdata.entitas.IInitializeSystem
 import com.darkoverlordofdata.entitas.ISetPool
 import com.darkoverlordofdata.entitas.Matcher
 import com.darkoverlordofdata.entitas.Pool
-import com.darkoverlordofdata.entitas.demo.Position
-import com.darkoverlordofdata.entitas.demo.GameScene
-import com.darkoverlordofdata.entitas.demo.Player
-import com.darkoverlordofdata.entitas.demo.createBullet
-import com.darkoverlordofdata.entitas.demo.position
+import com.darkoverlordofdata.entitas.demo.*
 
 class PlayerInputSystem(game: GameScene)
       : IInitializeSystem,
@@ -39,7 +35,6 @@ class PlayerInputSystem(game: GameScene)
     private var mouseY = 0
     private var timeToFire = 0f
 
-
     override fun setPool(pool: Pool) {
         this.pool = pool
         group = pool.getGroup(Matcher.allOf(Matcher.Player))
@@ -47,6 +42,7 @@ class PlayerInputSystem(game: GameScene)
 
     override fun initialize() {
         Gdx.input.inputProcessor = this
+        pool.createPlayer(width.toFloat(), height.toFloat())
     }
 
     override fun execute() {

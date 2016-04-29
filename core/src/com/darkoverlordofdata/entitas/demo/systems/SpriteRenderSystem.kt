@@ -11,12 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.viewport.FillViewport
-import com.darkoverlordofdata.entitas.Group
-import com.darkoverlordofdata.entitas.IExecuteSystem
-import com.darkoverlordofdata.entitas.IInitializeSystem
-import com.darkoverlordofdata.entitas.ISetPool
-import com.darkoverlordofdata.entitas.Matcher
-import com.darkoverlordofdata.entitas.Pool
+import com.darkoverlordofdata.entitas.*
 import com.darkoverlordofdata.entitas.demo.*
 
 class SpriteRenderSystem(game: GameScene)
@@ -40,17 +35,21 @@ class SpriteRenderSystem(game: GameScene)
     override fun setPool(pool: Pool) {
         this.pool = pool
         group = pool.getGroup(Matcher.allOf(Matcher.Position, Matcher.View))
+
+        group.setSort({entities: Array<Entity> ->
+            entities.sortBy { e:Entity -> e.layer.ordinal }
+        })
     }
 
     override fun initialize() {
 
         batch = SpriteBatch()
-        camera = game.camera// OrthographicCamera(width/pixelFactor, height/pixelFactor)
+        camera = game.camera
         viewport = FillViewport(width/pixelFactor, height/pixelFactor, camera)
         viewport.apply()
         camera.position.set(width/(pixelFactor*2f), height/(pixelFactor*2f), 0f)
         camera.update()
-        background = O2d.sprites.createSprite("BackdropBlackLittleSparkBlack")
+        background = O2d.sprites.createSprite(O2d.getResource("background"))
     }
 
     override fun execute() {

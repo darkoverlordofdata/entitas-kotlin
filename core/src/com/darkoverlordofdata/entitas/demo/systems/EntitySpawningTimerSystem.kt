@@ -31,6 +31,12 @@ class EntitySpawningTimerSystem(game: GameScene)
     val width:Float get() = game.width*toWorldX
     val height:Float get() = game.height*toWorldY
 
+    enum class Enemies {
+        Enemy1,
+        Enemy2,
+        Enemy3
+    }
+
 
     override fun setPool(pool: Pool) {
         this.pool = pool
