@@ -1,5 +1,4 @@
 package com.darkoverlordofdata.entitas
-import com.badlogic.ashley.utils.Bag
 import java.util.*
 /**
  *
@@ -13,7 +12,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
     val totalComponents = totalComponents
     val startCreationIndex = startCreationIndex
     val count:Int get() = _entities.size
-    val reusableEntitiesCount:Int get() = _reusableEntities.size()
+    val reusableEntitiesCount:Int get() = _reusableEntities.size
     val retainedEntitiesCount:Int get() = _retainedEntities.size
 
     internal val onEntityCreated = Event<PoolEntityChangedArgs>()
@@ -23,10 +22,10 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
     internal var _creationIndex:Int = startCreationIndex
     internal val _entities: HashSet<Entity> = hashSetOf()
     internal val _groups: HashMap<IMatcher, Group> = hashMapOf()
-    internal val _groupsForIndex: Bag<Bag<Group>> = Bag()
-    internal val _reusableEntities: Bag<Entity> = Bag()
+    internal val _groupsForIndex: Array<MutableList<Group>?> = Array(totalComponents,{i -> null})
+    internal val _reusableEntities: MutableList<Entity> = mutableListOf()
     internal val _retainedEntities: HashSet<Entity> = hashSetOf()
-    internal val _entitiesCache: Bag<Entity> = Bag()
+    internal val _entitiesCache: MutableList<Entity> = mutableListOf()
     internal lateinit var onEntityReleasedCache : (e: EntityReleasedArgs) -> Unit
 
     /**
@@ -38,7 +37,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
 
         e.entity.onEntityReleased -= onEntityReleasedCache
         _retainedEntities.remove(e.entity)
-        _reusableEntities.add(e.entity)
+        val ignore = _reusableEntities.add(e.entity)
 
     }
 
@@ -47,14 +46,10 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
      */
     val updateGroupsComponentAddedOrRemoved = {e: EntityChangedArgs ->
         if (_groupsForIndex[e.index] != null) {
-            for (i in 0.._groupsForIndex[e.index].size()) {
-                val group = _groupsForIndex[e.index][i]
-                if (group == null) {
-                } else {
-                    if (e.component != null)
-                        group.handleEntity(e.entity, e.index, e.component)
-
-                }
+            for (i in 0.._groupsForIndex[e.index]!!.size-1) {
+                val group = _groupsForIndex[e.index]!![i]
+                if (e.component != null)
+                    group.handleEntity(e.entity, e.index, e.component)
             }
         }
     }
@@ -64,8 +59,8 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
      */
     val updateGroupsComponentReplaced = {e: ComponentReplacedArgs ->
         if (_groupsForIndex[e.index] != null) {
-            for (i in 0.._groupsForIndex[e.index].size()) {
-                val group = _groupsForIndex[e.index][i]
+            for (i in 0.._groupsForIndex[e.index]!!.size-1) {
+                val group = _groupsForIndex[e.index]!![i]
                 group.updateEntity(e.entity, e.index, e.previous, e.replacement)
             }
         }
@@ -82,7 +77,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
      * Creates a new entity or gets a reusable entity from the internal ObjectPool for entities.
      */
     fun createEntity(name: String): Entity {
-        val entity = if (_reusableEntities.size() > 0) _reusableEntities.removeLast() else Entity(totalComponents)
+        val entity = if (_reusableEntities.size > 0) _reusableEntities.removeAt(_reusableEntities.size-1) else Entity(totalComponents)
         entity.isEnabled = true
         entity.name = name
         entity._creationIndex = _creationIndex++
@@ -127,7 +122,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
      */
     fun destroyAllEntities() {
         val entities = getEntities()
-        for (i in 0..entities.size())
+        for (i in 0..entities.size)
             destroyEntity(entities.get(i))
     }
 
@@ -139,8 +134,8 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
         return entity in _entities
     }
 
-    fun getEntities(): Bag<Entity> {
-        if (_entitiesCache.size() == 0) {
+    fun getEntities(): MutableList<Entity> {
+        if (_entitiesCache.size == 0) {
             for (entity in _entities)
                 _entitiesCache.add(entity)
         }
@@ -175,13 +170,14 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0) {
         } else {
             val group = Group(matcher)
             val entities = getEntities()
-            for (i in 0..entities.size()-1)
+            for (i in 0..entities.size-1)
                 group.handleEntitySilently(entities.get(i))
             _groups[matcher] = group
             for (index in matcher.indices) {
-                if (_groupsForIndex[index] == null)
-                    _groupsForIndex[index] = Bag()
-                _groupsForIndex[index].add(group)
+                if (_groupsForIndex[index] == null) {
+                    _groupsForIndex[index] = mutableListOf()
+                }
+                _groupsForIndex[index]!!.add(group)
             }
             onGroupCreated(PoolGroupChangedArgs(this, group))
             return group

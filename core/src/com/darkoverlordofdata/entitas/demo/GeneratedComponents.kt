@@ -13,7 +13,7 @@ class BoundsComponent() : IComponent {
 }
 
 class BulletComponent() : IComponent {
-    var active:Boolean = false
+    // existential component
 }
 
 class ColorAnimationComponent() : IComponent {
@@ -37,7 +37,7 @@ class ColorAnimationComponent() : IComponent {
 }
 
 class EnemyComponent() : IComponent {
-    var active:Boolean = false
+    // existential component
 }
 
 class ExpiresComponent() : IComponent {
@@ -45,7 +45,7 @@ class ExpiresComponent() : IComponent {
 }
 
 class FiringComponent() : IComponent {
-    var active:Boolean = false
+    // existential component
 }
 
 class HealthComponent() : IComponent {
@@ -54,7 +54,7 @@ class HealthComponent() : IComponent {
 }
 
 class PlayerComponent() : IComponent {
-    var active:Boolean = false
+    // existential component
 }
 
 class PositionComponent() : IComponent {
@@ -95,7 +95,7 @@ class ScoreComponent() : IComponent {
 }
 
 class DestroyComponent() : IComponent {
-    var active:Boolean = false
+    // existential component
 }
 
 class MouseComponent() : IComponent {

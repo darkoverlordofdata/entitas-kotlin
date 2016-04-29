@@ -179,6 +179,9 @@ class Entity(totalComponents:Int) {
 
     fun destroy() {
         removeAllComponents()
+        onComponentAdded.clear()
+        onComponentRemoved.clear()
+        onComponentReplaced.clear()
         componentsCache.clear()
         name = ""
         isEnabled = false

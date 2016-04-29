@@ -19,4 +19,8 @@ open class Event<eventArg : EventArgs> {
     operator fun invoke(value: eventArg) {
         for (handler in handlers) handler(value)
     }
+
+    fun clear() {
+        handlers.clear()
+    }
 }
