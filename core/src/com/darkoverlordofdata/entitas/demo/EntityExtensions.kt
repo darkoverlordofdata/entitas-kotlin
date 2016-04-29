@@ -384,14 +384,14 @@ fun Entity.clearSoundEffectComponentPool() {
     Entity_soundEffectComponentPool.clear()
 }
 
-fun Entity.addSoundEffect(effect:Int):Entity {
+fun Entity.addSoundEffect(effect:com.darkoverlordofdata.entitas.demo.Effect?):Entity {
     val component = if (Entity_soundEffectComponentPool.size > 0) Entity_soundEffectComponentPool.last() else SoundEffectComponent()
     component.effect = effect
     addComponent(Component.SoundEffect.ordinal, component)
     return this
 }
 
-fun Entity.replaceSoundEffect(effect:Int):Entity {
+fun Entity.replaceSoundEffect(effect:com.darkoverlordofdata.entitas.demo.Effect?):Entity {
     val previousComponent = if (hasSoundEffect) soundEffect else null
     val component = if (Entity_soundEffectComponentPool.size > 0) Entity_soundEffectComponentPool.last() else SoundEffectComponent()
     component.effect = effect
@@ -466,18 +466,16 @@ fun Entity.clearViewComponentPool() {
     Entity_viewComponentPool.clear()
 }
 
-fun Entity.addView(layer:Int, sprite:com.badlogic.gdx.graphics.g2d.Sprite?):Entity {
+fun Entity.addView(sprite:com.badlogic.gdx.graphics.g2d.Sprite?):Entity {
     val component = if (Entity_viewComponentPool.size > 0) Entity_viewComponentPool.last() else ViewComponent()
-    component.layer = layer
     component.sprite = sprite
     addComponent(Component.View.ordinal, component)
     return this
 }
 
-fun Entity.replaceView(layer:Int, sprite:com.badlogic.gdx.graphics.g2d.Sprite?):Entity {
+fun Entity.replaceView(sprite:com.badlogic.gdx.graphics.g2d.Sprite?):Entity {
     val previousComponent = if (hasView) view else null
     val component = if (Entity_viewComponentPool.size > 0) Entity_viewComponentPool.last() else ViewComponent()
-    component.layer = layer
     component.sprite = sprite
     replaceComponent(Component.View.ordinal, component)
     if (previousComponent != null)
@@ -720,14 +718,14 @@ fun Entity.clearLayerComponentPool() {
     Entity_layerComponentPool.clear()
 }
 
-fun Entity.addLayer(ordinal:Int):Entity {
+fun Entity.addLayer(ordinal:com.darkoverlordofdata.entitas.demo.Layer?):Entity {
     val component = if (Entity_layerComponentPool.size > 0) Entity_layerComponentPool.last() else LayerComponent()
     component.ordinal = ordinal
     addComponent(Component.Layer.ordinal, component)
     return this
 }
 
-fun Entity.replaceLayer(ordinal:Int):Entity {
+fun Entity.replaceLayer(ordinal:com.darkoverlordofdata.entitas.demo.Layer?):Entity {
     val previousComponent = if (hasLayer) layer else null
     val component = if (Entity_layerComponentPool.size > 0) Entity_layerComponentPool.last() else LayerComponent()
     component.ordinal = ordinal

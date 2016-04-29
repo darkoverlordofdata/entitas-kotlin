@@ -14,20 +14,20 @@ import com.darkoverlordofdata.entitas.Matcher
 import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.demo.*
 
-class AddViewSystem(game: GameScene)
+class AddViewSystem()
       : ISystem,
         ISetPool {
 
-    val game = game
-
-
     override fun setPool(pool: Pool) {
-        val group = pool.getGroup(Matcher.View)
-        group.onEntityAdded += {e: GroupChangedArgs ->
+
+        /**
+         * Fix up the initial sprite position
+         * when a PositionComponent is added
+         */
+        pool.getGroup(Matcher.Position).onEntityAdded +=
+        { e: GroupChangedArgs ->
 
             val entity = e.entity
-
-            val layer = entity.layer.ordinal
             val sprite = entity.view.sprite
             if (sprite != null) {
                 if (entity.hasPosition) {
@@ -35,10 +35,44 @@ class AddViewSystem(game: GameScene)
                     sprite.x = pos.x
                     sprite.y = pos.y
                 }
-                if (entity.hasScale) {
-                    val scale = entity.scale
-                    sprite.setScale(scale.x, scale.y)
-                }
+            }
+        }
+
+        /**
+         * Fix up the initial sprite color
+         * when a TintComponent is added
+         */
+        pool.getGroup(Matcher.Tint).onEntityAdded +=
+        { e: GroupChangedArgs ->
+
+            val entity = e.entity
+            val sprite = entity.view.sprite
+            if (entity.hasTint) {
+                val tint = entity.tint
+                sprite?.setColor(tint.r, tint.g, tint.b, tint.a)
+            }
+        }
+
+        pool.getGroup(Matcher.Tint).onEntityRemoved +=
+        { e: GroupChangedArgs ->
+
+            val entity = e.entity
+            val sprite = entity.view.sprite
+            sprite?.setColor(0f, 0f, 0f, 0f)
+        }
+
+        /**
+         * Fix up the initial sprite scale
+         * when a ScaleComponent is added
+         */
+        pool.getGroup(Matcher.Scale).onEntityAdded +=
+        { e: GroupChangedArgs ->
+
+            val entity = e.entity
+            val sprite = entity.view.sprite
+            if (entity.hasScale) {
+                val scale = entity.scale
+                sprite?.setScale(scale.x, scale.y)
             }
         }
     }

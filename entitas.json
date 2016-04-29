@@ -52,7 +52,7 @@
       "active:Boolean"
     ],
     "SoundEffect": [
-      "effect:Int"
+      "effect:com.darkoverlordofdata.entitas.demo.Effect"
     ],
     "Tint": [
       "r:Float",
@@ -61,7 +61,6 @@
       "a:Float"
     ],
     "View": [
-      "layer:Int",
       "sprite:com.badlogic.gdx.graphics.g2d.Sprite"
     ],
     "Velocity": [
@@ -84,7 +83,7 @@
       "name:String"
     ],
     "Layer": [
-      "ordinal:Int"
+      "ordinal:com.darkoverlordofdata.entitas.demo.Layer"
     ]
   },
   "systems": {

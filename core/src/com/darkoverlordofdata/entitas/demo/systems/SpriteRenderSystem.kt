@@ -70,12 +70,7 @@ class SpriteRenderSystem(game: GameScene)
                 val y = sprite.height / 2f
 
                 sprite.setPosition(entity.position.x - x, entity.position.y - y)
-                val color = batch.color
-                if (entity.hasTint)
-                    sprite.setColor(entity.tint.r, entity.tint.g, entity.tint.b, entity.tint.a)
-
                 sprite.draw(batch)
-                batch.color = color
             }
         }
         batch.end()

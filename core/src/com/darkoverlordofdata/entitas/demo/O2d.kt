@@ -44,15 +44,15 @@ object O2d {
         return project.libraryItems[name]
     }
 
-    fun getLayer(name:String):Int {
+    fun getLayer(name:String):Layer? {
         val layerName = getItem(name)!!.layerName
         return when (layerName) {
-            "battle" -> 5
-            "player" -> 4
-            "enemy1" -> 3
-            "enemy2" -> 2
-            "enemy3" -> 1
-            else -> 0
+            "battle" -> Layer.PARTICLES
+            "player" -> Layer.ACTORS_3
+            "enemy1" -> Layer.ACTORS_3
+            "enemy2" -> Layer.ACTORS_2
+            "enemy3" -> Layer.ACTORS_1
+            else -> null
         }
     }
 }

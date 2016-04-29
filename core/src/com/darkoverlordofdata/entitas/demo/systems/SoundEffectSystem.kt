@@ -39,11 +39,11 @@ class SoundEffectSystem()
     override fun execute() {
         for (entity in group.entities) {
             when (entity.soundEffect.effect) {
-                Effect.PEW.ordinal -> pew.play()
-                Effect.ASPLODE.ordinal -> smallasplode.play()
-                Effect.SMALLASPLODE.ordinal -> asplode.play()
-                else -> Unit
-            }
+                Effect.PEW -> pew
+                Effect.ASPLODE -> smallasplode
+                Effect.SMALLASPLODE -> asplode
+                else -> null
+            }?.play()
             entity.removeSoundEffect()
         }
     }

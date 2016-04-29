@@ -75,7 +75,7 @@ class ScaleAnimationComponent() : IComponent {
 }
 
 class SoundEffectComponent() : IComponent {
-    var effect:Int = 0
+    var effect:com.darkoverlordofdata.entitas.demo.Effect? = null
 }
 
 class TintComponent() : IComponent {
@@ -86,7 +86,6 @@ class TintComponent() : IComponent {
 }
 
 class ViewComponent() : IComponent {
-    var layer:Int = 0
     var sprite:com.badlogic.gdx.graphics.g2d.Sprite? = null
 }
 
@@ -118,7 +117,7 @@ class ResourceComponent() : IComponent {
 }
 
 class LayerComponent() : IComponent {
-    var ordinal:Int = 0
+    var ordinal:com.darkoverlordofdata.entitas.demo.Layer? = null
 }
 
 enum class Component {

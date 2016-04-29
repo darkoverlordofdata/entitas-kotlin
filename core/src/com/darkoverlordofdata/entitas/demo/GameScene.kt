@@ -3,7 +3,6 @@ package com.darkoverlordofdata.entitas.demo
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.darkoverlordofdata.entitas.demo.systems.*
 import com.darkoverlordofdata.entitas.Systems
 import com.darkoverlordofdata.entitas.Pool
@@ -35,6 +34,7 @@ class GameScene : Screen {
         spriteRenderSystem = SpriteRenderSystem(this)
         return Systems()
             .add(pool.createSystem(MovementSystem()))
+            .add(pool.createSystem(AddViewSystem()))
             .add(pool.createSystem(PlayerInputSystem(this)))
             .add(pool.createSystem(SoundEffectSystem()))
             .add(pool.createSystem(CollisionSystem()))
@@ -43,7 +43,6 @@ class GameScene : Screen {
             .add(pool.createSystem(ScaleAnimationSystem()))
             .add(pool.createSystem(RemoveOffscreenShipsSystem()))
             .add(pool.createSystem(spriteRenderSystem))
-            .add(pool.createSystem(AddViewSystem(this)))
             .add(pool.createSystem(HealthRenderSystem(this)))
             .add(pool.createSystem(HudRenderSystem(this)))
             .add(pool.createSystem(ScoreRenderSystem(this)))
