@@ -18,7 +18,16 @@ class Group(matcher: IMatcher) {
     private var _toStringCache = ""
     private var _entitiesCache: Array<Entity> = arrayOf()
     private var _singleEntityCache: Entity? = null
-    private var _sortEntities: ((entities: Array<Entity>)-> Unit) = {}
+
+    /**
+     * Custom Sort for Groups
+     *
+     *  group.setSort({entities: Array<Entity> ->
+     *      entities.sortBy { e:Entity -> e.layer.ordinal }
+     *  })
+     *
+     */
+    private var _sortEntities: ((entities: Array<Entity>) -> Unit) = {}
 
     val entities:Array<Entity>
         get() {
