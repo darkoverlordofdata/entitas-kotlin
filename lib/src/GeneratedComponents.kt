@@ -13,15 +13,15 @@ class BoundsComponent() : IComponent {
 }
 
 class BulletComponent() : IComponent {
-    // existential component
+    var false:undefined? = null
 }
 
 class DestroyComponent() : IComponent {
-    // existential component
+    var false:undefined? = null
 }
 
 class EnemyComponent() : IComponent {
-    // existential component
+    var false:undefined? = null
 }
 
 class ExpiresComponent() : IComponent {
@@ -29,7 +29,7 @@ class ExpiresComponent() : IComponent {
 }
 
 class FiringComponent() : IComponent {
-    // existential component
+    var false:undefined? = null
 }
 
 class HealthComponent() : IComponent {
@@ -42,7 +42,7 @@ class LayerComponent() : IComponent {
 }
 
 class PlayerComponent() : IComponent {
-    // existential component
+    var false:undefined? = null
 }
 
 class PositionComponent() : IComponent {

@@ -12,6 +12,7 @@ class ShmupWarz() : Game() {
     var scoreScene: MenuScene? = null
 
     override fun create() {
+        println("Using entitas v${com.darkoverlordofdata.entitas.Version}")
         menuGame()
     }
 

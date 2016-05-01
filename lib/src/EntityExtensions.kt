@@ -48,55 +48,115 @@ fun Entity.removeBounds():Entity {
 
 /** Entity: Bullet methods*/
 
-val Entity_bulletComponent =  BulletComponent()
+val Entity_bulletComponentPool:MutableList<BulletComponent> = ArrayList(listOf())
 
-var Entity.isBullet:Boolean
+val Entity.bullet:BulletComponent
+    get() = getComponent(Component.Bullet.ordinal) as BulletComponent
+
+val Entity.hasBullet:Boolean
     get() = hasComponent(Component.Bullet.ordinal)
-    set(value) {
-        if (value != isBullet)
-            addComponent(Component.Bullet.ordinal, Entity_bulletComponent)
-        else
-            removeComponent(Component.Bullet.ordinal)
-    }
 
-fun Entity.setBullet(value:Boolean):Entity {
-    isBullet = value
+fun Entity.clearBulletComponentPool() {
+    Entity_bulletComponentPool.clear()
+}
+
+fun Entity.addBullet(false:undefined):Entity {
+    val component = if (Entity_bulletComponentPool.size > 0) Entity_bulletComponentPool.last() else BulletComponent()
+    component.false = false
+    addComponent(Component.Bullet.ordinal, component)
+    return this
+}
+
+fun Entity.replaceBullet(false:undefined):Entity {
+    val previousComponent = if (hasBullet) bullet else null
+    val component = if (Entity_bulletComponentPool.size > 0) Entity_bulletComponentPool.last() else BulletComponent()
+    component.false = false
+    replaceComponent(Component.Bullet.ordinal, component)
+    if (previousComponent != null)
+        Entity_bulletComponentPool.add(previousComponent)
+    return this
+}
+
+fun Entity.removeBullet():Entity {
+    val component = bullet
+    removeComponent(Component.Bullet.ordinal)
+    Entity_bulletComponentPool.add(component)
     return this
 }
 
 /** Entity: Destroy methods*/
 
-val Entity_destroyComponent =  DestroyComponent()
+val Entity_destroyComponentPool:MutableList<DestroyComponent> = ArrayList(listOf())
 
-var Entity.isDestroy:Boolean
+val Entity.destroy:DestroyComponent
+    get() = getComponent(Component.Destroy.ordinal) as DestroyComponent
+
+val Entity.hasDestroy:Boolean
     get() = hasComponent(Component.Destroy.ordinal)
-    set(value) {
-        if (value != isDestroy)
-            addComponent(Component.Destroy.ordinal, Entity_destroyComponent)
-        else
-            removeComponent(Component.Destroy.ordinal)
-    }
 
-fun Entity.setDestroy(value:Boolean):Entity {
-    isDestroy = value
+fun Entity.clearDestroyComponentPool() {
+    Entity_destroyComponentPool.clear()
+}
+
+fun Entity.addDestroy(false:undefined):Entity {
+    val component = if (Entity_destroyComponentPool.size > 0) Entity_destroyComponentPool.last() else DestroyComponent()
+    component.false = false
+    addComponent(Component.Destroy.ordinal, component)
+    return this
+}
+
+fun Entity.replaceDestroy(false:undefined):Entity {
+    val previousComponent = if (hasDestroy) destroy else null
+    val component = if (Entity_destroyComponentPool.size > 0) Entity_destroyComponentPool.last() else DestroyComponent()
+    component.false = false
+    replaceComponent(Component.Destroy.ordinal, component)
+    if (previousComponent != null)
+        Entity_destroyComponentPool.add(previousComponent)
+    return this
+}
+
+fun Entity.removeDestroy():Entity {
+    val component = destroy
+    removeComponent(Component.Destroy.ordinal)
+    Entity_destroyComponentPool.add(component)
     return this
 }
 
 /** Entity: Enemy methods*/
 
-val Entity_enemyComponent =  EnemyComponent()
+val Entity_enemyComponentPool:MutableList<EnemyComponent> = ArrayList(listOf())
 
-var Entity.isEnemy:Boolean
+val Entity.enemy:EnemyComponent
+    get() = getComponent(Component.Enemy.ordinal) as EnemyComponent
+
+val Entity.hasEnemy:Boolean
     get() = hasComponent(Component.Enemy.ordinal)
-    set(value) {
-        if (value != isEnemy)
-            addComponent(Component.Enemy.ordinal, Entity_enemyComponent)
-        else
-            removeComponent(Component.Enemy.ordinal)
-    }
 
-fun Entity.setEnemy(value:Boolean):Entity {
-    isEnemy = value
+fun Entity.clearEnemyComponentPool() {
+    Entity_enemyComponentPool.clear()
+}
+
+fun Entity.addEnemy(false:undefined):Entity {
+    val component = if (Entity_enemyComponentPool.size > 0) Entity_enemyComponentPool.last() else EnemyComponent()
+    component.false = false
+    addComponent(Component.Enemy.ordinal, component)
+    return this
+}
+
+fun Entity.replaceEnemy(false:undefined):Entity {
+    val previousComponent = if (hasEnemy) enemy else null
+    val component = if (Entity_enemyComponentPool.size > 0) Entity_enemyComponentPool.last() else EnemyComponent()
+    component.false = false
+    replaceComponent(Component.Enemy.ordinal, component)
+    if (previousComponent != null)
+        Entity_enemyComponentPool.add(previousComponent)
+    return this
+}
+
+fun Entity.removeEnemy():Entity {
+    val component = enemy
+    removeComponent(Component.Enemy.ordinal)
+    Entity_enemyComponentPool.add(component)
     return this
 }
 
@@ -140,19 +200,39 @@ fun Entity.removeExpires():Entity {
 
 /** Entity: Firing methods*/
 
-val Entity_firingComponent =  FiringComponent()
+val Entity_firingComponentPool:MutableList<FiringComponent> = ArrayList(listOf())
 
-var Entity.isFiring:Boolean
+val Entity.firing:FiringComponent
+    get() = getComponent(Component.Firing.ordinal) as FiringComponent
+
+val Entity.hasFiring:Boolean
     get() = hasComponent(Component.Firing.ordinal)
-    set(value) {
-        if (value != isFiring)
-            addComponent(Component.Firing.ordinal, Entity_firingComponent)
-        else
-            removeComponent(Component.Firing.ordinal)
-    }
 
-fun Entity.setFiring(value:Boolean):Entity {
-    isFiring = value
+fun Entity.clearFiringComponentPool() {
+    Entity_firingComponentPool.clear()
+}
+
+fun Entity.addFiring(false:undefined):Entity {
+    val component = if (Entity_firingComponentPool.size > 0) Entity_firingComponentPool.last() else FiringComponent()
+    component.false = false
+    addComponent(Component.Firing.ordinal, component)
+    return this
+}
+
+fun Entity.replaceFiring(false:undefined):Entity {
+    val previousComponent = if (hasFiring) firing else null
+    val component = if (Entity_firingComponentPool.size > 0) Entity_firingComponentPool.last() else FiringComponent()
+    component.false = false
+    replaceComponent(Component.Firing.ordinal, component)
+    if (previousComponent != null)
+        Entity_firingComponentPool.add(previousComponent)
+    return this
+}
+
+fun Entity.removeFiring():Entity {
+    val component = firing
+    removeComponent(Component.Firing.ordinal)
+    Entity_firingComponentPool.add(component)
     return this
 }
 
@@ -236,19 +316,39 @@ fun Entity.removeLayer():Entity {
 
 /** Entity: Player methods*/
 
-val Entity_playerComponent =  PlayerComponent()
+val Entity_playerComponentPool:MutableList<PlayerComponent> = ArrayList(listOf())
 
-var Entity.isPlayer:Boolean
+val Entity.player:PlayerComponent
+    get() = getComponent(Component.Player.ordinal) as PlayerComponent
+
+val Entity.hasPlayer:Boolean
     get() = hasComponent(Component.Player.ordinal)
-    set(value) {
-        if (value != isPlayer)
-            addComponent(Component.Player.ordinal, Entity_playerComponent)
-        else
-            removeComponent(Component.Player.ordinal)
-    }
 
-fun Entity.setPlayer(value:Boolean):Entity {
-    isPlayer = value
+fun Entity.clearPlayerComponentPool() {
+    Entity_playerComponentPool.clear()
+}
+
+fun Entity.addPlayer(false:undefined):Entity {
+    val component = if (Entity_playerComponentPool.size > 0) Entity_playerComponentPool.last() else PlayerComponent()
+    component.false = false
+    addComponent(Component.Player.ordinal, component)
+    return this
+}
+
+fun Entity.replacePlayer(false:undefined):Entity {
+    val previousComponent = if (hasPlayer) player else null
+    val component = if (Entity_playerComponentPool.size > 0) Entity_playerComponentPool.last() else PlayerComponent()
+    component.false = false
+    replaceComponent(Component.Player.ordinal, component)
+    if (previousComponent != null)
+        Entity_playerComponentPool.add(previousComponent)
+    return this
+}
+
+fun Entity.removePlayer():Entity {
+    val component = player
+    removeComponent(Component.Player.ordinal)
+    Entity_playerComponentPool.add(component)
     return this
 }
 

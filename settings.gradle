@@ -1,1 +1,2 @@
+include ':entitas'
 include 'desktop', 'android', 'ios', 'core'

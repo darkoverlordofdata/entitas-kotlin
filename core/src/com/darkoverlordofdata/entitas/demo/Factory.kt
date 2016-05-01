@@ -21,8 +21,6 @@ enum class Layer {
     BATTLE
 }
 
-
-
 /**
  * Load values from Overlap2D Library
  */

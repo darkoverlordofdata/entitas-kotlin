@@ -2,33 +2,15 @@
   "namespace": "com.darkoverlordofdata.entitas.demo",
   "src": "core/src/com/darkoverlordofdata/entitas/demo/",
   "alloc": {
-    "entities": 200,
-    "components": 128
+    "entities": 128,
+    "components": 64
   },
   "components": {
     "Bounds": [
       "radius:Float"
     ],
     "Bullet": false,
-    "ColorAnimation": [
-      "redMin:Float",
-      "redMax:Float",
-      "redSpeed:Float",
-      "greenMin:Float",
-      "greenMax:Float",
-      "greenSpeed:Float",
-      "blueMin:Float",
-      "blueMax:Float",
-      "blueSpeed:Float",
-      "alphaMin:Float",
-      "alphaMax:Float",
-      "alphaSpeed:Float",
-      "redAnimate:Boolean",
-      "greenAnimate:Boolean",
-      "blueAnimate:Boolean",
-      "alphaAnimate:Boolean",
-      "repeat:Boolean"
-    ],
+    "Destroy": false,
     "Enemy": false,
     "Expires": [
       "delay:Float"
@@ -38,17 +20,23 @@
       "currentHealth:Float",
       "maximumHealth:Float"
     ],
+    "Layer": [
+      "ordinal:com.darkoverlordofdata.entitas.demo.Layer"
+    ],
     "Player": false,
     "Position": [
       "x:Float",
       "y:Float"
     ],
-    "Tween": [
-      "min:Float",
-      "max:Float",
-      "speed:Float",
-      "repeat:Boolean",
-      "active:Boolean"
+    "Resource": [
+      "name:String"
+    ],
+    "Scale": [
+      "x:Float",
+      "y:Float"
+    ],
+    "Score": [
+      "value:Int"
     ],
     "SoundEffect": [
       "effect:com.darkoverlordofdata.entitas.demo.Effect"
@@ -59,33 +47,44 @@
       "b:Float",
       "a:Float"
     ],
-    "View": [
-      "sprite:com.badlogic.gdx.graphics.g2d.Sprite"
+    "Tween": [
+      "min:Float",
+      "max:Float",
+      "speed:Float",
+      "repeat:Boolean",
+      "active:Boolean"
     ],
     "Velocity": [
       "x:Float",
       "y:Float"
     ],
-    "Score": [
-      "value:Int"
-    ],
-    "Destroy": false,
-    "Mouse": [
-      "x:Float",
-      "y:Float"
-    ],
-    "Scale": [
-      "x:Float",
-      "y:Float"
-    ],
-    "Resource": [
-      "name:String"
-    ],
-    "Layer": [
-      "ordinal:com.darkoverlordofdata.entitas.demo.Layer"
+    "View": [
+      "sprite:com.badlogic.gdx.graphics.g2d.Sprite"
     ]
   },
   "systems": {
+    "CollisionSystem": [
+      "IInitializeSystem",
+      "IExecuteSystem",
+      "ISetPool"
+    ],
+    "DestroySystem": [
+      "IExecuteSystem",
+      "ISetPool"
+    ],
+    "EntitySpawningTimerSystem": [
+      "IInitializeSystem",
+      "IExecuteSystem",
+      "ISetPool"
+    ],
+    "ExpiringSystem": [
+      "IExecuteSystem",
+      "ISetPool"
+    ],
+    "HealthRenderSystem": [
+      "IExecuteSystem",
+      "ISetPool"
+    ],
     "MovementSystem": [
       "IExecuteSystem",
       "ISetPool"
@@ -95,38 +94,7 @@
       "IExecuteSystem",
       "ISetPool"
     ],
-    "SoundEffectSystem": [
-      "IInitializeSystem",
-      "IExecuteSystem",
-      "ISetPool"
-    ],
-    "CollisionSystem": [
-      "IInitializeSystem",
-      "IExecuteSystem",
-      "ISetPool"
-    ],
-    "ExpiringSystem": [
-      "IExecuteSystem",
-      "ISetPool"
-    ],
-    "EntitySpawningTimerSystem": [
-      "IInitializeSystem",
-      "IExecuteSystem",
-      "ISetPool"
-    ],
-    "TweenSystem": [
-      "IExecuteSystem",
-      "ISetPool"
-    ],
     "RemoveOffscreenShipsSystem": [
-      "IExecuteSystem",
-      "ISetPool"
-    ],
-    "SpriteRenderSystem": [
-      "IExecuteSystem",
-      "ISetPool"
-    ],
-    "HealthRenderSystem": [
       "IExecuteSystem",
       "ISetPool"
     ],
@@ -135,12 +103,22 @@
       "IExecuteSystem",
       "ISetPool"
     ],
-    "DestroySystem": [
+    "SoundEffectSystem": [
+      "IInitializeSystem",
+      "IExecuteSystem",
+      "ISetPool"
+    ],
+    "SpriteRenderSystem": [
+      "IExecuteSystem",
+      "ISetPool"
+    ],
+    "TweenSystem": [
       "IExecuteSystem",
       "ISetPool"
     ],
     "ViewManagerSystem": [
       "ISetPool"
     ]
-  }
+  },
+  "entities": {}
 }

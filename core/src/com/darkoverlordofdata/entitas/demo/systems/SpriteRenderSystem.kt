@@ -20,7 +20,7 @@ class SpriteRenderSystem(game: GameScene)
         IExecuteSystem,
         ISetPool {
 
-    val scale = 2f/3f
+    val scale = .8f //2f/3f
     val game = game
     val width = game.width.toFloat()
     val height = game.height.toFloat()
