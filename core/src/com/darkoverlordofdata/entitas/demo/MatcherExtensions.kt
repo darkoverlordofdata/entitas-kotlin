@@ -9,73 +9,55 @@ import com.darkoverlordofdata.entitas.Matcher
 import com.darkoverlordofdata.entitas.IMatcher
 
 /** Matcher: Bounds methods*/
-val Matcher.static.Bounds:IMatcher
-     get() = Matcher.static.allOf(Component.Bounds.ordinal) 
+val Matcher.static.Bounds:IMatcher get() = Matcher.static.allOf(Component.Bounds.ordinal)
 
 /** Matcher: Bullet methods*/
-val Matcher.static.Bullet:IMatcher
-     get() = Matcher.static.allOf(Component.Bullet.ordinal) 
+val Matcher.static.Bullet:IMatcher get() = Matcher.static.allOf(Component.Bullet.ordinal)
 
 /** Matcher: Destroy methods*/
-val Matcher.static.Destroy:IMatcher
-     get() = Matcher.static.allOf(Component.Destroy.ordinal) 
+val Matcher.static.Destroy:IMatcher get() = Matcher.static.allOf(Component.Destroy.ordinal)
 
 /** Matcher: Enemy methods*/
-val Matcher.static.Enemy:IMatcher
-     get() = Matcher.static.allOf(Component.Enemy.ordinal) 
+val Matcher.static.Enemy:IMatcher get() = Matcher.static.allOf(Component.Enemy.ordinal)
 
 /** Matcher: Expires methods*/
-val Matcher.static.Expires:IMatcher
-     get() = Matcher.static.allOf(Component.Expires.ordinal) 
+val Matcher.static.Expires:IMatcher get() = Matcher.static.allOf(Component.Expires.ordinal)
 
 /** Matcher: Firing methods*/
-val Matcher.static.Firing:IMatcher
-     get() = Matcher.static.allOf(Component.Firing.ordinal) 
+val Matcher.static.Firing:IMatcher get() = Matcher.static.allOf(Component.Firing.ordinal)
 
 /** Matcher: Health methods*/
-val Matcher.static.Health:IMatcher
-     get() = Matcher.static.allOf(Component.Health.ordinal) 
+val Matcher.static.Health:IMatcher get() = Matcher.static.allOf(Component.Health.ordinal)
 
 /** Matcher: Layer methods*/
-val Matcher.static.Layer:IMatcher
-     get() = Matcher.static.allOf(Component.Layer.ordinal) 
+val Matcher.static.Layer:IMatcher get() = Matcher.static.allOf(Component.Layer.ordinal)
 
 /** Matcher: Player methods*/
-val Matcher.static.Player:IMatcher
-     get() = Matcher.static.allOf(Component.Player.ordinal) 
+val Matcher.static.Player:IMatcher get() = Matcher.static.allOf(Component.Player.ordinal)
 
 /** Matcher: Position methods*/
-val Matcher.static.Position:IMatcher
-     get() = Matcher.static.allOf(Component.Position.ordinal) 
+val Matcher.static.Position:IMatcher get() = Matcher.static.allOf(Component.Position.ordinal)
 
 /** Matcher: Resource methods*/
-val Matcher.static.Resource:IMatcher
-     get() = Matcher.static.allOf(Component.Resource.ordinal) 
+val Matcher.static.Resource:IMatcher get() = Matcher.static.allOf(Component.Resource.ordinal)
 
 /** Matcher: Scale methods*/
-val Matcher.static.Scale:IMatcher
-     get() = Matcher.static.allOf(Component.Scale.ordinal) 
+val Matcher.static.Scale:IMatcher get() = Matcher.static.allOf(Component.Scale.ordinal)
 
 /** Matcher: Score methods*/
-val Matcher.static.Score:IMatcher
-     get() = Matcher.static.allOf(Component.Score.ordinal) 
+val Matcher.static.Score:IMatcher get() = Matcher.static.allOf(Component.Score.ordinal)
 
 /** Matcher: SoundEffect methods*/
-val Matcher.static.SoundEffect:IMatcher
-     get() = Matcher.static.allOf(Component.SoundEffect.ordinal) 
+val Matcher.static.SoundEffect:IMatcher get() = Matcher.static.allOf(Component.SoundEffect.ordinal)
 
 /** Matcher: Tint methods*/
-val Matcher.static.Tint:IMatcher
-     get() = Matcher.static.allOf(Component.Tint.ordinal) 
+val Matcher.static.Tint:IMatcher get() = Matcher.static.allOf(Component.Tint.ordinal)
 
 /** Matcher: Tween methods*/
-val Matcher.static.Tween:IMatcher
-     get() = Matcher.static.allOf(Component.Tween.ordinal) 
+val Matcher.static.Tween:IMatcher get() = Matcher.static.allOf(Component.Tween.ordinal)
 
 /** Matcher: Velocity methods*/
-val Matcher.static.Velocity:IMatcher
-     get() = Matcher.static.allOf(Component.Velocity.ordinal) 
+val Matcher.static.Velocity:IMatcher get() = Matcher.static.allOf(Component.Velocity.ordinal)
 
 /** Matcher: View methods*/
-val Matcher.static.View:IMatcher
-     get() = Matcher.static.allOf(Component.View.ordinal) 
+val Matcher.static.View:IMatcher get() = Matcher.static.allOf(Component.View.ordinal)

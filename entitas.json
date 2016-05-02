@@ -1,6 +1,12 @@
 {
   "namespace": "com.darkoverlordofdata.entitas.demo",
-  "src": "core/src/com/darkoverlordofdata/entitas/demo/",
+  "src": "core/src",
+  "output": {
+    "GeneratedComponents": "GeneratedComponents.kt",
+    "EntityExtensions": "EntityExtensions.kt",
+    "MatcherExtensions": "MatcherExtensions.kt",
+    "PoolExtensions": "PoolExtensions.kt"
+  },
   "alloc": {
     "entities": 128,
     "components": 64

@@ -2,8 +2,7 @@ package com.darkoverlordofdata.entitas.demo
 
 import com.badlogic.gdx.Game
 import com.uwsoft.editor.renderer.SceneLoader
-
-
+import com.darkoverlordofdata.entitas.Version
 class ShmupWarz() : Game() {
 
     var menuScene: MenuScene? = null
@@ -11,8 +10,9 @@ class ShmupWarz() : Game() {
     var optionScene: MenuScene? = null
     var scoreScene: MenuScene? = null
 
+
     override fun create() {
-        println("Using entitas v${com.darkoverlordofdata.entitas.Version}")
+        println("Using entitas v$Version (${Version.description})")
         menuGame()
     }
 
@@ -22,14 +22,14 @@ class ShmupWarz() : Game() {
         optionScene = null
         scoreScene = null
         gameScene = null
-        this.setScreen(menuScene)
+        setScreen(menuScene)
     }
 
     fun optionsGame() {
         val sceneLoader = SceneLoader()
         menuScene = null
         optionScene = MenuScene(sceneLoader, OptionUI(this, sceneLoader))
-        this.setScreen(optionScene)
+        setScreen(optionScene)
         scoreScene = null
         gameScene = null
     }
@@ -39,7 +39,7 @@ class ShmupWarz() : Game() {
         menuScene = null
         optionScene = null
         scoreScene = MenuScene(sceneLoader, ScoreUI(this, sceneLoader))
-        this.setScreen(scoreScene)
+        setScreen(scoreScene)
         gameScene = null
     }
 
@@ -48,7 +48,7 @@ class ShmupWarz() : Game() {
         optionScene = null
         scoreScene = null
         gameScene = GameScene()
-        this.setScreen(gameScene)
+        setScreen(gameScene)
     }
 
 }
