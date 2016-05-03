@@ -5,12 +5,16 @@ import java.util.*
  * A pool manages the lifecycle of entities and groups.
  * You can create and destroy entities and get groups of entities.
  * The prefered way is to use the generated methods from the code generator to create a Pool, e.g. var pool = Pools.pool;
+ *
+ * @param   totalComponents number of components
+ * @param   startCreationIndex  entity index counter
+ * @param   componentName  component index to name function
  */
-class Pool(totalComponents:Int, startCreationIndex:Int=0, toName:(p:Int) -> String) {
+class Pool(totalComponents:Int, startCreationIndex:Int=0, componentName:((p:Int) -> String)={it.toString()}) {
 
     val totalComponents = totalComponents
     val startCreationIndex = startCreationIndex
-    val toName = toName
+    val componentName = componentName
     val count:Int get() = _entities.size
     val reusableEntitiesCount:Int get() = _reusableEntities.size
     val retainedEntitiesCount:Int get() = _retainedEntities.size

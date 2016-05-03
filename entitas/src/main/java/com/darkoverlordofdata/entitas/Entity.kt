@@ -156,24 +156,21 @@ class Entity(totalComponents:Int) {
      *  Entity_{name|creationIndex}(*{retainCount})({list of components})
      */
     override fun toString():String {
-        if (this.toStringCache == "") {
+        if (toStringCache == "") {
             val sb = StringBuilder()
             sb.append("Entity_")
             sb.append(if (name != "") name else creationIndex.toString())
-            sb.append("(${_creationIndex},")
-            sb.append("${Pool.instance!!.reusableEntitiesCount},")
-            sb.append("${Pool.instance!!.retainedEntitiesCount})(")
-            val components = getComponents()
+            sb.append("(${_creationIndex})")
+
             for (i in 0..components.size-1) {
-                val className = components[i].javaClass?.typeName
-                if (className != null)  {
-                    val name = className.substring(className.lastIndexOf(".")+1)
-                    sb.append(name.replace("Component", ""))
-                    if (i < components.size-1) sb.append(",")
+                val name = Pool.instance!!.componentName(i)
+                if (components[i] != null) {
+                    sb.append(Pool.instance!!.componentName(i))
+                    sb.append(",")
                 }
             }
             sb.append(")")
-            toStringCache = sb.toString()
+            toStringCache = sb.toString().replace(",)", ")")
         }
         return toStringCache
     }

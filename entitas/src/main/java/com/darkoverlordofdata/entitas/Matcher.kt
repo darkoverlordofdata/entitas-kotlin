@@ -91,7 +91,7 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
             sb.append("(")
             for (i in 0..indexArray.size-1) {
                 //sb.append(indexArray[i].toString())
-                sb.append(Pool.instance!!.toName(i))
+                sb.append(Pool.instance!!.componentName(i))
                 if (i < indexArray.size-1) sb.append(",")
             }
             sb.append(")")

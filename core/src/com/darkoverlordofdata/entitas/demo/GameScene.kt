@@ -22,7 +22,7 @@ class GameScene : Screen {
 
     init {
         camera = OrthographicCamera(width.toFloat()/pixelFactor, height.toFloat()/pixelFactor)
-        pool = Pool(Component.TotalComponents.ordinal){Component.values()[it].name}
+        pool = Pool(Component.TotalComponents.ordinal, 0, {Component.values()[it].name})
         systems = createSystems(pool)
         systems.initialize()
     }

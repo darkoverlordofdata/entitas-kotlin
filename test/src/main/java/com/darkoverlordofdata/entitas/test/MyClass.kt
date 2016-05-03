@@ -38,8 +38,8 @@ class MyTest : Bunny() {
 
         test("1st entity") {
             e1 = pool.createEntity("player")
-                    .addBounds(1.0f)
-                    .addHealth(100.0f, 100.0f)
+                    .addBounds(1f)
+                    .addHealth(100f, 100f)
                     .setPlayer(true)
                     .addResource("Fighter")
 
@@ -49,7 +49,7 @@ class MyTest : Bunny() {
         test("2nd entity") {
             e2 = pool.createEntity("test2")
             e2.addPosition(1f, 1f)
-            assert.equal("Entity_test2(1,0,0)(Position)", e2.toString())
+            assert.equal(e2.toString(), "Entity_test2(1,0,0)(Position)")
 
         }
 

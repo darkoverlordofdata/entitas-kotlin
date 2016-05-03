@@ -31,6 +31,7 @@ fun Pool.createEntityFromLibrary(name:String): Entity {
     entity.addLayer(layer)
     val sprite = O2dLibrary.sprites.createSprite(entity.resource.name)
     entity.addBounds(sprite.width/4)
+    println(entity.toString())
     entity.addView(sprite)
     return entity
 
