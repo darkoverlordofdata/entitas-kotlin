@@ -1,4 +1,4 @@
-package com.darkoverlordofdata.entitas.demo
+package com.darkoverlordofdata.entitas.test
 /**
  * Entitas Generated Components for com.darkoverlordofdata.entitas.demo
  *
@@ -38,7 +38,7 @@ class HealthComponent() : IComponent {
 }
 
 class LayerComponent() : IComponent {
-    var ordinal:com.darkoverlordofdata.entitas.demo.Layer? = null
+    var ordinal:com.darkoverlordofdata.entitas.test.Layer? = null
 }
 
 class PlayerComponent() : IComponent {
@@ -64,7 +64,7 @@ class ScoreComponent() : IComponent {
 }
 
 class SoundEffectComponent() : IComponent {
-    var effect:com.darkoverlordofdata.entitas.demo.Effect? = null
+    var effect:com.darkoverlordofdata.entitas.test.Effect? = null
 }
 
 class TintComponent() : IComponent {
@@ -88,7 +88,7 @@ class VelocityComponent() : IComponent {
 }
 
 class ViewComponent() : IComponent {
-    var sprite:com.badlogic.gdx.graphics.g2d.Sprite? = null
+    var sprite:Any? = null
 }
 
 enum class Component {

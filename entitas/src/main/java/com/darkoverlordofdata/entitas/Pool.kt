@@ -6,19 +6,19 @@ import java.util.*
  * You can create and destroy entities and get groups of entities.
  * The prefered way is to use the generated methods from the code generator to create a Pool, e.g. var pool = Pools.pool;
  */
-class Pool(totalComponents:Int, startCreationIndex:Int=0) {
-
+class Pool(totalComponents:Int, startCreationIndex:Int=0, toName:(p:Int) -> String) {
 
     val totalComponents = totalComponents
     val startCreationIndex = startCreationIndex
+    val toName = toName
     val count:Int get() = _entities.size
     val reusableEntitiesCount:Int get() = _reusableEntities.size
     val retainedEntitiesCount:Int get() = _retainedEntities.size
 
-    internal val onEntityCreated = Event<PoolEntityChangedArgs>()
-    internal val onEntityWillBeDestroyed = Event<PoolEntityChangedArgs>()
-    internal val onEntityDestroyed = Event<PoolEntityChangedArgs>()
-    internal val onGroupCreated = Event<PoolGroupChangedArgs>()
+    val onEntityCreated = Event<PoolEntityChangedArgs>()
+    val onEntityWillBeDestroyed = Event<PoolEntityChangedArgs>()
+    val onEntityDestroyed = Event<PoolEntityChangedArgs>()
+    val onGroupCreated = Event<PoolGroupChangedArgs>()
     internal var _creationIndex:Int = startCreationIndex
     internal val _entities: HashSet<Entity> = hashSetOf()
     internal val _groups: HashMap<IMatcher, Group> = hashMapOf()

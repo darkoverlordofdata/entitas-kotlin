@@ -163,12 +163,13 @@ class Entity(totalComponents:Int) {
             sb.append("(${_creationIndex},")
             sb.append("${Pool.instance!!.reusableEntitiesCount},")
             sb.append("${Pool.instance!!.retainedEntitiesCount})(")
-            for (i in 0..totalComponents-1) {
-                val className = components[i]?.javaClass?.typeName
+            val components = getComponents()
+            for (i in 0..components.size-1) {
+                val className = components[i].javaClass?.typeName
                 if (className != null)  {
                     val name = className.substring(className.lastIndexOf(".")+1)
                     sb.append(name.replace("Component", ""))
-                    if (i < totalComponents-1) sb.append(",")
+                    if (i < components.size-1) sb.append(",")
                 }
             }
             sb.append(")")

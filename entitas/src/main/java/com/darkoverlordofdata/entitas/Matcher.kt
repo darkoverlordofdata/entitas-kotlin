@@ -65,9 +65,9 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
     override fun toString():String {
         if (toStringCache == "") {
             val sb = StringBuilder()
-            static.toStringHelper(sb, "AllOf", allOfIndices)
-            static.toStringHelper(sb, "AnyOf", anyOfIndices)
-            static.toStringHelper(sb, "NoneOf", noneOfIndices)
+            toStringHelper(sb, "AllOf", allOfIndices)
+            toStringHelper(sb, "AnyOf", anyOfIndices)
+            toStringHelper(sb, "NoneOf", noneOfIndices)
             toStringCache = sb.toString()
         }
         return toStringCache
@@ -85,21 +85,22 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
         return TriggerOnEvent(this, GroupEventType.OnEntityAddedOrRemoved)
     }
 
+    private fun toStringHelper(sb:StringBuilder, prefix:String, indexArray:IntArray) {
+        if (indexArray.size > 0) {
+            sb.append(prefix)
+            sb.append("(")
+            for (i in 0..indexArray.size-1) {
+                //sb.append(indexArray[i].toString())
+                sb.append(Pool.instance!!.toName(i))
+                if (i < indexArray.size-1) sb.append(",")
+            }
+            sb.append(")")
+        }
+
+    }
     companion object static {
         private var _uniqueId = 0
         fun uniqueId():Int {return _uniqueId++}
-        fun toStringHelper(sb:StringBuilder, prefix:String, indexArray:IntArray) {
-            if (indexArray.size > 0) {
-                sb.append(prefix)
-                sb.append("(")
-                for (i in 0..indexArray.size-1) {
-                    sb.append(indexArray[i].toString())
-                    if (i < indexArray.size-1) sb.append(",")
-                }
-                sb.append(")")
-            }
-
-        }
         fun distinctIndices(indices:IntArray):IntArray {
             val indicesSet: HashSet<Int> = hashSetOf()
             for (index in indices) indicesSet.add(index)
