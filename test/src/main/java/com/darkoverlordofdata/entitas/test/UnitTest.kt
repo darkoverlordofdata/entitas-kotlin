@@ -21,11 +21,11 @@ enum class Layer {
 
 
 fun main(args: Array<String>) {
-    MyTest().run()
+    UnitTest().run()
 }
 
 
-class MyTest : Bunny() {
+class UnitTest : Bunny() {
     lateinit var e0: Entity
     lateinit var e1: Entity
     lateinit var e2: Entity
@@ -49,7 +49,7 @@ class MyTest : Bunny() {
         test("2nd entity") {
             e2 = pool.createEntity("test2")
             e2.addPosition(1f, 1f)
-            assert.equal(e2.toString(), "Entity_test2(1,0,0)(Position)")
+            assert.equal(e2.toString(), "Entity_test2(1)(Position)")
 
         }
 
@@ -59,9 +59,9 @@ class MyTest : Bunny() {
             e3.onComponentAdded += {e:EntityChangedArgs ->
                 k += 1
                 if (k == 1) {
-                    assert.equal(e3.toString(), "Entity_test3(2,0,0)(Position)")
+                    assert.equal(e3.toString(), "Entity_test3(2)(Position)")
                 } else {
-                    assert.equal(e3.toString(), "Entity_test3(2,0,0)(Position,Velocity)")
+                    assert.equal(e3.toString(), "Entity_test3(2)(Position,Velocity)")
                 }
 
             }
@@ -109,7 +109,7 @@ class MyTest : Bunny() {
 
         test("Groups") {
             e3.onComponentRemoved+= {e:EntityChangedArgs ->
-                assert.equal(e3.toString(), "Entity_test3(2,0,0)(Velocity)")
+                assert.equal(e3.toString(), "Entity_test3(2)(Velocity)")
             }
             e3.removePosition()
 
@@ -119,7 +119,7 @@ class MyTest : Bunny() {
             e0 = pool.createEntity("Hello")
             e0.addHealth(10.0f, 10.0f)
             assert.equal(e0.creationIndex, 3)
-            assert.equal(e0.toString(), "Entity_Hello(3,0,0)(Health)")
+            assert.equal(e0.toString(), "Entity_Hello(3)(Health)")
 
             val g7 = pool.getGroup(Matcher.allOf(Matcher.Health))
             val s7 = g7.entities

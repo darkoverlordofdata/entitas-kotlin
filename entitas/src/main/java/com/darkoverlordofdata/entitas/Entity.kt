@@ -160,7 +160,7 @@ class Entity(totalComponents:Int) {
             val sb = StringBuilder()
             sb.append("Entity_")
             sb.append(if (name != "") name else creationIndex.toString())
-            sb.append("(${_creationIndex})")
+            sb.append("(${_creationIndex})(")
 
             for (i in 0..components.size-1) {
                 val name = Pool.instance!!.componentName(i)
