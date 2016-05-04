@@ -1,6 +1,6 @@
 package com.darkoverlordofdata.entitas.test
 
-import com.darkoverlordofdata.bunny.Bunny
+import com.darkoverlordofdata.bunny.UnitTest
 import com.darkoverlordofdata.entitas.*
 
 enum class Effect {
@@ -21,11 +21,13 @@ enum class Layer {
 
 
 fun main(args: Array<String>) {
-    UnitTest().run()
+    Test().run()
 }
 
 
-class UnitTest : Bunny() {
+class Test
+    : UnitTest("Entitas-kotlin unit test") {
+
     lateinit var e0: Entity
     lateinit var e1: Entity
     lateinit var e2: Entity
@@ -34,9 +36,8 @@ class UnitTest : Bunny() {
     val pool = Pool(Component.TotalComponents.ordinal, 0, {Component.values()[it].name})
 
     init {
-        describe("Entitas-kotlin unit test")
 
-        test("1st entity") {
+        should("1st entity") {
             e1 = pool.createEntity("player")
                     .addBounds(1f)
                     .addHealth(100f, 100f)
@@ -46,14 +47,14 @@ class UnitTest : Bunny() {
             assert.equal(e1.creationIndex, 0)
         }
 
-        test("2nd entity") {
+        should("2nd entity") {
             e2 = pool.createEntity("test2")
             e2.addPosition(1f, 1f)
             assert.equal(e2.toString(), "Entity_test2(1)(Position)")
 
         }
 
-        test("3rd entity") {
+        should("3rd entity") {
             var k = 0
             e3 = pool.createEntity("test3")
             e3.onComponentAdded += {e:EntityChangedArgs ->
@@ -69,13 +70,13 @@ class UnitTest : Bunny() {
             e3.addVelocity(0f, 0f)
         }
 
-        test("Pool sizes") {
+        should("Pool sizes") {
             assert.equal(pool.count, 3)
             assert.equal(pool.retainedEntitiesCount, 0)
             assert.equal(pool.reusableEntitiesCount, 0)
         }
 
-        test("1 component matcher") {
+        should("1 component matcher") {
             val m1 = Matcher.allOf(Matcher.Position)
             assert.equal(m1.matches(e2), true)
 
@@ -84,7 +85,7 @@ class UnitTest : Bunny() {
 
         }
 
-        test("2 component matcher") {
+        should("2 component matcher") {
             val m1 = Matcher.allOf(Matcher.Position)
             assert.equal(m1.matches(e3), true)
             assert.equal(m1.toString(), "AllOf(Bounds)")
@@ -95,7 +96,7 @@ class UnitTest : Bunny() {
 
         }
 
-        test("Groups") {
+        should("Groups") {
             val m2 = Matcher.allOf(Matcher.Position)
             val g2 = pool.getGroup(m2)
             val s2 = g2.entities
@@ -107,7 +108,7 @@ class UnitTest : Bunny() {
 
         }
 
-        test("Groups") {
+        should("Groups") {
             e3.onComponentRemoved+= {e:EntityChangedArgs ->
                 assert.equal(e3.toString(), "Entity_test3(2)(Velocity)")
             }
@@ -115,7 +116,7 @@ class UnitTest : Bunny() {
 
         }
 
-        test("Groups") {
+        should("Groups") {
             e0 = pool.createEntity("Hello")
             e0.addHealth(10.0f, 10.0f)
             assert.equal(e0.creationIndex, 3)

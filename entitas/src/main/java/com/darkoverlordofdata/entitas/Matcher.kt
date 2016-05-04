@@ -19,9 +19,9 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
             return _indices
         }
 
-    internal val _id = uniqueId()
-    internal var _indices = intArrayOf()
-    internal var toStringCache = ""
+    private val _id = uniqueId()
+    private var _indices = intArrayOf()
+    private var toStringCache = ""
 
     override fun matches(entity: Entity):Boolean {
         val matchesAllOf = if (allOfIndices.size == 0) true else entity.hasComponents(allOfIndices)

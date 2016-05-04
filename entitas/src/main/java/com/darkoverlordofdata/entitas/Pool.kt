@@ -23,14 +23,14 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0, componentName:((p:Int)
     val onEntityWillBeDestroyed = Event<PoolEntityChangedArgs>()
     val onEntityDestroyed = Event<PoolEntityChangedArgs>()
     val onGroupCreated = Event<PoolGroupChangedArgs>()
-    internal var _creationIndex:Int = startCreationIndex
-    internal val _entities: HashSet<Entity> = hashSetOf()
-    internal val _groups: HashMap<IMatcher, Group> = hashMapOf()
-    internal val _groupsForIndex: Array<MutableList<Group>?> = Array(totalComponents,{i -> null})
-    internal val _reusableEntities: MutableList<Entity> = mutableListOf()
-    internal val _retainedEntities: HashSet<Entity> = hashSetOf()
-    internal val _entitiesCache: MutableList<Entity> = mutableListOf()
-    internal lateinit var onEntityReleasedCache : (e: EntityReleasedArgs) -> Unit
+    private var _creationIndex:Int = startCreationIndex
+    private val _entities: HashSet<Entity> = hashSetOf()
+    private val _groups: HashMap<IMatcher, Group> = hashMapOf()
+    private val _groupsForIndex: Array<MutableList<Group>?> = Array(totalComponents,{i -> null})
+    private val _reusableEntities: MutableList<Entity> = mutableListOf()
+    private val _retainedEntities: HashSet<Entity> = hashSetOf()
+    private val _entitiesCache: MutableList<Entity> = mutableListOf()
+    private lateinit var onEntityReleasedCache : (e: EntityReleasedArgs) -> Unit
 
     /**
      * EventHandler onEntityReleased
@@ -82,9 +82,10 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0, componentName:((p:Int)
      */
     fun createEntity(name: String): Entity {
         val entity = if (_reusableEntities.size > 0) _reusableEntities.removeAt(_reusableEntities.size-1) else Entity(totalComponents)
-        entity.isEnabled = true
-        entity.name = name
-        entity._creationIndex = _creationIndex++
+        entity.initialize(name, _creationIndex++)
+//        entity.isEnabled = true
+//        entity.name = name
+//        entity._creationIndex = _creationIndex++
         entity.retain()
         entity.onComponentAdded += updateGroupsComponentAddedOrRemoved
         entity.onComponentRemoved += updateGroupsComponentAddedOrRemoved

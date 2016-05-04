@@ -10,13 +10,13 @@ import java.util.*
  */
 class ReactiveSystem(pool: Pool, subsystem: IReactiveExecuteSystem) : IExecuteSystem {
 
-    val pool = pool
-    internal val _subsystem = subsystem
-    internal var _clearAfterExecute:Boolean = false
-    internal var _buffer:MutableList<Entity> = ArrayList(listOf())
-    internal var _ensureComponents: IMatcher? = null
-    internal var _excludeComponents: IMatcher? = null
-    internal lateinit var _observer: GroupObserver
+    private val pool = pool
+    private val _subsystem = subsystem
+    private var _clearAfterExecute:Boolean = false
+    private var _buffer:MutableList<Entity> = ArrayList(listOf())
+    private var _ensureComponents: IMatcher? = null
+    private var _excludeComponents: IMatcher? = null
+    private lateinit var _observer: GroupObserver
 
     val subsystem: IReactiveExecuteSystem
         get() = _subsystem

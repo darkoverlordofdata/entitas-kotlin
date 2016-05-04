@@ -7,9 +7,9 @@ import java.util.*
  */
 class Systems : IInitializeSystem, IExecuteSystem {
 
-    internal var _initializeSystems:MutableList<IInitializeSystem> = ArrayList(listOf())
-    internal var _executeSystems:MutableList<IExecuteSystem> = ArrayList(listOf())
-    internal var executeSystems:Array<IExecuteSystem> = arrayOf()
+    private var _initializeSystems:MutableList<IInitializeSystem> = ArrayList(listOf())
+    private var _executeSystems:MutableList<IExecuteSystem> = ArrayList(listOf())
+    private var executeSystems:Array<IExecuteSystem> = arrayOf()
 
     /**
      *

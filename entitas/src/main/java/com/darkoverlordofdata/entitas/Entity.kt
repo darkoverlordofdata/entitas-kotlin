@@ -6,22 +6,31 @@ import java.util.*
  */
 class Entity(totalComponents:Int) {
 
-    var name = ""
 
     val totalComponents = totalComponents
     val creationIndex:Int get() = _creationIndex
+    val refCount:Int get() = _refCount
+    val name:String get() = _name
+    val isEnabled:Boolean get() = _isEnabled
 
     val onEntityReleased = Event<EntityReleasedArgs>()
     val onComponentAdded = Event<EntityChangedArgs>()
     val onComponentRemoved = Event<EntityChangedArgs>()
     val onComponentReplaced = Event<ComponentReplacedArgs>()
-    internal val components: Array<IComponent?> = Array(totalComponents, { i-> null })
-    internal val componentsCache: MutableList<IComponent> = ArrayList(listOf())
-    internal var refCount = 0
-    internal var isEnabled = false
-    internal var _creationIndex = 0
-    internal var toStringCache = ""
 
+    private var _name = ""
+    private var _refCount = 0
+    private var _isEnabled = false
+    private var _creationIndex = 0
+    private var toStringCache = ""
+    private val components: Array<IComponent?> = Array(totalComponents, { i-> null })
+    private val componentsCache: MutableList<IComponent> = ArrayList(listOf())
+
+    fun initialize(name:String, creationIndex:Int) {
+        _name = name
+        _creationIndex = creationIndex
+        _isEnabled = true
+    }
     /**
      *
      *  Adds a component at a certain index. You can only have one component at an index.
@@ -138,15 +147,15 @@ class Entity(totalComponents:Int) {
     }
 
     fun retain(): Entity {
-        refCount += 1
+        _refCount += 1
         return this
     }
 
     fun release() {
-        refCount -= 1
-        if (refCount == 0) {
+        _refCount -= 1
+        if (_refCount == 0) {
             onEntityReleased(EntityReleasedArgs(this))
-        } else if (refCount < 0)
+        } else if (_refCount < 0)
             throw Exception("Entity is already released ${toString()}")
     }
 
@@ -181,8 +190,8 @@ class Entity(totalComponents:Int) {
         onComponentRemoved.clear()
         onComponentReplaced.clear()
         componentsCache.clear()
-        name = ""
-        isEnabled = false
+        _name = ""
+        _isEnabled = false
     }
 
 
