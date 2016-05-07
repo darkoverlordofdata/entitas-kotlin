@@ -139,7 +139,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0, componentName:((p:Int)
         return entity in _entities
     }
 
-    fun getEntities(): MutableList<Entity> {
+    private fun getEntities(): MutableList<Entity> {
         if (_entitiesCache.size == 0) {
             for (entity in _entities)
                 _entitiesCache.add(entity)
@@ -175,8 +175,9 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0, componentName:((p:Int)
         } else {
             val group = Group(matcher)
             val entities = getEntities()
-            for (i in 0..entities.size-1)
+            for (i in 0..entities.size-1) {
                 group.handleEntitySilently(entities.get(i))
+            }
             _groups[matcher] = group
             for (index in matcher.indices) {
                 if (_groupsForIndex[index] == null) {

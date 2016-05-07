@@ -8,88 +8,24 @@ package com.darkoverlordofdata.entitas.demo
 import com.darkoverlordofdata.entitas.IComponent
 
 
-class BoundsComponent() : IComponent {
-    var radius:Float = 0f
-}
-
-class BulletComponent() : IComponent {
-    // existential component
-}
-
-class DestroyComponent() : IComponent {
-    // existential component
-}
-
-class EnemyComponent() : IComponent {
-    // existential component
-}
-
-class ExpiresComponent() : IComponent {
-    var delay:Float = 0f
-}
-
-class FiringComponent() : IComponent {
-    // existential component
-}
-
-class HealthComponent() : IComponent {
-    var currentHealth:Float = 0f
-    var maximumHealth:Float = 0f
-}
-
-class LayerComponent() : IComponent {
-    var ordinal:com.darkoverlordofdata.entitas.demo.Layer? = null
-}
-
-class PlayerComponent() : IComponent {
-    // existential component
-}
-
-class PositionComponent() : IComponent {
-    var x:Float = 0f
-    var y:Float = 0f
-}
-
-class ResourceComponent() : IComponent {
-    var name:String = ""
-}
-
-class ScaleComponent() : IComponent {
-    var x:Float = 0f
-    var y:Float = 0f
-}
-
-class ScoreComponent() : IComponent {
-    var value:Int = 0
-}
-
-class SoundEffectComponent() : IComponent {
-    var effect:com.darkoverlordofdata.entitas.demo.Effect? = null
-}
-
-class TintComponent() : IComponent {
-    var r:Float = 0f
-    var g:Float = 0f
-    var b:Float = 0f
-    var a:Float = 0f
-}
-
-class TweenComponent() : IComponent {
-    var min:Float = 0f
-    var max:Float = 0f
-    var speed:Float = 0f
-    var repeat:Boolean = false
-    var active:Boolean = false
-}
-
-class VelocityComponent() : IComponent {
-    var x:Float = 0f
-    var y:Float = 0f
-}
-
-class ViewComponent() : IComponent {
-    var sprite:com.badlogic.gdx.graphics.g2d.Sprite? = null
-}
+data class BoundsComponent(var radius:Float=0f) : IComponent
+data class BulletComponent(var active:Boolean=true) : IComponent
+data class DestroyComponent(var active:Boolean=true) : IComponent
+data class EnemyComponent(var active:Boolean=true) : IComponent
+data class ExpiresComponent(var delay:Float = 0f) : IComponent
+data class FiringComponent(var active:Boolean=true) : IComponent
+data class HealthComponent(var currentHealth:Float = 0f, var maximumHealth:Float = 0f) : IComponent
+data class LayerComponent(var ordinal:com.darkoverlordofdata.entitas.demo.Layer? = null) : IComponent
+data class PlayerComponent(var active:Boolean=true) : IComponent
+data class PositionComponent(var x:Float = 0f, var y:Float = 0f) : IComponent
+data class ResourceComponent(var name:String = "") : IComponent
+data class ScaleComponent(var x:Float = 0f, var y:Float = 0f) : IComponent
+data class ScoreComponent(var value:Int = 0) : IComponent
+data class SoundEffectComponent(var effect:com.darkoverlordofdata.entitas.demo.Effect? = null) : IComponent
+data class TintComponent(var r:Float = 0f, var g:Float = 0f, var b:Float = 0f, var a:Float = 0f) : IComponent
+data class TweenComponent(var min:Float = 0f, var max:Float = 0f, var speed:Float = 0f, var repeat:Boolean = false, var active:Boolean = false) : IComponent
+data class VelocityComponent(var x:Float = 0f, var y:Float = 0f) : IComponent
+data class ViewComponent(var sprite:com.badlogic.gdx.graphics.g2d.Sprite? = null) : IComponent
 
 enum class Component {
     Bounds,
@@ -112,4 +48,3 @@ enum class Component {
     View,
     TotalComponents
 }
-

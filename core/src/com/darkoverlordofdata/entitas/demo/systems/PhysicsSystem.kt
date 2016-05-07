@@ -9,15 +9,12 @@ package com.darkoverlordofdata.entitas.demo.systems
  */
 
 import com.badlogic.gdx.Gdx
-import com.darkoverlordofdata.entitas.demo.Position
-import com.darkoverlordofdata.entitas.demo.Velocity
-import com.darkoverlordofdata.entitas.demo.position
-import com.darkoverlordofdata.entitas.demo.velocity
 import com.darkoverlordofdata.entitas.ISetPool
 import com.darkoverlordofdata.entitas.IExecuteSystem
 import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.Group
 import com.darkoverlordofdata.entitas.Matcher
+import com.darkoverlordofdata.entitas.demo.*
 
 class PhysicsSystem()
       : IExecuteSystem,

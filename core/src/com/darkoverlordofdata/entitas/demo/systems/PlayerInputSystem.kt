@@ -36,6 +36,8 @@ class PlayerInputSystem(game: GameScene)
     private var mouseY = 0
     private var timeToFire = 0f
 
+    var k = 0
+
     override fun setPool(pool: Pool) {
         this.pool = pool
         group = pool.getGroup(Matcher.allOf(Matcher.Player))
@@ -48,6 +50,8 @@ class PlayerInputSystem(game: GameScene)
 
     override fun execute() {
         val player = group.singleEntity
+        if (k++ == 1) println("$player")
+
         if (player != null) {
             player.position.x = mouseX.toFloat()
             player.position.y = mouseY.toFloat()

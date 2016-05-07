@@ -30,9 +30,8 @@ class ExpiringSystem()
     override fun execute() {
         val delta = Gdx.graphics.deltaTime
         for (entity in group.entities) {
-            val value = entity.expires.delay - delta
-            entity.expires.delay = value
-            if (value < 0) {
+            entity.expires.delay -= delta
+            if (entity.expires.delay < 0) {
                 pool.destroyEntity(entity)
             }
         }

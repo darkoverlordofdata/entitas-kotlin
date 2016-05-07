@@ -47,7 +47,7 @@ class CollisionSystem()
         pool.createSmallExplosion(pos.x, pos.y)
         weapon.setDestroy(true)
         var health = ship.health
-        health.currentHealth -=1
+        health.currentHealth-=1
         if (health.currentHealth <= 0f) {
             val position = ship.position
             pool.createBigExplosion(position.x, position.y)
