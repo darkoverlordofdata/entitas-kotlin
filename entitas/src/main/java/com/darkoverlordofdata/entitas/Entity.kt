@@ -23,7 +23,7 @@ class Entity(totalComponents:Int) {
     private var _isEnabled = false
     private var _creationIndex = 0
     private var toStringCache = ""
-     val components: Array<IComponent?> = Array(totalComponents, { i-> null })
+    val components: Array<IComponent?> = Array(totalComponents, { i-> null })
     private val componentsCache: MutableList<IComponent> = ArrayList(listOf())
 
     fun initialize(name:String, creationIndex:Int) {
@@ -172,7 +172,7 @@ class Entity(totalComponents:Int) {
             sb.append("(${_creationIndex})(")
 
             for (i in 0..components.size-1) {
-                val name = Pool.instance!!.componentName(i)
+                //val name = Pool.instance!!.componentName(i)
                 if (components[i] != null) {
                     //sb.append(Pool.instance!!.componentName(i))
                     sb.append(components[i].toString())

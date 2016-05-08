@@ -22,82 +22,76 @@ enum class Layer {
 }
 
 /**
- * Load values from Overlap2D Library
+ * Load prefab values from Overlap2D Library
  */
-fun Pool.createEntityFromLibrary(name:String): Entity {
-    val layer = O2dLibrary.getLayer(name)
+fun Pool.prefab(name:String, template:(entity:Entity)-> Entity): Entity {
     val entity = createEntity(name)
     entity.addResource(O2dLibrary.getResource(name))
-    entity.addLayer(layer)
+    entity.addLayer(O2dLibrary.getLayer(name))
     val sprite = O2dLibrary.sprites.createSprite(entity.resource.name)
     entity.addBounds(sprite.width/4)
     entity.addView(sprite)
-    return entity
-
+    return template(entity)
 }
 
-fun Pool.createPlayer(width:Float, height:Float): Entity {
-    return createEntityFromLibrary("player")
-        .addPosition(width/2, 80f)
-        .addScore(0)
-        .setPlayer(true)
+fun Pool.createPlayer(width:Float, height:Float): Entity = prefab("player") {
+    it.addPosition(width/2, 80f)
+    it.addScore(0)
+    it.setPlayer(true)
 }
 
-fun Pool.createBullet(x:Float, y:Float): Entity {
-    return createEntityFromLibrary("bullet")
-        .addExpires(.5f)
-        .addPosition(x, y)
-        .addSoundEffect(Effect.PEW)
-        .addTint(1f, 1f, 115f/255f, 1f)
-        .addVelocity(0f, -800f)
-        .setBullet(true)
+fun Pool.createBullet(x:Float, y:Float): Entity = prefab("bullet") {
+    it.addExpires(.5f)
+    it.addPosition(x, y)
+    it.addSoundEffect(Effect.PEW)
+    it.addTint(1f, 1f, 115f/255f, 1f)
+    it.addVelocity(0f, -800f)
+    it.setBullet(true)
 }
 
-fun Pool.createSmallExplosion(x:Float, y:Float): Entity {
+
+fun Pool.createSmallExplosion(x:Float, y:Float): Entity = prefab("bang") {
     val scale = 1f
-    return createEntityFromLibrary("bang")
-        .addExpires(0.5f)
-        .addPosition(x, y)
-        .addScale(scale, scale)
-        .addSoundEffect(Effect.SMALLASPLODE)
-        .addTint(1f, 1f, 39/255f, .5f)
-        .addTween(scale / 100, scale, -3f, false, true)
+    it.addExpires(.5f)
+    it.addPosition(x, y)
+    it.addScale(scale, scale)
+    it.addSoundEffect(Effect.SMALLASPLODE)
+    it.addTint(1f, 1f, 39/255f, .5f)
+    it.addTween(scale / 100, scale, -3f, false, true)
 }
 
-fun Pool.createBigExplosion(x:Float, y:Float): Entity {
+fun Pool.createBigExplosion(x:Float, y:Float): Entity = prefab("explosion") {
     val scale = .5f
-    return createEntityFromLibrary("explosion")
-        .addExpires(.5f)
-        .addPosition(x, y)
-        .addScale(scale, scale)
-        .addSoundEffect(Effect.ASPLODE)
-        .addTint(1f, 1f, 39/255f, .5f)
-        .addTween(scale / 100, scale, -3f, false, true)
+    it.addExpires(.5f)
+    it.addPosition(x, y)
+    it.addScale(scale, scale)
+    it.addSoundEffect(Effect.ASPLODE)
+    it.addTint(1f, 1f, 39/255f, .5f)
+    it.addTween(scale / 100, scale, -3f, false, true)
 }
 
-fun Pool.createEnemy1(width:Float, height:Float): Entity {
-    val entity = createEntityFromLibrary("enemy1")
-    return entity
-        .addHealth(10f, 10f)
-        .addPosition(Random.nextFloat()*width, height-entity.bounds.radius)
-        .addVelocity(0f, 40f)
-        .setEnemy(true)
+
+fun Pool.createEnemy1(width:Float, height:Float): Entity = prefab("enemy1") {
+    it.addHealth(10f, 10f)
+    it.addPosition(Random.nextFloat()*width, height-it.bounds.radius)
+    it.addVelocity(0f, 40f)
+    it.setEnemy(true)
 }
 
-fun Pool.createEnemy2(width:Float, height:Float): Entity {
-    val entity = createEntityFromLibrary("enemy2")
-    return entity
-        .addHealth(20f, 20f)
-        .addPosition(Random.nextFloat()*width, height-entity.bounds.radius)
-        .addVelocity(0f, 30f)
-        .setEnemy(true)
+
+fun Pool.createEnemy2(width:Float, height:Float): Entity = prefab("enemy2") {
+    it.addHealth(20f, 20f)
+    it.addPosition(Random.nextFloat()*width, height-it.bounds.radius)
+    it.addVelocity(0f, 30f)
+    it.setEnemy(true)
 }
 
-fun Pool.createEnemy3(width:Float, height:Float): Entity {
-    val entity = createEntityFromLibrary("enemy3")
-    return entity
-        .addHealth(60f, 60f)
-        .addPosition(Random.nextFloat()*width, height-entity.bounds.radius)
-        .addVelocity(0f, 10f)
-        .setEnemy(true)
+
+fun Pool.createEnemy3(width:Float, height:Float): Entity = prefab("enemy3") {
+    it.addHealth(60f, 60f)
+    it.addPosition(Random.nextFloat()*width, height-it.bounds.radius)
+    it.addVelocity(0f, 10f)
+    it.setEnemy(true)
 }
+
+

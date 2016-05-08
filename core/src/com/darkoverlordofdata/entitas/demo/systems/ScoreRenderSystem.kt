@@ -12,7 +12,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.darkoverlordofdata.entitas.*
-import com.darkoverlordofdata.entitas.demo.*
+import com.darkoverlordofdata.entitas.demo.GameScene
+import com.darkoverlordofdata.entitas.demo.Player
+import com.darkoverlordofdata.entitas.demo.Score
+import com.darkoverlordofdata.entitas.demo.score
 
 class ScoreRenderSystem(game: GameScene)
       : IInitializeSystem,
@@ -57,7 +60,7 @@ class ScoreRenderSystem(game: GameScene)
      * IExecuteSystem::execute
      */
     override fun execute() {
-        batch.setProjectionMatrix(camera.combined);
+        batch.projectionMatrix = camera.combined
         batch.begin();
         val player = group.singleEntity
         if (player != null) {

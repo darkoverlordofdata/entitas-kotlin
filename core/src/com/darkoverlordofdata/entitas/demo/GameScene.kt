@@ -3,32 +3,31 @@ package com.darkoverlordofdata.entitas.demo
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.darkoverlordofdata.entitas.demo.systems.*
-import com.darkoverlordofdata.entitas.Systems
 import com.darkoverlordofdata.entitas.Pool
+import com.darkoverlordofdata.entitas.Systems
+import com.darkoverlordofdata.entitas.demo.systems.*
 
 class GameScene : Screen {
 
-    val rnd = java.util.Random()
     val width:Int by lazy { Gdx.graphics.width }
     val height:Int by lazy { Gdx.graphics.height }
     val pixelFactor:Int by lazy { if (Gdx.graphics.density > 1f) 2 else 1 }
 
 
+    lateinit var camera: OrthographicCamera
     lateinit var pool: Pool
     lateinit var systems: Systems
     lateinit var spriteRenderSystem: SpriteRenderSystem
-    lateinit var camera: OrthographicCamera
 
     init {
         camera = OrthographicCamera(width.toFloat()/pixelFactor, height.toFloat()/pixelFactor)
         pool = Pool(Component.TotalComponents.ordinal, 0, {Component.values()[it].name})
-        systems = createSystems(pool)
+        spriteRenderSystem = SpriteRenderSystem(this)
+        systems = createSystems(pool, spriteRenderSystem)
         systems.initialize()
     }
 
-    fun createSystems(pool: Pool): Systems {
-        spriteRenderSystem = SpriteRenderSystem(this)
+    fun createSystems(pool: Pool, spriteRenderSystem: SpriteRenderSystem): Systems {
         return Systems()
             .add(pool.createSystem(PhysicsSystem()))
             .add(pool.createSystem(ViewManagerSystem()))

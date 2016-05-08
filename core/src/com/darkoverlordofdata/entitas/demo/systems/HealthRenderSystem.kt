@@ -49,7 +49,7 @@ class HealthRenderSystem(game: GameScene)
     override fun execute() {
         // This overlays over the game
         // Draw batch; don't clear screen first.
-        batch.setProjectionMatrix(camera.combined);
+        batch.projectionMatrix = camera.combined
         batch.begin();
         for (entity in group.entities) {
             val health = entity.health

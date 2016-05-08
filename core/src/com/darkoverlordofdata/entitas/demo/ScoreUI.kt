@@ -9,8 +9,6 @@ import com.uwsoft.editor.renderer.scene2d.CompositeActor
 
 class ScoreUI(game: ShmupWarz, sceneLoader: SceneLoader) : Stage() {
 
-    val game = game
-    val sceneLoader = sceneLoader
     val backButtonVo = sceneLoader.loadVoFromLibrary("backButton")
     val backButtonActor = CompositeActor(backButtonVo, sceneLoader.rm)
     val pixelFactor = if (Gdx.graphics.density > 1f) 2f else 1f
@@ -22,8 +20,8 @@ class ScoreUI(game: ShmupWarz, sceneLoader: SceneLoader) : Stage() {
         Gdx.input.inputProcessor = this
 
         addActor(backButtonActor)
-        backButtonActor.setX(col)
-        backButtonActor.setY(row+110f*2f*pixelFactor)
+        backButtonActor.x = col
+        backButtonActor.y = row+110f*2f*pixelFactor
         backButtonActor.setScale(pixelFactor)
         backButtonActor.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
