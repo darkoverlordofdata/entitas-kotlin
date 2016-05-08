@@ -39,7 +39,8 @@ class Group(matcher: IMatcher) {
         }
 
     val singleEntity: Entity?
-        get() = _entities.singleOrNull()
+        get() = entities.singleOrNull()
+
 
     fun createObserver(eventType: GroupEventType): GroupObserver {
         return GroupObserver(arrayOf(this), arrayOf(eventType))

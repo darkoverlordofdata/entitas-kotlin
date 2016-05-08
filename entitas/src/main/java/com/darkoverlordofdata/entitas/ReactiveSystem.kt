@@ -10,7 +10,6 @@ import java.util.*
  */
 class ReactiveSystem(pool: Pool, subsystem: IReactiveExecuteSystem) : IExecuteSystem {
 
-    private val pool = pool
     private val _subsystem = subsystem
     private var _clearAfterExecute:Boolean = false
     private var _buffer:MutableList<Entity> = ArrayList(listOf())

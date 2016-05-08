@@ -4,7 +4,7 @@ import java.util.*
  *
  * A pool manages the lifecycle of entities and groups.
  * You can create and destroy entities and get groups of entities.
- * The prefered way is to use the generated methods from the code generator to create a Pool, e.g. var pool = Pools.pool;
+ * The preferred way is to use the generated methods from the code generator to create a Pool, e.g. var pool = Pools.pool;
  *
  * @param   totalComponents number of components
  * @param   startCreationIndex  entity index counter
@@ -99,7 +99,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0, componentName:((p:Int)
 
     /**
      *
-     * Destroys the entity, removes all its components and pushs it back to the internal ObjectPool for entities.
+     * Destroys the entity, removes all its components and pushes it back to the internal ObjectPool for entities.
      */
     fun destroyEntity(entity: Entity?) {
         if (entity == null) return
@@ -128,7 +128,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0, componentName:((p:Int)
     fun destroyAllEntities() {
         val entities = getEntities()
         for (i in 0..entities.size)
-            destroyEntity(entities.get(i))
+            destroyEntity(entities[i])
     }
 
     /**
@@ -148,7 +148,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0, componentName:((p:Int)
     }
 
     fun getEntities(matcher: IMatcher): Array<Entity>? {
-        return getGroup(matcher)!!.entities
+        return getGroup(matcher).entities
 //        return getGroup(matcher)!!.getEntities()
     }
 
@@ -176,7 +176,7 @@ class Pool(totalComponents:Int, startCreationIndex:Int=0, componentName:((p:Int)
             val group = Group(matcher)
             val entities = getEntities()
             for (i in 0..entities.size-1) {
-                group.handleEntitySilently(entities.get(i))
+                group.handleEntitySilently(entities[i])
             }
             _groups[matcher] = group
             for (index in matcher.indices) {

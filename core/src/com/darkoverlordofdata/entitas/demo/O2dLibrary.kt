@@ -35,7 +35,7 @@ object O2dLibrary {
     }
 
     fun getLayer(name:String):Layer {
-        val layerName = getItem(name)!!.layerName
+        val layerName = getItem(name)?.layerName
         return when (layerName) {
             "battle" -> Layer.BATTLE
             "player" -> Layer.PLAYER

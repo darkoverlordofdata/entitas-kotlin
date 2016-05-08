@@ -32,10 +32,13 @@ class Entity(totalComponents:Int) {
         _isEnabled = true
     }
     /**
-     *
      *  Adds a component at a certain index. You can only have one component at an index.
      *  Each component type must have its own constant index.
-     *  The prefered way is to use the generated methods from the code generator.
+     *  The preferred way is to use the generated methods from the code generator.
+     *
+     *  @param[index]   the components ordinal index
+     *  @param[component]   the component object to add
+     *  @return this entity
      */
     fun addComponent(index:Int, component: IComponent): Entity {
         if (!isEnabled)
@@ -52,9 +55,11 @@ class Entity(totalComponents:Int) {
     }
 
     /**
-     *
      *  Removes a component at a certain index. You can only remove a component at an index if it exists.
-     *  The prefered way is to use the generated methods from the code generator.
+     *  The preferred way is to use the generated methods from the code generator.
+     *
+     *  @param[index]   the components ordinal index
+     *  @return this entity
      */
     fun removeComponent(index:Int): Entity {
         if (!isEnabled)
@@ -68,9 +73,12 @@ class Entity(totalComponents:Int) {
     }
 
     /**
-     *
      *  Replaces an existing component at a certain index or adds it if it doesn't exist yet.
-     *  The prefered way is to use the generated methods from the code generator.
+     *  The preferred way is to use the generated methods from the code generator.
+     *
+     *  @param[index]   the components ordinal index
+     *  @param[component]   the replacement component object
+     *  @return this entity
      */
     fun replaceComponent(index:Int, component: IComponent?): Entity {
         if (!isEnabled)
@@ -85,9 +93,11 @@ class Entity(totalComponents:Int) {
     }
 
     /**
-     *
      *  Returns a component at a certain index. You can only get a component at an index if it exists.
-     *  The prefered way is to use the generated methods from the code generator.
+     *  The preferred way is to use the generated methods from the code generator.
+     *
+     *  @param[index]   the components ordinal index
+     *  @return the compoment
      */
     fun getComponent(index:Int): IComponent? {
         if (!hasComponent(index)) {
@@ -98,27 +108,32 @@ class Entity(totalComponents:Int) {
     }
 
     /**
-     *
      *  Returns all added components.
+     *
+     *  @return an array of components
      */
-    fun getComponents():MutableList<IComponent> {
+    fun getComponents():Array<IComponent> {
         if (componentsCache.size == 0) {
             componentsCache.addAll(components.filterNotNull().toMutableList())
         }
-        return componentsCache
+        return componentsCache.toTypedArray()
     }
 
     /**
-     *
      *  Determines whether this entity has a component at the specified index.
+     *
+     *  @param[index]   the components ordinal index
+     *  @return true if the component is available
      */
     fun hasComponent(index:Int):Boolean {
         return components[index] != null
     }
 
     /**
-     *
      *  Determines whether this entity has components at all the specified indices.
+     *
+     *  @param[indices]   an arry of components ordinal index's
+     *  @return true if all components in indices are available
      */
     fun hasComponents(indices:IntArray):Boolean {
         for (index in indices)
@@ -127,8 +142,10 @@ class Entity(totalComponents:Int) {
     }
 
     /**
-     *
      *  Determines whether this entity has a component at any of the specified indices.
+     *
+     *  @param[indices]   an arry of components ordinal index's
+     *  @return true if any components in indices are available
      */
     fun hasAnyComponent(indices:IntArray):Boolean {
         for (index in indices)
@@ -160,7 +177,6 @@ class Entity(totalComponents:Int) {
     }
 
     /**
-     *
      *  Returns a cached string to describe the entity with the following format:
      *  Entity_{name|creationIndex}(*{retainCount})({list of components})
      */
@@ -169,7 +185,7 @@ class Entity(totalComponents:Int) {
             val sb = StringBuilder()
             sb.append("Entity_")
             sb.append(if (name != "") name else creationIndex.toString())
-            sb.append("(${_creationIndex})(")
+            sb.append("($_creationIndex)(")
 
             for (i in 0..components.size-1) {
                 //val name = Pool.instance!!.componentName(i)

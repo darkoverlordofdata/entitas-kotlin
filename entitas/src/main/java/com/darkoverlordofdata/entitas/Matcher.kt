@@ -132,6 +132,7 @@ class Matcher : IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher {
             matcher.anyOfIndices = static.distinctIndices(args)
             return matcher
         }
+
         fun anyOf(vararg args: IMatcher): IAnyOfMatcher {
             val result:MutableList<IMatcher> = ArrayList(listOf())
             for (arg in args) result.add(arg)
