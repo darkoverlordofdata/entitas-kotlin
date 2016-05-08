@@ -2,10 +2,7 @@
   "namespace": "com.darkoverlordofdata.entitas.demo",
   "src": "core/src",
   "output": {
-    "GeneratedComponents": "GeneratedComponents.kt",
-    "EntityExtensions": "EntityExtensions.kt",
-    "MatcherExtensions": "MatcherExtensions.kt",
-    "PoolExtensions": "PoolExtensions.kt"
+    "generated": "generated.kt"
   },
   "alloc": {
     "entities": 128,
@@ -27,7 +24,7 @@
       "maximumHealth:Float"
     ],
     "Layer": [
-      "ordinal:com.darkoverlordofdata.entitas.demo.Layer"
+      "ordinal:com.darkoverlordofdata.entitas.demo.Layer?"
     ],
     "Player": false,
     "Position": [
@@ -45,7 +42,7 @@
       "value:Int"
     ],
     "SoundEffect": [
-      "effect:com.darkoverlordofdata.entitas.demo.Effect"
+      "effect:com.darkoverlordofdata.entitas.demo.Effect?"
     ],
     "Tint": [
       "r:Float",
@@ -65,7 +62,7 @@
       "y:Float"
     ],
     "View": [
-      "sprite:com.badlogic.gdx.graphics.g2d.Sprite"
+      "sprite:com.badlogic.gdx.graphics.g2d.Sprite?"
     ]
   },
   "systems": {
