@@ -12,30 +12,23 @@ import com.badlogic.gdx.InputProcessor
 import com.darkoverlordofdata.entitas.*
 import com.darkoverlordofdata.entitas.demo.*
 
-class PlayerInputSystem(game: GameScene)
-      : IInitializeSystem,
-        IExecuteSystem,
-        ISetPool,
+class PlayerInputSystem(game: GameScene, pool: Pool)
+      : IExecuteSystem,
         InputProcessor {
 
+    val pool = pool
+    val group = pool.getGroup(Matcher.allOf(Matcher.Player))
     val width = game.width
     val height = game.height
     val pixelFactor = game.pixelFactor
     val FireRate = .1f
 
-    private lateinit var pool: Pool
-    private lateinit var group: Group
     private var shoot = false
     private var mouseX = 0
     private var mouseY = 0
     private var timeToFire = 0f
 
-    override fun setPool(pool: Pool) {
-        this.pool = pool
-        group = pool.getGroup(Matcher.allOf(Matcher.Player))
-    }
-
-    override fun initialize() {
+    init {
         Gdx.input.inputProcessor = this
         pool.createPlayer(width.toFloat(), height.toFloat())
     }

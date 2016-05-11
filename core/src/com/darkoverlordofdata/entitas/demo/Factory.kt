@@ -1,5 +1,9 @@
 package com.darkoverlordofdata.entitas.demo
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.darkoverlordofdata.entitas.Entity
 import com.darkoverlordofdata.entitas.Pool
 
@@ -20,6 +24,16 @@ enum class Layer {
     PLAYER,
     BATTLE
 }
+fun CreateFont(file:String): BitmapFont {
+    val fontTexture = Texture(Gdx.files.internal("${file}_0.png"))
+    fontTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.MipMapLinearLinear)
+    val fontRegion = TextureRegion(fontTexture)
+    val font = BitmapFont(Gdx.files.internal("${file}.fnt"), fontRegion, false)
+    font.setUseIntegerPositions(false)
+    return font
+}
+
+
 
 /**
  * Load prefab values from Overlap2D Library
@@ -35,63 +49,77 @@ fun Pool.prefab(name:String, template:(entity:Entity)-> Entity): Entity {
 }
 
 fun Pool.createPlayer(width:Float, height:Float): Entity = prefab("player") {
-    it.addPosition(width/2, 80f)
-    it.addScore(0)
-    it.setPlayer(true)
+    with (it) {
+        addPosition(width/2, 80f)
+        addScore(0)
+        setPlayer(true)
+    }
 }
 
 fun Pool.createBullet(x:Float, y:Float): Entity = prefab("bullet") {
-    it.addExpires(.5f)
-    it.addPosition(x, y)
-    it.addSoundEffect(Effect.PEW)
-    it.addTint(1f, 1f, 115f/255f, 1f)
-    it.addVelocity(0f, -800f)
-    it.setBullet(true)
+    with (it) {
+        addExpires(.5f)
+        addPosition(x, y)
+        addSoundEffect(Effect.PEW)
+        addTint(1f, 1f, 115f / 255f, 1f)
+        addVelocity(0f, -800f)
+        setBullet(true)
+    }
 }
 
 
 fun Pool.createSmallExplosion(x:Float, y:Float): Entity = prefab("bang") {
     val scale = 1f
-    it.addExpires(.5f)
-    it.addPosition(x, y)
-    it.addScale(scale, scale)
-    it.addSoundEffect(Effect.SMALLASPLODE)
-    it.addTint(1f, 1f, 39/255f, .5f)
-    it.addTween(scale / 100, scale, -3f, false, true)
+    with (it) {
+        addExpires(.5f)
+        addPosition(x, y)
+        addScale(scale, scale)
+        addSoundEffect(Effect.SMALLASPLODE)
+        addTint(1f, 1f, 39 / 255f, .5f)
+        addTween(scale / 100, scale, -3f, false, true)
+    }
 }
 
 fun Pool.createBigExplosion(x:Float, y:Float): Entity = prefab("explosion") {
     val scale = .5f
-    it.addExpires(.5f)
-    it.addPosition(x, y)
-    it.addScale(scale, scale)
-    it.addSoundEffect(Effect.ASPLODE)
-    it.addTint(1f, 1f, 39/255f, .5f)
-    it.addTween(scale / 100, scale, -3f, false, true)
+    with (it) {
+        addExpires(.5f)
+        addPosition(x, y)
+        addScale(scale, scale)
+        addSoundEffect(Effect.ASPLODE)
+        addTint(1f, 1f, 39 / 255f, .5f)
+        addTween(scale / 100, scale, -3f, false, true)
+    }
 }
 
 
 fun Pool.createEnemy1(width:Float, height:Float): Entity = prefab("enemy1") {
-    it.addHealth(10f, 10f)
-    it.addPosition(Random.nextFloat()*width, height-it.bounds.radius)
-    it.addVelocity(0f, 40f)
-    it.setEnemy(true)
+    with (it) {
+        addHealth(10f, 10f)
+        addPosition(Random.nextFloat() * width, height - bounds.radius)
+        addVelocity(0f, 40f)
+        setEnemy(true)
+    }
 }
 
 
 fun Pool.createEnemy2(width:Float, height:Float): Entity = prefab("enemy2") {
-    it.addHealth(20f, 20f)
-    it.addPosition(Random.nextFloat()*width, height-it.bounds.radius)
-    it.addVelocity(0f, 30f)
-    it.setEnemy(true)
+    with (it) {
+        addHealth(20f, 20f)
+        addPosition(Random.nextFloat() * width, height - bounds.radius)
+        addVelocity(0f, 30f)
+        setEnemy(true)
+    }
 }
 
 
 fun Pool.createEnemy3(width:Float, height:Float): Entity = prefab("enemy3") {
-    it.addHealth(60f, 60f)
-    it.addPosition(Random.nextFloat()*width, height-it.bounds.radius)
-    it.addVelocity(0f, 10f)
-    it.setEnemy(true)
+    with (it) {
+        addHealth(60f, 60f)
+        addPosition(Random.nextFloat() * width, height - bounds.radius)
+        addVelocity(0f, 10f)
+        setEnemy(true)
+    }
 }
 
 

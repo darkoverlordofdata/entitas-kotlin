@@ -5,56 +5,21 @@ package com.darkoverlordofdata.entitas.demo.systems
  *
  */
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.darkoverlordofdata.entitas.*
-import com.darkoverlordofdata.entitas.demo.GameScene
-import com.darkoverlordofdata.entitas.demo.Player
-import com.darkoverlordofdata.entitas.demo.Score
-import com.darkoverlordofdata.entitas.demo.score
+import com.darkoverlordofdata.entitas.demo.*
 
-class ScoreRenderSystem(game: GameScene)
-      : IInitializeSystem,
-        IExecuteSystem,
-        ISetPool {
+class ScoreRenderSystem(game: GameScene, pool: Pool)
+      : IExecuteSystem {
 
-    val game = game
+    val pool = pool
+    val group = pool.getGroup(Matcher.allOf(Matcher.Player, Matcher.Score))
     val width = game.width
     val height = game.height
     val pixelFactor = game.pixelFactor
-
-    private lateinit var pool: Pool
-    private lateinit var group: Group
-    private lateinit var batch: SpriteBatch
-    private lateinit var fontTexture: Texture
-    private lateinit var fontRegion: TextureRegion
-    private lateinit var font: BitmapFont
-    private lateinit var camera: OrthographicCamera
-
-    /**
-     * ISetPool::setPool
-     */
-    override fun setPool(pool: Pool) {
-        this.pool = pool
-        group = pool.getGroup(Matcher.allOf(Matcher.Player, Matcher.Score))
-    }
-
-    /**
-     * IInitializeSystem::initialize
-     */
-    override fun initialize() {
-        camera = game.camera
-        batch = SpriteBatch()
-        fontTexture = Texture(Gdx.files.internal("fonts/hud_0.png"))
-        fontTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.MipMapLinearLinear)
-        fontRegion = TextureRegion(fontTexture)
-        font = BitmapFont(Gdx.files.internal("fonts/hud.fnt"), fontRegion, false)
-        font.setUseIntegerPositions(false)
-    }
+    val camera = game.camera
+    val batch = SpriteBatch()
+    val font = CreateFont("fonts/hud")
 
     /**
      * IExecuteSystem::execute

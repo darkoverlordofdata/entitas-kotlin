@@ -11,17 +11,11 @@ import com.darkoverlordofdata.entitas.demo.Position
 import com.darkoverlordofdata.entitas.demo.isEnemy
 import com.darkoverlordofdata.entitas.demo.position
 
-class RemoveOffscreenShipsSystem()
-      : IExecuteSystem,
-        ISetPool {
+class RemoveOffscreenShipsSystem(pool: Pool)
+      : IExecuteSystem {
 
-    private lateinit var pool: Pool
-    private lateinit var group: Group
-
-    override fun setPool(pool: Pool) {
-        this.pool = pool
-        group = pool.getGroup(Matcher.allOf(Matcher.Position))
-    }
+    val pool = pool
+    val group = pool.getGroup(Matcher.allOf(Matcher.Position))
 
     override fun execute() {
         for (entity in group.entities) {

@@ -22,26 +22,26 @@ class GameScene : Screen {
     init {
         camera = OrthographicCamera(width.toFloat()/pixelFactor, height.toFloat()/pixelFactor)
         pool = Pool(Component.TotalComponents.ordinal, 0, {Component.values()[it].name})
-        spriteRenderSystem = SpriteRenderSystem(this)
+        spriteRenderSystem = SpriteRenderSystem(this, pool)
         systems = createSystems(pool, spriteRenderSystem)
         systems.initialize()
     }
 
     fun createSystems(pool: Pool, spriteRenderSystem: SpriteRenderSystem): Systems {
         return Systems()
-            .add(pool.createSystem(PhysicsSystem()))
-            .add(pool.createSystem(ViewManagerSystem()))
-            .add(pool.createSystem(PlayerInputSystem(this)))
-            .add(pool.createSystem(SoundEffectSystem()))
-            .add(pool.createSystem(CollisionSystem()))
-            .add(pool.createSystem(ExpiringSystem()))
-            .add(pool.createSystem(EntitySpawningTimerSystem(this)))
-            .add(pool.createSystem(ScaleTweenSystem()))
-            .add(pool.createSystem(RemoveOffscreenShipsSystem()))
+            .add(pool.createSystem(PhysicsSystem(pool)))
+            .add(pool.createSystem(ViewManagerSystem(pool)))
+            .add(pool.createSystem(PlayerInputSystem(this, pool)))
+            .add(pool.createSystem(SoundEffectSystem(pool)))
+            .add(pool.createSystem(CollisionSystem(pool)))
+            .add(pool.createSystem(ExpiringSystem(pool)))
+            .add(pool.createSystem(EntitySpawningTimerSystem(this, pool)))
+            .add(pool.createSystem(ScaleTweenSystem(pool)))
+            .add(pool.createSystem(RemoveOffscreenShipsSystem(pool)))
             .add(pool.createSystem(spriteRenderSystem))
-            .add(pool.createSystem(HealthRenderSystem(this)))
-            .add(pool.createSystem(ScoreRenderSystem(this)))
-            .add(pool.createSystem(DestroySystem()))
+            .add(pool.createSystem(HealthRenderSystem(this, pool)))
+            .add(pool.createSystem(ScoreRenderSystem(this, pool)))
+            .add(pool.createSystem(DestroySystem(pool)))
     }
 
     override fun render(delta: Float) {

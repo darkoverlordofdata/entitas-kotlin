@@ -22,10 +22,12 @@ fun main(args: Array<String>) {
              */
             it("1st entity") {
                 e1 = pool.createEntity("player")
-                e1.addBounds(1f)
-                        .addHealth(100f, 100f)
-                        .setPlayer(true)
-                        .addResource("Fighter")
+                with (e1) {
+                    addBounds(1f)
+                    addHealth(100f, 100f)
+                    setPlayer(true)
+                    addResource("Fighter")
+                }
 
                 it.equals(e1.creationIndex, 0)
             }

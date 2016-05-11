@@ -8,21 +8,13 @@ package com.darkoverlordofdata.entitas.demo.systems
 import com.darkoverlordofdata.entitas.*
 import com.darkoverlordofdata.entitas.demo.*
 
-class CollisionSystem()
-      : IExecuteSystem,
-        ISetPool {
+class CollisionSystem(pool: Pool)
+      : IExecuteSystem {
 
-    private lateinit var pool: Pool
-    private lateinit var bullets: Group
-    private lateinit var enemies: Group
-    private lateinit var players: Group
-
-    override fun setPool(pool: Pool) {
-        this.pool = pool
-        bullets = pool.getGroup(Matcher.Bullet)
-        enemies = pool.getGroup(Matcher.Enemy)
-        players = pool.getGroup(Matcher.Player)
-    }
+    val pool = pool
+    val bullets = pool.getGroup(Matcher.Bullet)
+    val enemies = pool.getGroup(Matcher.Enemy)
+    val players = pool.getGroup(Matcher.Player)
 
     override fun execute() {
         for (bullet in bullets.entities) {

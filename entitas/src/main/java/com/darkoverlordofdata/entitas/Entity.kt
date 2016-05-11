@@ -23,7 +23,7 @@ class Entity(totalComponents:Int) {
     private var _isEnabled = false
     private var _creationIndex = 0
     private var toStringCache = ""
-    val components: Array<IComponent?> = Array(totalComponents, { i-> null })
+    private val components: Array<IComponent?> = Array(totalComponents, { i-> null })
     private val componentsCache: MutableList<IComponent> = ArrayList(listOf())
 
     fun initialize(name:String, creationIndex:Int) {
@@ -112,11 +112,11 @@ class Entity(totalComponents:Int) {
      *
      *  @return an array of components
      */
-    fun getComponents():Array<IComponent> {
+    fun getComponents():MutableList<IComponent> {
         if (componentsCache.size == 0) {
             componentsCache.addAll(components.filterNotNull().toMutableList())
         }
-        return componentsCache.toTypedArray()
+        return componentsCache//.toTypedArray()
     }
 
     /**

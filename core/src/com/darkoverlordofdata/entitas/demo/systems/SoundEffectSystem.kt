@@ -7,19 +7,15 @@ package com.darkoverlordofdata.entitas.demo.systems
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Sound
-import com.darkoverlordofdata.entitas.Group
 import com.darkoverlordofdata.entitas.IExecuteSystem
-import com.darkoverlordofdata.entitas.ISetPool
 import com.darkoverlordofdata.entitas.Matcher
 import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.demo.*
 
-class SoundEffectSystem()
-      : IExecuteSystem,
-        ISetPool {
+class SoundEffectSystem(pool: Pool)
+      : IExecuteSystem {
 
-    private lateinit var pool: Pool
-    private lateinit var group: Group
+    val group = pool.getGroup(Matcher.allOf(Matcher.SoundEffect))
 
     val pew: Sound by lazy {
         Gdx.audio.newSound(Gdx.files.internal("sfx/pew.ogg"))
@@ -31,10 +27,6 @@ class SoundEffectSystem()
         Gdx.audio.newSound(Gdx.files.internal("sfx/smallasplode.ogg"))
     }
 
-    override fun setPool(pool: Pool) {
-        this.pool = pool
-        group = pool.getGroup(Matcher.allOf(Matcher.SoundEffect))
-    }
 
     override fun execute() {
         for (entity in group.entities) {

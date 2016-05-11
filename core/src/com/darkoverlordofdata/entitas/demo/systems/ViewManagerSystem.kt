@@ -7,17 +7,17 @@ package com.darkoverlordofdata.entitas.demo.systems
  *
  */
 
-import com.darkoverlordofdata.entitas.ISetPool
 import com.darkoverlordofdata.entitas.ISystem
 import com.darkoverlordofdata.entitas.Matcher
 import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.demo.*
 
-class ViewManagerSystem()
-      : ISystem,
-        ISetPool {
+class ViewManagerSystem(pool: Pool)
+      : ISystem {
 
-    override fun setPool(pool: Pool) {
+    val pool = pool
+
+    init {
 
         /**
          * Fix up the initial sprite position

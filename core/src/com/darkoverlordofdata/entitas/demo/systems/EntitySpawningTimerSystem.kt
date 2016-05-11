@@ -9,24 +9,20 @@ package com.darkoverlordofdata.entitas.demo.systems
 
 import com.badlogic.gdx.Gdx
 import com.darkoverlordofdata.entitas.demo.*
-import com.darkoverlordofdata.entitas.ISetPool
 import com.darkoverlordofdata.entitas.IExecuteSystem
-import com.darkoverlordofdata.entitas.IInitializeSystem
 import com.darkoverlordofdata.entitas.Pool
 
-class EntitySpawningTimerSystem(game: GameScene)
-      : IInitializeSystem,
-        IExecuteSystem,
-        ISetPool {
+class EntitySpawningTimerSystem(game: GameScene, pool: Pool)
+      : IExecuteSystem {
 
     private val game = game
+    private val pool = pool
     private val Timer1 = 2f
     private val Timer2 = 6f
     private val Timer3 = 12f
-    private var t1 = 0f
-    private var t2 = 0f
-    private var t3 = 0f
-    private lateinit var pool: Pool
+    private var t1 = Timer1
+    private var t2 = Timer2
+    private var t3 = Timer3
 
     val toWorldX:Float get() = 320f/game.width
     val toWorldY:Float get() = 480f/game.height
@@ -39,16 +35,6 @@ class EntitySpawningTimerSystem(game: GameScene)
         Enemy3
     }
 
-
-    override fun setPool(pool: Pool) {
-        this.pool = pool
-    }
-
-    override fun initialize() {
-        t1 = Timer1
-        t2 = Timer2
-        t3 = Timer3
-    }
 
     override fun execute() {
         val delta = Gdx.graphics.deltaTime

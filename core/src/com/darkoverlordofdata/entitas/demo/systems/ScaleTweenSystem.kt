@@ -7,24 +7,15 @@ package com.darkoverlordofdata.entitas.demo.systems
  */
 
 import com.badlogic.gdx.Gdx
-import com.darkoverlordofdata.entitas.Group
 import com.darkoverlordofdata.entitas.IExecuteSystem
-import com.darkoverlordofdata.entitas.ISetPool
 import com.darkoverlordofdata.entitas.Matcher
 import com.darkoverlordofdata.entitas.Pool
 import com.darkoverlordofdata.entitas.demo.*
 
-class ScaleTweenSystem()
-      : IExecuteSystem,
-        ISetPool {
+class ScaleTweenSystem(pool: Pool)
+      : IExecuteSystem {
 
-    private lateinit var pool: Pool
-    private lateinit var group: Group
-
-    override fun setPool(pool: Pool) {
-        this.pool = pool
-        group = pool.getGroup(Matcher.allOf(Matcher.Scale, Matcher.Tween))
-    }
+    val group = pool.getGroup(Matcher.allOf(Matcher.Scale, Matcher.Tween))
 
     override fun execute() {
         val delta = Gdx.graphics.deltaTime

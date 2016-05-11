@@ -8,52 +8,35 @@ package com.darkoverlordofdata.entitas.demo.systems
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
-import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.viewport.FillViewport
 import com.darkoverlordofdata.entitas.*
 import com.darkoverlordofdata.entitas.demo.*
 
-class SpriteRenderSystem(game: GameScene)
-      : IInitializeSystem,
-        IExecuteSystem,
-        ISetPool {
+class SpriteRenderSystem(game: GameScene, pool: Pool)
+      : IExecuteSystem {
+
+    val pool = pool
+    val group = pool.getGroup(Matcher.allOf(Matcher.Position, Matcher.View))
 
     val scale = .8f //2f/3f
-    val game = game
     val width = game.width.toFloat()
     val height = game.height.toFloat()
     val pixelFactor = game.pixelFactor
 
-    private lateinit var group: Group
-    private lateinit var pool: Pool
-    private lateinit var batch: SpriteBatch
-    private lateinit var background: Sprite
-    private lateinit var viewport: FillViewport
-    private lateinit var camera: OrthographicCamera
+    val batch = SpriteBatch()
+    val camera = game.camera
+    val viewport = FillViewport(width/pixelFactor, height/pixelFactor, camera)
+    val background = O2dLibrary.sprites.createSprite(O2dLibrary.getResource("background"))
 
-    override fun setPool(pool: Pool) {
-        this.pool = pool
-        group = pool.getGroup(Matcher.allOf(Matcher.Position, Matcher.View))
-
-        /**
-         * Set callback used by Group to sort the list of entities
-         */
+    init {
         group.setSort({entities: Array<Entity> ->
             entities.sortBy { e:Entity -> e.layer.ordinal }
         })
-    }
-
-    override fun initialize() {
-
-        batch = SpriteBatch()
-        camera = game.camera
-        viewport = FillViewport(width/pixelFactor, height/pixelFactor, camera)
         viewport.apply()
         camera.position.set(width/(pixelFactor*2f), height/(pixelFactor*2f), 0f)
         camera.update()
-        background = O2dLibrary.sprites.createSprite(O2dLibrary.getResource("background"))
+
     }
 
     override fun execute() {
