@@ -28,9 +28,9 @@ class ScoreRenderSystem(game: GameScene, pool: Pool)
         batch.projectionMatrix = camera.combined
         batch.begin();
         val player = group.singleEntity
-        if (player != null) {
+        if (player != null)
             font.draw(batch, "${player.score.value}", width/(2f*pixelFactor), (height/pixelFactor)-10f)
-        }
+
         batch.end();
     }
 }

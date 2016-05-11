@@ -17,12 +17,10 @@ class CollisionSystem(pool: Pool)
     val players = pool.getGroup(Matcher.Player)
 
     override fun execute() {
-        for (bullet in bullets.entities) {
-            for (enemy in enemies.entities) {
+        for (bullet in bullets.entities)
+            for (enemy in enemies.entities)
                 if (collidesWith(bullet, enemy))
-                        collisionHandler(bullet, enemy)
-            }
-        }
+                    collisionHandler(bullet, enemy)
     }
 
     fun collidesWith(e1:Entity, e2:Entity):Boolean {

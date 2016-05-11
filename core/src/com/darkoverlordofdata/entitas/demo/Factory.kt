@@ -24,6 +24,7 @@ enum class Layer {
     PLAYER,
     BATTLE
 }
+
 fun CreateFont(file:String): BitmapFont {
     val fontTexture = Texture(Gdx.files.internal("${file}_0.png"))
     fontTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.MipMapLinearLinear)
@@ -32,8 +33,6 @@ fun CreateFont(file:String): BitmapFont {
     font.setUseIntegerPositions(false)
     return font
 }
-
-
 
 /**
  * Load prefab values from Overlap2D Library

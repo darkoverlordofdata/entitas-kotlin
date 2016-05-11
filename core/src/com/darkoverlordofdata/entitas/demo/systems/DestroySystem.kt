@@ -16,10 +16,6 @@ class DestroySystem(pool: Pool)
     val pool = pool
     val group = pool.getGroup(Matcher.allOf(Matcher.Destroy))
 
-    override fun execute() {
-        for (entity in group.entities) {
-            pool.destroyEntity(entity)
-        }
-    }
+    override fun execute() { group.entities.map { pool.destroyEntity(it)} }
 
 }

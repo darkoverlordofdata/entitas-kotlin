@@ -21,9 +21,11 @@ class PhysicsSystem(pool: Pool)
 
     override fun execute() {
         val delta = Gdx.graphics.deltaTime
-        for (entity in group.entities) {
-            entity.position.x += (entity.velocity.x * delta)
-            entity.position.y -= (entity.velocity.y * delta)
+
+        with (group.entities) {
+            map {it.position.x += it.velocity.x * delta}
+            map {it.position.y -= it.velocity.y * delta}
         }
+
     }
 }
